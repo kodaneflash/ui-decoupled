@@ -2,12 +2,10 @@ import React from 'react';
 import { ScrollView } from 'react-native';
 import { Flex, Text, Box } from '@ledgerhq/native-ui';
 import styled from 'styled-components/native';
-import { 
-  CardMedium, 
-  SettingsMedium, 
-  WalletConnectMedium,
-  NotificationsMedium
-} from '@ledgerhq/native-ui/assets/icons';
+import CreditCard from '@ledgerhq/icons-ui/native/CreditCard';
+import Settings from '@ledgerhq/icons-ui/native/Settings';
+import Wallet from '@ledgerhq/icons-ui/native/Wallet';
+import BellNotification from '@ledgerhq/icons-ui/native/BellNotification';
 import AccountRowLayout from '../../components/AccountRowLayout';
 import GraphCard from '../../components/GraphCard';
 
@@ -40,15 +38,15 @@ const PortfolioScreen = () => {
         </Text>
         <Flex flexDirection="row" alignItems="center">
           <Flex mr={6}>
-            <CardMedium size={24} color="neutral.c100" />
+            <CreditCard size="M" color="neutral.c100" />
           </Flex>
           <Flex mr={6}>
-            <WalletConnectMedium size={24} color="neutral.c100" />
+            <Wallet size="M" color="neutral.c100" />
           </Flex>
           <Flex mr={6}>
-            <NotificationsMedium size={24} color="neutral.c100" />
+            <BellNotification size="M" color="neutral.c100" />
           </Flex>
-          <SettingsMedium size={24} color="neutral.c100" />
+          <Settings size="M" color="neutral.c100" />
         </Flex>
       </Flex>
 

@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@ledgerhq/native-ui": "^0.35.0",
+    "@ledgerhq/ui-shared": "^0.3.0",
     "@react-navigation/native": "^6.1.7",
     "@react-navigation/stack": "^6.3.17",
     "@types/color": "^4.2.0",

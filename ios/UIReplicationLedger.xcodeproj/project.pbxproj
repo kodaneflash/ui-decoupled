@@ -8,19 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* UIReplicationLedgerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* UIReplicationLedgerTests.m */; };
+		065C454BCE3A48FF8E7192F0 /* Inter-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 89DC1E4FDBB14F0C9DAA53AC /* Inter-SemiBold.otf */; };
 		0C80B921A6F3F58F76C31292 /* libPods-UIReplicationLedger.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-UIReplicationLedger.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		17916E4D1FDE4180928EA56A /* Inter-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9A9A870C089B4E1CB4118E53 /* Inter-Regular.otf */; };
+		3B1C6EF87A7A4FBB8C3634BC /* FontAwesome5_Pro_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 133F0BC84B47476CB4E343DB /* FontAwesome5_Pro_Regular.ttf */; };
+		57E14C2CCE05419CB7B86933 /* FontAwesome5_Pro_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7152835450BA44A5BF610DAA /* FontAwesome5_Pro_Brands.ttf */; };
+		720B3013842741FEA8BA242F /* FontAwesome5_Pro_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 77C41160DE2F4CFCB1535B19 /* FontAwesome5_Pro_Solid.ttf */; };
+		73E1C16AE80B407C8A1313F4 /* FontAwesome5_Pro_Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4473A28261864A3BAEDDF558 /* FontAwesome5_Pro_Light.ttf */; };
 		7699B88040F8A987B510C191 /* libPods-UIReplicationLedger-UIReplicationLedgerTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-UIReplicationLedger-UIReplicationLedgerTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		A611F32CF838452097699CFA /* Inter-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 98459CB3F1C94CE2AD625FDA /* Inter-Bold.otf */; };
-		17916E4D1FDE4180928EA56A /* Inter-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9A9A870C089B4E1CB4118E53 /* Inter-Regular.otf */; };
-		065C454BCE3A48FF8E7192F0 /* Inter-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 89DC1E4FDBB14F0C9DAA53AC /* Inter-SemiBold.otf */; };
-		57E14C2CCE05419CB7B86933 /* FontAwesome5_Pro_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7152835450BA44A5BF610DAA /* FontAwesome5_Pro_Brands.ttf */; };
-		73E1C16AE80B407C8A1313F4 /* FontAwesome5_Pro_Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4473A28261864A3BAEDDF558 /* FontAwesome5_Pro_Light.ttf */; };
-		3B1C6EF87A7A4FBB8C3634BC /* FontAwesome5_Pro_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 133F0BC84B47476CB4E343DB /* FontAwesome5_Pro_Regular.ttf */; };
-		720B3013842741FEA8BA242F /* FontAwesome5_Pro_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 77C41160DE2F4CFCB1535B19 /* FontAwesome5_Pro_Solid.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +37,7 @@
 		00E356EE1AD99517003FC87E /* UIReplicationLedgerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UIReplicationLedgerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* UIReplicationLedgerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIReplicationLedgerTests.m; sourceTree = "<group>"; };
+		133F0BC84B47476CB4E343DB /* FontAwesome5_Pro_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Pro_Regular.ttf; path = ../assets/fonts/FontAwesome5_Pro_Regular.ttf; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* UIReplicationLedger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UIReplicationLedger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = UIReplicationLedger/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = UIReplicationLedger/AppDelegate.mm; sourceTree = "<group>"; };
@@ -45,19 +46,18 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = UIReplicationLedger/main.m; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-UIReplicationLedger-UIReplicationLedgerTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-UIReplicationLedger-UIReplicationLedgerTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4392A12AC88292D35C810B /* Pods-UIReplicationLedger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UIReplicationLedger.debug.xcconfig"; path = "Target Support Files/Pods-UIReplicationLedger/Pods-UIReplicationLedger.debug.xcconfig"; sourceTree = "<group>"; };
+		4473A28261864A3BAEDDF558 /* FontAwesome5_Pro_Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Pro_Light.ttf; path = ../assets/fonts/FontAwesome5_Pro_Light.ttf; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-UIReplicationLedger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UIReplicationLedger.release.xcconfig"; path = "Target Support Files/Pods-UIReplicationLedger/Pods-UIReplicationLedger.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-UIReplicationLedger-UIReplicationLedgerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UIReplicationLedger-UIReplicationLedgerTests.debug.xcconfig"; path = "Target Support Files/Pods-UIReplicationLedger-UIReplicationLedgerTests/Pods-UIReplicationLedger-UIReplicationLedgerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-UIReplicationLedger.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-UIReplicationLedger.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7152835450BA44A5BF610DAA /* FontAwesome5_Pro_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Pro_Brands.ttf; path = ../assets/fonts/FontAwesome5_Pro_Brands.ttf; sourceTree = "<group>"; };
+		77C41160DE2F4CFCB1535B19 /* FontAwesome5_Pro_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Pro_Solid.ttf; path = ../assets/fonts/FontAwesome5_Pro_Solid.ttf; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = UIReplicationLedger/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-UIReplicationLedger-UIReplicationLedgerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UIReplicationLedger-UIReplicationLedgerTests.release.xcconfig"; path = "Target Support Files/Pods-UIReplicationLedger-UIReplicationLedgerTests/Pods-UIReplicationLedger-UIReplicationLedgerTests.release.xcconfig"; sourceTree = "<group>"; };
+		89DC1E4FDBB14F0C9DAA53AC /* Inter-SemiBold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-SemiBold.otf"; path = "../assets/fonts/Inter-SemiBold.otf"; sourceTree = "<group>"; };
+		98459CB3F1C94CE2AD625FDA /* Inter-Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Bold.otf"; path = "../assets/fonts/Inter-Bold.otf"; sourceTree = "<group>"; };
+		9A9A870C089B4E1CB4118E53 /* Inter-Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Regular.otf"; path = "../assets/fonts/Inter-Regular.otf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		98459CB3F1C94CE2AD625FDA /* Inter-Bold.otf */ = {isa = PBXFileReference; name = "Inter-Bold.otf"; path = "../assets/fonts/Inter-Bold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		9A9A870C089B4E1CB4118E53 /* Inter-Regular.otf */ = {isa = PBXFileReference; name = "Inter-Regular.otf"; path = "../assets/fonts/Inter-Regular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		89DC1E4FDBB14F0C9DAA53AC /* Inter-SemiBold.otf */ = {isa = PBXFileReference; name = "Inter-SemiBold.otf"; path = "../assets/fonts/Inter-SemiBold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		7152835450BA44A5BF610DAA /* FontAwesome5_Pro_Brands.ttf */ = {isa = PBXFileReference; name = "FontAwesome5_Pro_Brands.ttf"; path = "../assets/fonts/FontAwesome5_Pro_Brands.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		4473A28261864A3BAEDDF558 /* FontAwesome5_Pro_Light.ttf */ = {isa = PBXFileReference; name = "FontAwesome5_Pro_Light.ttf"; path = "../assets/fonts/FontAwesome5_Pro_Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		133F0BC84B47476CB4E343DB /* FontAwesome5_Pro_Regular.ttf */ = {isa = PBXFileReference; name = "FontAwesome5_Pro_Regular.ttf"; path = "../assets/fonts/FontAwesome5_Pro_Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		77C41160DE2F4CFCB1535B19 /* FontAwesome5_Pro_Solid.ttf */ = {isa = PBXFileReference; name = "FontAwesome5_Pro_Solid.ttf"; path = "../assets/fonts/FontAwesome5_Pro_Solid.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +95,21 @@
 				00E356F11AD99517003FC87E /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		087BB5EEF7E641579D788AF3 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				98459CB3F1C94CE2AD625FDA /* Inter-Bold.otf */,
+				9A9A870C089B4E1CB4118E53 /* Inter-Regular.otf */,
+				89DC1E4FDBB14F0C9DAA53AC /* Inter-SemiBold.otf */,
+				7152835450BA44A5BF610DAA /* FontAwesome5_Pro_Brands.ttf */,
+				4473A28261864A3BAEDDF558 /* FontAwesome5_Pro_Light.ttf */,
+				133F0BC84B47476CB4E343DB /* FontAwesome5_Pro_Regular.ttf */,
+				77C41160DE2F4CFCB1535B19 /* FontAwesome5_Pro_Solid.ttf */,
+			);
+			name = Resources;
+			path = "";
 			sourceTree = "<group>";
 		};
 		13B07FAE1A68108700A75B9A /* UIReplicationLedger */ = {
@@ -162,21 +177,6 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
-		};
-		087BB5EEF7E641579D788AF3 /* Resources */ = {
-			isa = "PBXGroup";
-			children = (
-				98459CB3F1C94CE2AD625FDA /* Inter-Bold.otf */,
-				9A9A870C089B4E1CB4118E53 /* Inter-Regular.otf */,
-				89DC1E4FDBB14F0C9DAA53AC /* Inter-SemiBold.otf */,
-				7152835450BA44A5BF610DAA /* FontAwesome5_Pro_Brands.ttf */,
-				4473A28261864A3BAEDDF558 /* FontAwesome5_Pro_Light.ttf */,
-				133F0BC84B47476CB4E343DB /* FontAwesome5_Pro_Regular.ttf */,
-				77C41160DE2F4CFCB1535B19 /* FontAwesome5_Pro_Solid.ttf */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-			path = "";
 		};
 /* End PBXGroup section */
 

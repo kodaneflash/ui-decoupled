@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import { ThemeProvider } from "styled-components/native";
+import { palettes, defaultTheme } from "@ledgerhq/native-ui/styles/index";
 import { lightTheme as light, darkTheme as dark } from "../styles/colors";
 
 const themes = { light, dark };
@@ -11,13 +12,18 @@ type Props = {
 
 export default function StyleProvider({ children, selectedPalette }: Props): React.ReactElement {
   const selectedTheme = themes[selectedPalette];
-  const theme = useMemo(
+  const t = useMemo(
     () => ({
-      colors: selectedTheme.colors,
+      ...defaultTheme,
+      colors: {
+        ...selectedTheme.colors,
+        ...palettes[selectedPalette],
+        palette: palettes[selectedPalette],
+      },
       theme: selectedPalette,
     }),
     [selectedTheme.colors, selectedPalette],
   );
 
-  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+  return <ThemeProvider theme={t}>{children}</ThemeProvider>;
 } 
