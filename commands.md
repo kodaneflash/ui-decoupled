@@ -3,4 +3,4 @@
  npx react-native run-ios
 
 
-open ios/UIReplicationLedger.xcworkspace
+open ios/UIReplicationLedger.xcworkspaceo

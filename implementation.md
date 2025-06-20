@@ -288,7 +288,7 @@ const { colors } = useTheme();
 ```typescript
 PortfolioScreen (Container)
 ├── WalletTabSafeAreaView
-│   ├── PortfolioGraphCard (Balance: $0.00 + Chart)
+│   ├──  PortfolioGraphCard (Balance: $0.00 + Chart)
 │   └── FirmwareUpdateBanner (Hidden/Empty)
 ├── Box (Assets Container)
 │   └── PortfolioAssets

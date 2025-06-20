@@ -1,29 +1,39 @@
 import React, { useMemo } from "react";
 import { ThemeProvider } from "styled-components/native";
-import { palettes, defaultTheme } from "@ledgerhq/native-ui/styles/index";
-import { lightTheme as light, darkTheme as dark } from "../styles/colors";
+import { defaultTheme } from "@ledgerhq/native-ui";
+import { palettes } from "../styles/palettes";
+import { lightTheme, darkTheme } from "../styles/colors";
+import { space, Theme } from "../styles/theme";
 
-const themes = { light, dark };
+const themes = {
+  light: lightTheme,
+  dark: darkTheme,
+};
 
 type Props = {
   children: React.ReactNode;
   selectedPalette: "light" | "dark";
 };
 
-export default function StyleProvider({ children, selectedPalette }: Props): React.ReactElement {
-  const selectedTheme = themes[selectedPalette];
-  const t = useMemo(
-    () => ({
+export default function StyleProvider({
+  children,
+  selectedPalette,
+}: Props): React.ReactElement {
+  const theme = useMemo((): Theme => {
+    const currentPalette = palettes[selectedPalette];
+    const colorsTheme = themes[selectedPalette];
+
+    return {
       ...defaultTheme,
       colors: {
-        ...selectedTheme.colors,
-        ...palettes[selectedPalette],
-        palette: palettes[selectedPalette],
+        ...colorsTheme.colors,
+        ...currentPalette,
+        palette: currentPalette,
       },
       theme: selectedPalette,
-    }),
-    [selectedTheme.colors, selectedPalette],
-  );
+      space,
+    };
+  }, [selectedPalette]);
 
-  return <ThemeProvider theme={t}>{children}</ThemeProvider>;
+  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 } 

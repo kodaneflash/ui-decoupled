@@ -65,7 +65,7 @@ const PortfolioScreen = () => {
 
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Graph Card with Balance */}
-        <GraphCard balance="$0.00" />
+        <GraphCard areAccountsEmpty={false} />
 
         {/* Assets List */}
         <Box>

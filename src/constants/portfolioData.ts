@@ -194,38 +194,18 @@ export const TAB_DATA = {
 
 // Static Graph Time Range Data
 export const GRAPH_TIME_RANGES = [
-  { label: "1D", value: "1d", active: false },
-  { label: "1W", value: "1w", active: true }, // Default active
-  { label: "1M", value: "1m", active: false },
-  { label: "1Y", value: "1y", active: false },
-  { label: "ALL", value: "all", active: false }
+  { label: "1D", value: "1d", active: false, key: "1d" },
+  { label: "1W", value: "1w", active: true, key: "1w" }, // Default active
+  { label: "1M", value: "1m", active: false, key: "1m" },
+  { label: "1Y", value: "1y", active: false, key: "1y" },
+  { label: "ALL", value: "all", active: false, key: "all" }
 ];
 
-// Mock hooks for static portfolio data
-export const usePortfolioMock = () => ({
-  portfolio: PORTFOLIO_DATA,
-  counterValueCurrency: MOCK_CURRENCY_UNIT,
-  loading: false,
-  error: null
-});
+// Note: Complex mock hooks removed - not needed for simple static UI replica
 
-export const useAccountsMock = () => ({
-  accounts: CRYPTO_ASSETS,
-  loading: false,
-  error: null
-});
-
-// TypeScript interfaces for the static data
-export interface MockPortfolioData {
+// Simple types for static UI replica - only what's actually used
+export interface SimplePortfolioData {
   totalBalance: number;
-  totalFiatBalance: {
-    value: number;
-    unit: {
-      code: string;
-      symbol: string;
-      magnitude: number;
-    };
-  };
   countervalueChange: {
     value: number;
     percentage: number;
@@ -234,45 +214,4 @@ export interface MockPortfolioData {
     date: Date;
     value: number;
   }>;
-  chartData: Array<{
-    x: number;
-    y: number;
-  }>;
-}
-
-export interface MockCryptoAsset {
-  id: string;
-  name: string;
-  ticker: string;
-  currency: {
-    id: string;
-    ticker: string;
-    name: string;
-    color: string;
-    units: Array<{
-      name: string;
-      code: string;
-      magnitude: number;
-      symbol: string;
-    }>;
-  };
-  balance: number;
-  fiatBalance: {
-    value: number;
-    unit: {
-      code: string;
-      symbol: string;
-      magnitude: number;
-      name: string;
-    };
-  };
-  balanceFormatted: string;
-  fiatBalanceFormatted: string;
-  icon: {
-    backgroundColor: string;
-    symbol: string;
-    color: string;
-  };
-  change24h: number;
-  changePercent24h: number;
 } 

@@ -1,6 +1,8 @@
 import React from "react";
 import color from "color";
 
+import { DefaultTheme } from "styled-components/native";
+
 export const ensureContrast = (color1: string, color2: string) => {
   const colorL1 = color(color1).luminosity() + 0.05;
   const colorL2 = color(color2).luminosity() + 0.05;
@@ -131,4 +133,6 @@ export const darkTheme = {
   },
 };
 
-export type Theme = typeof lightTheme; 
+export type Theme = typeof lightTheme;
+
+ 
