@@ -1,17 +1,10 @@
 Replicate the quick action cards (buy, swap, receive, earn) and their respective icons (buy: plusmedium, swap: buycryptomedium, send: arrowtopmedium, receive: arrowbottommedium, earn: coinsmedium)  in the portfolio screen to be identical to the ledger live components. 
 
-1. Review the file @assetsaccounts.md for context and a detailed analysis of the ledger live components we are replicating.
+1. Review the file @assetlist.md for context and a detailed analysis of the ledger-live-mobile components we are replicating.
 
-2. Keep the Time Range Selector (1D, 1W, 1M, 1Y, ALL) as it is and  Quick Action Cards (Buy, Swap, Send, Receive, Earn) the same. Do not modify these parts.
+4. Recreate the asset list and  related individual assets components/assetrows  (for static implementation) to use the exact same code that creates the  from the official ledger-live-mobile directory.  Focus on the assets list and the individual assets' layout, styling, and components when 'asset' is selected.  Pay close attention to the components that create the precise layout, structure, styling, sizing, and weight of the text and images of the assets. Provide a comprehensive description of each component utilized, the component flow, and any other relevant details then either recreate our components for this or revise our current ones to use the EXACT same  code that controls the styling, icons used, text and text size, layout, structure, props to pass,     Please refer to the provided image of the bottom half of the Ledger Live for specific reference.
 
-3. Analyze the Assets/Accounts toggle bar  in @PortfolioQuickActionsBar.tsx, along with the corresponding icons used:
-   - Buy: PlusMedium (+)
-   - Swap: BuyCryptoMedium (exchange arrows)
-   - Send: ArrowTopMedium (↑)
-   - Receive: ArrowBottomMedium (↓)
-   - Earn: CoinsMedium (stacked coins)
-
-4. Recreate the Quick Action Cards and icons in our portfolio screen to be identical. The buttons do not need to function; they just need to appear exactly the same.
+Please conduct a detailed analysis of the user interface (UI) elements in the bottom half of the Ledger Live portfolio screen. Focus on the assets list and the individual assets' layout, styling, and components when 'asset' is selected. Pay close attention to the components that create the precise layout, structure, styling, sizing, and weight of the text and images of the assets. Provide a comprehensive description of each component utilized, the component flow, and any other relevant details. Please refer to the provided image of the bottom half of the Ledger Live for specific reference.
 
 5. Analyze @PortfolioQuickActionsBar.tsx to understand the code that creates the styling, spacing between it and the Time Range Selector, layout, text, positioning, and recreate it in our portfolioscreen to be underneath exactly how it appears in the image.
 
@@ -20,7 +13,7 @@ Replicate the quick action cards (buy, swap, receive, earn) and their respective
 Make sure to replicate the styling, layout, and positioning accurately, and ensure that the components appear as per the image provided.
 
 
-Please conduct a comprehensive analysis of the bottom half of the real Ledger Live portfolio screen. Describe the components that create the UI appearance of the assets list that shows the list of assets when selected. ensuring that the layout matches the *NAME** used in the real Ledger Live for 100% fidelity. Additionally, analyze the components in Ledger Live that creates the layout styling etc of the actual assets when 'asset' is selected, and identify the styling, sizing and weight of the text, image of asset, name of asset and everything else  that creates the precise layout, structure, styling of the asset list and individual assets. Provide a detailed description of each component utilized, the component flow, etc. The provided image is the bottom half of the ledger live for reference of the components I am precisely asking about.
+Please conduct a comprehensive analysis of the bottom half of the real Ledger Live portfolio screen. Describe the components that create the UI appearance of the assets list that shows the list of assets when selected. ensuring that the layout matches the *NAME** used in the real Ledger Live for 100% fidelity. Additionally, analyze the components in Ledger Live that creates the layout styling etc of the actual a     ssets when 'asset' is selected, and identify the styling, sizing and weight of the text, image of asset, name of asset and everything else  that creates the precise layout, structure, styling of the asset list and individual assets. Provide a detailed description of each component utilized, the component flow, etc. The provided image is the bottom half of the ledger live for reference of the components I am precisely asking about.
 
 
 

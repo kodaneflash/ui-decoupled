@@ -25,10 +25,10 @@ const useListsAnimation = (initialTab: TabListType) => {
   const [accountsButtonHeight, setAccountsButtonHeight] = useState<number>(0);
   const [assetsButtonHeight, setAssetsButtonHeight] = useState<number>(0);
 
-  const assetsTranslateX = useSharedValue<number>(0);
+  const assetsTranslateX = useSharedValue<number>(initialTab === TAB_OPTIONS.Assets ? 0 : -containerWidth);
   const assetsOpacity = useSharedValue<number>(1);
-  const accountsTranslateX = useSharedValue<number>(containerWidth);
-  const accountsOpacity = useSharedValue<number>(0);
+  const accountsTranslateX = useSharedValue<number>(initialTab === TAB_OPTIONS.Assets ? containerWidth : 0);
+  const accountsOpacity = useSharedValue<number>(1);
 
   const handleToggle = useCallback((value: TabListType) => {
     setSelectedTab(value);
@@ -88,19 +88,21 @@ const useListsAnimation = (initialTab: TabListType) => {
   );
 
   useEffect(() => {
+    if (containerWidth === 0) return; // Wait for layout
+
     if (selectedTab === TAB_OPTIONS.Assets) {
-      // Assets tab is selected - show assets, hide accounts
+      // Assets tab is selected - show assets (translateX: 0), hide accounts (translateX: containerWidth)
       assetsTranslateX.value = withTiming(0, { duration: ANIMATION_DURATION });
       assetsOpacity.value = withTiming(1, { duration: ANIMATION_DURATION });
-      // Move accounts to the right and hide
-      accountsTranslateX.value = withTiming(containerWidth / 3, { duration: ANIMATION_DURATION });
-      accountsOpacity.value = withTiming(0, { duration: ANIMATION_DURATION });
+      // Move accounts completely off-screen to the right
+      accountsTranslateX.value = withTiming(containerWidth, { duration: ANIMATION_DURATION });
+      accountsOpacity.value = withTiming(1, { duration: ANIMATION_DURATION }); // Keep opacity 1
     } else {
-      // Accounts tab is selected - hide assets, show accounts
-      assetsTranslateX.value = withTiming(-containerWidth / 3, { duration: ANIMATION_DURATION });
-      assetsOpacity.value = withTiming(0, { duration: ANIMATION_DURATION });
-      // Move accounts to center and show
-      accountsTranslateX.value = withTiming(-containerWidth / 2, { duration: ANIMATION_DURATION });
+      // Accounts tab is selected - hide assets (translateX: -containerWidth), show accounts (translateX: 0)
+      assetsTranslateX.value = withTiming(-containerWidth, { duration: ANIMATION_DURATION });
+      assetsOpacity.value = withTiming(1, { duration: ANIMATION_DURATION }); // Keep opacity 1
+      // Move accounts to center position
+      accountsTranslateX.value = withTiming(0, { duration: ANIMATION_DURATION });
       accountsOpacity.value = withTiming(1, { duration: ANIMATION_DURATION });
     }
   }, [

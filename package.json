@@ -29,6 +29,7 @@
     "@react-navigation/stack": "^6.3.17",
     "@types/color": "^4.2.0",
     "babel-plugin-module-resolver": "^5.0.0",
+    "bignumber.js": "^9.3.0",
     "color": "^5.0.0",
     "d3-scale": "4.0.2",
     "d3-shape": "3.2.0",

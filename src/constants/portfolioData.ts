@@ -1,23 +1,23 @@
-// Static Portfolio Data matching reference image ($0.00 balance)
+// Static Portfolio Data with realistic values
 export const PORTFOLIO_DATA = {
-  totalBalance: 0,
+  totalBalance: 45000, // Main portfolio balance shown in 42px font
   totalFiatBalance: {
-    value: 0,
+    value: 53941,
     unit: {code: 'USD', symbol: '$', magnitude: 2},
   },
   countervalueChange: {
-    value: 0,
-    percentage: 0,
+    value: 5000, // Dollar amount change (+$5000)
+    percentage: 3.7703, // 37703% display (multiply by 100 in Delta component)
   },
   balanceHistory: [
-    {date: new Date('2024-01-01'), value: 0},
-    {date: new Date('2024-01-02'), value: 0},
-    {date: new Date('2024-01-03'), value: 0},
-    {date: new Date('2024-01-04'), value: 0},
-    {date: new Date('2024-01-05'), value: 0},
-    {date: new Date('2024-01-06'), value: 0},
-    {date: new Date('2024-01-07'), value: 0},
+    { date: new Date('2024-01-01'), value: 40000 },
+    { date: new Date('2024-01-02'), value: 41500 },
+    { date: new Date('2024-01-03'), value: 43000 },
+    { date: new Date('2024-01-04'), value: 44200 },
+    { date: new Date('2024-01-05'), value: 45000 }, // Current balance
   ],
+  range: '1w',
+  balanceAvailable: true,
   // Chart data points for SVG path
   chartData: [
     {x: 0, y: 50},
@@ -38,7 +38,7 @@ export const MOCK_CURRENCY_UNIT = {
   name: 'US Dollar',
 };
 
-// Static Crypto Assets Data matching reference image (all showing 0 balances)
+// Static Crypto Assets Data with realistic values for 100% fidelity
 export const CRYPTO_ASSETS = [
   {
     id: 'bitcoin',
@@ -51,20 +51,25 @@ export const CRYPTO_ASSETS = [
       color: '#F7931A',
       units: [{name: 'bitcoin', code: 'BTC', magnitude: 8, symbol: '₿'}],
     },
-    balance: 0,
+    balance: 1.5,
+    amount: '150000000', // 1.5 BTC in satoshis
     fiatBalance: {
-      value: 0,
+      value: 45234,
       unit: MOCK_CURRENCY_UNIT,
     },
-    balanceFormatted: '0 BTC',
-    fiatBalanceFormatted: '$0.00',
+    balanceFormatted: '1.5 BTC',
+    fiatBalanceFormatted: '$45,234',
     icon: {
       backgroundColor: '#F7931A',
       symbol: '₿',
       color: '#FFFFFF',
     },
-    change24h: 0,
-    changePercent24h: 0,
+    change24h: 2500,
+    changePercent24h: 19515, // 19515% as shown in reference
+    countervalueChange: {
+      value: 2500,
+      percentage: 195.15, // 19515% / 100
+    },
   },
   {
     id: 'ethereum',
@@ -77,20 +82,25 @@ export const CRYPTO_ASSETS = [
       color: '#627EEA',
       units: [{name: 'ethereum', code: 'ETH', magnitude: 18, symbol: 'Ξ'}],
     },
-    balance: 0,
+    balance: 2.8,
+    amount: '2800000000000000000', // 2.8 ETH in wei
     fiatBalance: {
-      value: 0,
+      value: 7892,
       unit: MOCK_CURRENCY_UNIT,
     },
-    balanceFormatted: '0 ETH',
-    fiatBalanceFormatted: '$0.00',
+    balanceFormatted: '2.8 ETH',
+    fiatBalanceFormatted: '$7,892',
     icon: {
       backgroundColor: '#627EEA',
       symbol: 'Ξ',
       color: '#FFFFFF',
     },
-    change24h: 0,
-    changePercent24h: 0,
+    change24h: 450,
+    changePercent24h: 1250,
+    countervalueChange: {
+      value: 450,
+      percentage: 12.5,
+    },
   },
   {
     id: 'tether',
@@ -129,20 +139,25 @@ export const CRYPTO_ASSETS = [
       color: '#0085C3',
       units: [{name: 'xrp', code: 'XRP', magnitude: 6, symbol: '✕'}],
     },
-    balance: 0,
+    balance: 1250,
+    amount: '1250000000', // 1250 XRP
     fiatBalance: {
-      value: 0,
+      value: 875,
       unit: MOCK_CURRENCY_UNIT,
     },
-    balanceFormatted: '0 XRP',
-    fiatBalanceFormatted: '$0.00',
+    balanceFormatted: '1,250 XRP',
+    fiatBalanceFormatted: '$875',
     icon: {
       backgroundColor: '#0085C3',
       symbol: '✕',
       color: '#FFFFFF',
     },
-    change24h: 0,
-    changePercent24h: 0,
+    change24h: 75,
+    changePercent24h: 285, // 285% as shown in reference
+    countervalueChange: {
+      value: 75,
+      percentage: 2.85,
+    },
   },
   {
     id: 'bnb',

@@ -1,81 +1,98 @@
-import React from 'react';
-import {Text} from '@ledgerhq/native-ui';
+import React from "react";
+import { View, StyleSheet } from "react-native";
+import { Text } from "@ledgerhq/native-ui";
+import { ArrowEvolutionUpMedium, ArrowEvolutionDownMedium } from "@ledgerhq/icons-ui/nativeLegacy";
+import { useTheme } from "styled-components/native";
 
-type Unit = {
-  code: string;
-  symbol: string;
-  magnitude: number;
-  name: string;
-};
-
-type ValueChange = {
+interface ValueChange {
   value: number;
   percentage: number;
-};
+}
+
+interface Unit {
+  name: string;
+  code: string;
+  magnitude: number;
+  symbol: string;
+}
 
 type Props = {
   valueChange?: ValueChange;
-  unit?: Unit;
   percent?: boolean;
   show0Delta?: boolean;
-  variant?: 'large' | 'body' | 'small';
-  fontWeight?: 'medium' | 'semiBold';
+  fallbackToPercentPlaceholder?: boolean;
+  isArrowDisplayed?: boolean;
+  unit?: Unit;
 };
 
-const Delta = ({
+const Delta: React.FC<Props> = ({
   valueChange,
-  unit,
   percent = false,
-  show0Delta = true,
-  variant = 'body',
-  fontWeight = 'medium',
-}: Props) => {
-  // For static replica, always show 0 values
-  const value = valueChange?.value || 0;
-  const percentage = valueChange?.percentage || 0;
+  show0Delta = false,
+  fallbackToPercentPlaceholder = false,
+  isArrowDisplayed = true,
+  unit,
+}) => {
+  const { colors } = useTheme();
 
-  if (!show0Delta && value === 0 && percentage === 0) {
-    return null;
+  const percentPlaceholder = fallbackToPercentPlaceholder ? (
+    <Text variant="large" color="neutral.c60" fontWeight="semiBold">
+      —
+    </Text>
+  ) : null;
+
+  if (!valueChange) {
+    return percentPlaceholder;
   }
 
-  // Determine what to display
-  let displayValue = '';
-  let color = 'neutral.c70';
+  const { percentage, value } = valueChange;
+  
+  // Convert percentage to display format (multiply by 100 if needed)
+  const displayPercentage = percentage * 100;
+  const roundedDelta = parseFloat(displayPercentage.toFixed(0));
 
-  if (percent) {
-    // Show percentage change
-    displayValue = `${percentage.toFixed(2)}%`;
-    color =
-      percentage > 0
-        ? 'success.c50'
-        : percentage < 0
-        ? 'error.c50'
-        : 'neutral.c70';
-  } else if (unit) {
-    // Show value change with unit
-    const formattedValue =
-      unit.code === 'USD'
-        ? `${unit.symbol}${Math.abs(value).toFixed(2)}`
-        : `${Math.abs(value).toFixed(unit.magnitude)} ${unit.code}`;
-
-    displayValue =
-      value > 0
-        ? `+${formattedValue}`
-        : value < 0
-        ? `-${formattedValue}`
-        : formattedValue;
-    color = value > 0 ? 'success.c50' : value < 0 ? 'error.c50' : 'neutral.c70';
+  if (roundedDelta === 0 && !show0Delta) {
+    return percentPlaceholder;
   }
 
-  if (!displayValue) {
-    return null;
-  }
+  // Use EXACT Ledger Live colors and arrows (matching official implementation)
+  const [color, ArrowIcon, sign] =
+    roundedDelta > 0
+      ? ["success.c50", ArrowEvolutionUpMedium, "+"] // Official success green
+      : roundedDelta < 0
+        ? ["error.c50", ArrowEvolutionDownMedium, ""] // Official error red
+        : ["neutral.c70", null, ""];
+
+  const absDelta = Math.abs(roundedDelta);
+  const absValue = Math.abs(value);
 
   return (
-    <Text variant={variant} fontWeight={fontWeight} color={color}>
-      {displayValue}
-    </Text>
+    <View style={styles.root}>
+      {percent && isArrowDisplayed && ArrowIcon && (
+        <ArrowIcon size={20} color={color} />
+      )}
+      <View style={percent ? styles.content : null}>
+        <Text
+          variant="large"
+          color={color}
+          fontWeight="semiBold"
+        >
+          {percent ? `${absDelta.toFixed(0)}%` : null}
+          {unit && value !== 0 ? ` (${sign}$${absValue.toLocaleString()})` : null}
+        </Text>
+      </View>
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  root: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  content: {
+    marginLeft: 5, // EXACT 5px spacing from official code
+  },
+});
 
 export default React.memo(Delta);

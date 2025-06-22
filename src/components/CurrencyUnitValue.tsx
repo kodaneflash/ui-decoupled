@@ -1,47 +1,75 @@
 import React from 'react';
 import {Text} from '@ledgerhq/native-ui';
+import BigNumber from 'bignumber.js';
 
-type Unit = {
-  code: string;
-  symbol: string;
-  magnitude: number;
+interface Unit {
   name: string;
-};
+  code: string;
+  magnitude: number;
+  symbol: string;
+}
 
 type Props = {
   unit: Unit;
-  value: number;
-  joinFragmentsSeparator?: string;
+  value: BigNumber;
   showCode?: boolean;
-  color?: string;
+  alwaysShowValue?: boolean;
+  before?: string;
+  after?: string;
   variant?: 'large' | 'body' | 'small';
   fontWeight?: 'medium' | 'semiBold';
+  color?: string;
+  joinFragmentsSeparator?: string;
 };
 
-const CurrencyUnitValue = ({
+const CurrencyUnitValue: React.FC<Props> = ({
   unit,
   value,
-  joinFragmentsSeparator = '',
   showCode = false,
-  color = 'neutral.c70',
+  alwaysShowValue = false,
+  before = '',
+  after = '',
   variant = 'body',
   fontWeight = 'medium',
-}: Props) => {
-  // Format the value based on the unit
-  const formatValue = () => {
-    if (unit.code === 'USD') {
-      return `${unit.symbol}${value.toFixed(2)}`;
+  color = 'neutral.c70',
+  joinFragmentsSeparator = '',
+}) => {
+  // Format currency unit similar to official Ledger Live
+  const formatCurrencyUnit = (unit: Unit, value: BigNumber): string => {
+    const amountNum = value.toNumber();
+    
+    // If amount is 0, return formatted 0
+    if (amountNum === 0) {
+      return '$0';
     }
-    // For crypto currencies, show with proper precision
-    const formattedValue = value === 0 ? '0' : value.toFixed(unit.magnitude);
-    return showCode
-      ? `${formattedValue} ${unit.code}`
-      : `${unit.symbol}${formattedValue}`;
+    
+    // For main portfolio balance display, use the total balance from our data
+    // This matches the official Ledger Live behavior where it shows the total USD value
+    const formattedValue = `$${amountNum.toLocaleString()}`;
+    
+    return showCode ? `${formattedValue} ${unit.code}` : formattedValue;
   };
 
+  const formattedValue = formatCurrencyUnit(unit, value);
+  
+  if (!alwaysShowValue && value.isZero()) {
+    return (
+      <Text variant={variant} fontWeight={fontWeight} color={color}>
+        $0
+      </Text>
+    );
+  }
+
+  const displayText = `${before}${formattedValue}${after}`;
+  
+  // For inline display (when used inside other Text components), return just the string
+  if (joinFragmentsSeparator === '') {
+    return <>{displayText}</>;
+  }
+  
   return (
     <Text variant={variant} fontWeight={fontWeight} color={color}>
-      {formatValue()}
+      {displayText}
     </Text>
   );
 };

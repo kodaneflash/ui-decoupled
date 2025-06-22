@@ -4,6 +4,7 @@ import styled, { useTheme } from "styled-components/native";
 import Animated, { Extrapolation, interpolate, useAnimatedStyle } from "react-native-reanimated";
 import { Dimensions } from "react-native";
 import Svg, { Path, Defs } from "react-native-svg";
+import { BigNumber } from "bignumber.js";
 import Delta from "./Delta";
 import CurrencyUnitValue from "./CurrencyUnitValue";
 import DefGraph from "./Graph/DefGrad";
@@ -217,7 +218,7 @@ function GraphCard({
                 color={'neutral.c100'}
                 numberOfLines={1}
                 adjustsFontSizeToFit>
-                <CurrencyUnitValue unit={unit} value={0} />
+                <CurrencyUnitValue unit={unit} value={new BigNumber(0)} />
               </Text>
             ) : (
               <>
@@ -235,8 +236,7 @@ function GraphCard({
                       testID={'graphCard-balance'}>
                       <CurrencyUnitValue
                         unit={unit}
-                        value={hoveredItem ? hoveredItem.value : item.value}
-                        joinFragmentsSeparator=""
+                        value={hoveredItem ? new BigNumber(hoveredItem.value) : new BigNumber(item.value)}
                       />
                     </Text>
                   )}
@@ -261,7 +261,10 @@ function GraphCard({
                             valueChange={countervalueChange}
                           />
                           <Text> </Text>
-                          <Delta unit={unit} valueChange={countervalueChange} />
+                          <Delta 
+                            unit={unit} 
+                            valueChange={countervalueChange} 
+                          />
                         </>
                       )}
                     </Flex>

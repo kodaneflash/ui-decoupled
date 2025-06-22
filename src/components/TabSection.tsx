@@ -3,7 +3,7 @@ import { Box, Flex } from "@ledgerhq/native-ui";
 import Animated from "react-native-reanimated";
 import { LayoutChangeEvent } from "react-native";
 import TabSelector from "./TabSelector";
-import AssetsList from "./AssetsList";
+import AssetsListView from "./AssetsListView";
 import AccountsList from "./AccountsList";
 import { type TabListType, TAB_OPTIONS } from "../hooks/useListsAnimation";
 
@@ -61,14 +61,18 @@ const TabSection: React.FC<TabSectionProps> = ({
         width="200%"
         height={containerHeight}
         maxHeight={containerHeight}
+        testID="portfolio-assets-layout"
       >
         {/* Assets List View */}
-        <Animated.View style={[{ flex: 1 }, assetsAnimatedStyle]}>
-          <AssetsList onContentChange={handleAssetsContentSizeChange} />
+        <Animated.View style={[{ width: "50%" }, assetsAnimatedStyle]}>
+          <AssetsListView 
+            onContentChange={handleAssetsContentSizeChange}
+            limitNumberOfAssets={5}
+          />
         </Animated.View>
 
         {/* Accounts List View */}
-        <Animated.View style={[{ flex: 1 }, accountsAnimatedStyle]}>
+        <Animated.View style={[{ width: "50%" }, accountsAnimatedStyle]}>
           <AccountsList onContentChange={handleAccountsContentSizeChange} />
         </Animated.View>
       </Flex>
