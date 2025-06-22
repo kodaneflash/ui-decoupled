@@ -17,7 +17,31 @@ Static UI replica of Ledger Live Mobile Portfolio screen with 100% visual fideli
 - **`src/components/GraphCardContainer.tsx`** - Simplified container with internal static data
 
 ### Recent Updates (Latest)
-**Type Simplification & Integration Fixes:**
+**CSS Parsing Error Fix (Critical):**
+- ❌ **Error**: `CssSyntaxError: <css input>:4:39: Unclosed string` in `@ledgerhq/native-ui` GraphTabs component
+- ✅ **Root Cause**: CSS template literal parsing bug in `TemplateTabsGroup` → `GraphTabs` 
+- ✅ **Fix Applied**: Replaced `GraphTabs` with manual tab implementation using `Flex` + `Text`
+- ✅ **Dependencies**: Upgraded `react-native-reanimated: 3.7.0 → 3.16.7` (to match ledger-live)
+
+**How to Revert (If Needed):**
+```typescript
+// 1. Revert react-native-reanimated version
+pnpm add react-native-reanimated@3.7.0
+
+// 2. Replace manual tabs with original GraphTabs in GraphCard.tsx:
+<Flex paddingTop={6} background={colors.background.main}>
+  <GraphTabs
+    activeIndex={activeRangeIndex}
+    onChange={updateTimeRange}
+    labels={rangesLabels}
+  />
+</Flex>
+
+// 3. Add back import: import { GraphTabs } from "@ledgerhq/native-ui";
+// 4. Clean: cd ios && pod install && npx react-native start --reset-cache
+```
+
+**Previous Updates:**
 - ✅ **GraphCard.tsx**: Fixed theme integration (removed fallbacks), added optional portfolio/currency props with static fallbacks
 - ✅ **GraphCardContainer.tsx**: Simplified Props interface, creates static data internally instead of requiring external injection  
 - ✅ **portfolioData.ts**: Reduced `MockPortfolioData` to `SimplePortfolioData` with only essential properties, removed unused mock hooks
@@ -160,6 +184,11 @@ interface Props {
 ## 🎯 Implementation Rules
 
 ### Component Structure Requirements
+
+**⚠️ Known Issues:**
+- **GraphTabs Component**: CSS parsing bug in `@ledgerhq/native-ui@0.35.0` causes "Unclosed string" errors
+- **Workaround**: Use manual tab implementation with `Flex` + `Text` components instead
+- **Alternative**: Upgrade to newer native-ui version when available
 ```typescript
 // ✅ REQUIRED: All components must follow this pattern
 import React from "react";

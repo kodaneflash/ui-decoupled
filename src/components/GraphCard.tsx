@@ -3,9 +3,16 @@ import { Flex, Text, GraphTabs } from "@ledgerhq/native-ui";
 import styled, { useTheme } from "styled-components/native";
 import Animated, { Extrapolation, interpolate, useAnimatedStyle } from "react-native-reanimated";
 import { Dimensions } from "react-native";
+import Svg, { Path, Defs } from "react-native-svg";
 import Delta from "./Delta";
 import CurrencyUnitValue from "./CurrencyUnitValue";
-import { PORTFOLIO_DATA, MOCK_CURRENCY_UNIT, GRAPH_TIME_RANGES } from "../constants/portfolioData";
+import DefGraph from "./Graph/DefGrad";
+
+import {
+  PORTFOLIO_DATA,
+  MOCK_CURRENCY_UNIT,
+  GRAPH_TIME_RANGES,
+} from "../constants/portfolioData";
 
 const { width } = Dimensions.get("window");
 
@@ -18,7 +25,7 @@ type Props = {
   onTouchEndGraph?: () => void;
 };
 
-// Static types for our replica
+// Static types for our replica - matching ledger-live exactly
 interface Item {
   date: Date;
   value: number;
@@ -43,6 +50,7 @@ interface Currency {
   }>;
 }
 
+// Using EXACT styled components from ledger-live
 const Placeholder = styled(Flex).attrs({
   backgroundColor: "neutral.c40",
   borderRadius: "4px",
@@ -59,30 +67,66 @@ const SmallPlaceholder = styled(Placeholder).attrs({
   borderRadius: "2px",
 })``;
 
-// Static Graph component
-const Graph = ({ 
-  height, 
-  width, 
-  color, 
-  data, 
+// Enhanced Graph component with proper SVG and gradient
+const Graph = ({
+  height,
+  width,
+  color,
+  data,
   fill,
   isInteractive,
   onItemHover,
   mapValue,
-  testID 
-}: { 
-  height: number; 
-  width: number; 
-  color: string; 
+  testID,
+}: {
+  height: number;
+  width: number;
+  color: string;
   data: Item[];
   fill?: string;
   isInteractive?: boolean;
   onItemHover?: (item?: Item | null) => void;
   mapValue?: (item: Item) => number;
   testID?: string;
-}) => (
-  <Flex height={height} width={width} backgroundColor="transparent" testID={testID} />
-);
+}) => {
+  // Generate a simple upward trending path for the static chart
+  const generatePath = () => {
+    const points = [
+      [0, height * 0.8],
+      [width * 0.2, height * 0.7],
+      [width * 0.4, height * 0.9],
+      [width * 0.6, height * 0.4],
+      [width * 0.8, height * 0.3],
+      [width, height * 0.5],
+    ];
+
+    let path = `M ${points[0][0]} ${points[0][1]}`;
+    for (let i = 1; i < points.length; i++) {
+      path += ` L ${points[i][0]} ${points[i][1]}`;
+    }
+    return path;
+  };
+
+  const generateAreaPath = () => {
+    const linePath = generatePath();
+    return `${linePath} L ${width} ${height} L 0 ${height} Z`;
+  };
+
+  return (
+    <Svg
+      testID={testID}
+      height={height}
+      width={width}
+      viewBox={`0 0 ${width} ${height}`}
+      preserveAspectRatio="none">
+      <Defs>
+        <DefGraph height={height} color={color} />
+      </Defs>
+      <Path d={generateAreaPath()} fill={fill || "url(#grad)"} />
+      <Path d={generatePath()} stroke={color} strokeWidth={2} fill="none" />
+    </Svg>
+  );
+};
 
 function GraphCard({
   areAccountsEmpty,
@@ -95,7 +139,7 @@ function GraphCard({
   // Use provided props or fallback to static data
   const portfolio: Portfolio = portfolioProp || {
     ...PORTFOLIO_DATA,
-    range: "1w",
+    range: '1w',
     balanceAvailable: true,
     balanceHistory: PORTFOLIO_DATA.balanceHistory.map(item => ({
       date: item.date,
@@ -107,18 +151,18 @@ function GraphCard({
     units: [MOCK_CURRENCY_UNIT],
   };
 
-  const { countervalueChange, balanceHistory } = portfolio;
+  const {countervalueChange, balanceHistory} = portfolio;
   const item = balanceHistory[balanceHistory.length - 1];
   const unit = counterValueCurrency.units[0];
 
   const [hoveredItem, setItemHover] = useState<Item | null>();
-  
+
   // Static time range data
   const timeRangeItems = GRAPH_TIME_RANGES;
   const activeRangeIndex = timeRangeItems.findIndex(r => r.active);
-  const rangesLabels = timeRangeItems.map(({ label }) => label);
+  const rangesLabels = timeRangeItems.map(({label}) => label);
 
-  const { colors } = useTheme();
+  const {colors} = useTheme();
 
   const updateTimeRange = useCallback(
     (index: number) => {
@@ -135,8 +179,10 @@ function GraphCard({
 
   // Animation for balance opacity (static implementation)
   const BalanceOpacity = useAnimatedStyle(() => {
-    if (!currentPositionY) return { opacity: 1 };
-    
+    if (!currentPositionY) {
+      return {opacity: 1};
+    }
+
     const opacity = interpolate(
       currentPositionY.value,
       [graphCardEndPosition + 30, graphCardEndPosition + 50],
@@ -156,12 +202,11 @@ function GraphCard({
   return (
     <Flex>
       <Flex
-        flexDirection={"row"}
-        justifyContent={"center"}
-        alignItems={"center"}
+        flexDirection={'row'}
+        justifyContent={'center'}
+        alignItems={'center'}
         marginTop={40}
-        marginBottom={40}
-      >
+        marginBottom={40}>
         <Animated.View style={[BalanceOpacity]}>
           <Flex alignItems="center">
             {areAccountsEmpty ? (
@@ -169,10 +214,9 @@ function GraphCard({
                 fontFamily="Inter"
                 fontWeight="semiBold"
                 fontSize="42px"
-                color={"neutral.c100"}
+                color={'neutral.c100'}
                 numberOfLines={1}
-                adjustsFontSizeToFit
-              >
+                adjustsFontSizeToFit>
                 <CurrencyUnitValue unit={unit} value={0} />
               </Text>
             ) : (
@@ -185,11 +229,10 @@ function GraphCard({
                       fontFamily="Inter"
                       fontWeight="semiBold"
                       fontSize="42px"
-                      color={"neutral.c100"}
+                      color={'neutral.c100'}
                       numberOfLines={1}
                       adjustsFontSizeToFit
-                      testID={"graphCard-balance"}
-                    >
+                      testID={'graphCard-balance'}>
                       <CurrencyUnitValue
                         unit={unit}
                         value={hoveredItem ? hoveredItem.value : item.value}
@@ -199,7 +242,7 @@ function GraphCard({
                   )}
                   {/* TransactionsPendingConfirmationWarning omitted for static replica */}
                 </Flex>
-                <Flex flexDirection={"row"}>
+                <Flex flexDirection={'row'}>
                   {!balanceHistory ? (
                     <>
                       <SmallPlaceholder mt="12px" />
@@ -207,7 +250,7 @@ function GraphCard({
                   ) : (
                     <Flex flexDirection="row" alignItems="center">
                       {hoveredItem && hoveredItem.date ? (
-                        <Text variant={"large"} fontWeight={"semiBold"}>
+                        <Text variant={'large'} fontWeight={'semiBold'}>
                           {hoveredItem.date.toLocaleDateString()}
                         </Text>
                       ) : (
@@ -236,24 +279,43 @@ function GraphCard({
             isInteractive={isAvailable}
             height={110}
             width={width + 1}
-            color={colors.palette?.primary?.c80 || colors.primary?.c80 || "#BBB0FF"}
+            color={
+              colors.palette?.primary?.c80 || colors.primary?.c80 || '#BBB0FF'
+            }
             data={balanceHistory}
             onItemHover={onItemHover}
             mapValue={mapGraphValue}
-            fill={colors.background?.main || "#131214"}
+            fill={colors.background?.main || '#131214'}
             testID="graphCard-chart"
           />
         </Flex>
-        <Flex paddingTop={6} backgroundColor={colors.background?.main || "#131214"}>
-          <GraphTabs
-            activeIndex={activeRangeIndex}
-            onChange={updateTimeRange}
-            labels={rangesLabels}
-          />
-        </Flex>
+          {/* Time Range Tabs with FIXED WIDTH - Matching Real Ledger Live */}
+          <Flex paddingTop={6} flexDirection="row" justifyContent="center" alignItems="center">
+            {rangesLabels.map((label, index) => (
+              <Flex
+                key={label}
+                width={50}                                    // CRITICAL: Fixed 50px width per tab
+                height={40}                                   // Fixed height for medium size
+                alignItems="center"
+                justifyContent="center"
+                borderRadius={4}                              // 4px border radius (theme.radii[1])
+                backgroundColor={index === activeRangeIndex ? "neutral.c30" : "transparent"}
+                marginLeft={index > 0 ? 1 : 0}               // 4px spacing between tabs (theme.space[1])
+                onTouchStart={() => updateTimeRange(index)}
+              >
+                <Text
+                  fontSize={12}
+                  fontWeight="semiBold"
+                  color={index === activeRangeIndex ? "neutral.c100" : "neutral.c70"}
+                >
+                  {label.toUpperCase()}
+                </Text>
+              </Flex>
+            ))}
+          </Flex>
       </>
     </Flex>
   );
 }
 
-export default memo<Props>(GraphCard); 
+export default memo<Props>(GraphCard);

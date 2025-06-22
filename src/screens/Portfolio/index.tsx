@@ -1,29 +1,36 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
+import { Animated } from 'react-native';
 import { Flex, Text, Box } from '@ledgerhq/native-ui';
 import styled from 'styled-components/native';
 import CreditCard from '@ledgerhq/icons-ui/native/CreditCard';
 import Settings from '@ledgerhq/icons-ui/native/Settings';
 import Wallet from '@ledgerhq/icons-ui/native/Wallet';
 import BellNotification from '@ledgerhq/icons-ui/native/BellNotification';
-import AccountRowLayout from '../../components/AccountRowLayout';
 import GraphCard from '../../components/GraphCard';
+import WalletTabBackgroundGradient from '../../components/WalletTabBackgroundGradient';
+import PortfolioAssetsContainer from '../../components/PortfolioAssetsContainer';
 
-// Tab button component
-const TabButton = styled(Flex).attrs({
+// Tab button component with proper React Native CSS
+const TabButton = styled(Flex).attrs<{ isActive?: boolean }>(({ isActive }) => ({
   paddingX: 4,
   paddingY: 2,
   borderRadius: 6,
   alignItems: 'center',
   justifyContent: 'center',
   mr: 3,
-})<{ isActive?: boolean }>`
-  background-color: ${props => props.isActive ? '#7C3AED' : '#2A2A2A'};
-`;
+  backgroundColor: isActive ? '#7C3AED' : '#2A2A2A',
+}))<{ isActive?: boolean }>``;
 
 const PortfolioScreen = () => {
+  // Scroll tracking for gradient animation (Real Ledger Live behavior)
+  const scrollY = new Animated.Value(0);
+  const headerHeight = 200;
+
   return (
     <Flex flex={1} backgroundColor="background.main">
+      {/* Background Gradient with scroll-responsive animation */}
+      <WalletTabBackgroundGradient scrollY={scrollY} headerHeight={headerHeight} />
+      
       {/* Header */}
       <Flex 
         flexDirection="row" 
@@ -63,54 +70,20 @@ const PortfolioScreen = () => {
         </TabButton>
       </Flex>
 
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <Animated.ScrollView 
+        showsVerticalScrollIndicator={false}
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+          { useNativeDriver: false }
+        )}
+        scrollEventThrottle={16}
+      >
         {/* Graph Card with Balance */}
         <GraphCard areAccountsEmpty={false} />
 
-        {/* Assets List */}
-        <Box>
-          <AccountRowLayout 
-            name="Bitcoin" 
-            ticker="BTC"
-            balance="0 BTC"
-            iconBg="#F7931A" 
-            iconLetter="₿" 
-            onPress={() => {}}
-          />
-          <AccountRowLayout 
-            name="Ethereum" 
-            ticker="ETH"
-            balance="0 ETH"
-            iconBg="#627EEA" 
-            iconLetter="♦" 
-            onPress={() => {}}
-          />
-          <AccountRowLayout 
-            name="Tether USD" 
-            ticker="USDT"
-            balance="0 USDT"
-            iconBg="#26A17B" 
-            iconLetter="₮" 
-            onPress={() => {}}
-          />
-          <AccountRowLayout 
-            name="XRP" 
-            ticker="XRP"
-            balance="0 XRP"
-            iconBg="#0085C3" 
-            iconLetter="✕" 
-            onPress={() => {}}
-          />
-          <AccountRowLayout 
-            name="Binance Smart Chain" 
-            ticker="BNB"
-            balance="0 BNB"
-            iconBg="#F3BA2F" 
-            iconLetter="◆" 
-            onPress={() => {}}
-          />
-        </Box>
-      </ScrollView>
+        {/* Portfolio Assets Container with Assets/Accounts Toggle */}
+        <PortfolioAssetsContainer initialTab="Assets" />
+      </Animated.ScrollView>
 
       {/* Bottom Navigation Placeholder */}
       <Flex 

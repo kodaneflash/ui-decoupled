@@ -1,6 +1,6 @@
-import React from "react";
-import { TouchableOpacity } from "react-native";
-import { Flex, Text, IconsLegacy } from "@ledgerhq/native-ui";
+import React from 'react';
+import {TouchableOpacity} from 'react-native';
+import {Flex, Text, IconsLegacy} from '@ledgerhq/native-ui';
 
 type Props = {
   name: string;
@@ -30,8 +30,7 @@ const AccountRowLayout = ({
           backgroundColor={iconBg}
           alignItems="center"
           justifyContent="center"
-          mr={3}
-        >
+          mr={3}>
           <Text color="white" fontWeight="bold" fontSize="16px">
             {iconLetter}
           </Text>
@@ -61,4 +60,4 @@ const AccountRowLayout = ({
   );
 };
 
-export default React.memo(AccountRowLayout); 
+export default React.memo(AccountRowLayout);

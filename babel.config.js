@@ -7,7 +7,8 @@ module.exports = {
         root: ['./src'],
         alias: {
           '~': './src',
-          '@ledgerhq/native-ui/styles/index': '@ledgerhq/native-ui/lib/styles/index',
+          '@ledgerhq/native-ui/styles/index':
+            '@ledgerhq/native-ui/lib/styles/index',
         },
       },
     ],

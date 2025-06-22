@@ -1,9 +1,9 @@
-import React, { useMemo } from "react";
-import { ThemeProvider } from "styled-components/native";
-import { defaultTheme } from "@ledgerhq/native-ui";
-import { palettes } from "../styles/palettes";
-import { lightTheme, darkTheme } from "../styles/colors";
-import { space, Theme } from "../styles/theme";
+import React, {useMemo} from 'react';
+import {ThemeProvider} from 'styled-components/native';
+import {defaultTheme} from '@ledgerhq/native-ui';
+import {palettes} from '../styles/palettes';
+import {lightTheme, darkTheme} from '../styles/colors';
+import {space, Theme} from '../styles/theme';
 
 const themes = {
   light: lightTheme,
@@ -12,7 +12,7 @@ const themes = {
 
 type Props = {
   children: React.ReactNode;
-  selectedPalette: "light" | "dark";
+  selectedPalette: 'light' | 'dark';
 };
 
 export default function StyleProvider({
@@ -36,4 +36,4 @@ export default function StyleProvider({
   }, [selectedPalette]);
 
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
-} 
+}
