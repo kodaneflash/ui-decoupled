@@ -132,6 +132,9 @@ const PortfolioScreen = () => {
     extrapolateRight: "clamp",
   });
 
+  // Tab positioning constants - adjust these for fine-tuning
+  const TAB_VERTICAL_OFFSET = 4; // Positive moves down, negative moves up
+
   return (
     <SafeAreaView style={{ flex: 1 }} edges={["left", "right"]}>
       <Box flex={1} backgroundColor="background.main">
@@ -151,6 +154,7 @@ const PortfolioScreen = () => {
             px={6}
             zIndex={10}
             backgroundColor="transparent"
+            style={{ transform: [{ translateY: TAB_VERTICAL_OFFSET }] }}
           >
             <TabButton 
               label="Crypto" 
