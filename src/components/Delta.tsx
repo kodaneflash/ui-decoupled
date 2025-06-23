@@ -2,6 +2,7 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 import { Text, IconsLegacy } from "@ledgerhq/native-ui";
 import { useTheme } from "styled-components/native";
+import CurrencyUnitValue from "./CurrencyUnitValue";
 
 interface ValueChange {
   value: number;
@@ -22,6 +23,7 @@ type Props = {
   fallbackToPercentPlaceholder?: boolean;
   isArrowDisplayed?: boolean;
   unit?: Unit;
+  range?: string;
 };
 
 const Delta: React.FC<Props> = ({
@@ -31,6 +33,7 @@ const Delta: React.FC<Props> = ({
   fallbackToPercentPlaceholder = false,
   isArrowDisplayed = true,
   unit,
+  range,
 }) => {
   const { colors } = useTheme();
 
@@ -46,9 +49,9 @@ const Delta: React.FC<Props> = ({
 
   const { percentage, value } = valueChange;
   
-  // Convert percentage to display format (multiply by 100 if needed)
-  const displayPercentage = percentage * 100;
-  const roundedDelta = parseFloat(displayPercentage.toFixed(0));
+  // Handle the delta calculation - percentage is already in decimal format (0-1)
+  const delta = percent ? percentage * 100 : value;
+  const roundedDelta = parseFloat(delta.toFixed(percent ? 0 : 2));
 
   if (roundedDelta === 0 && !show0Delta) {
     return percentPlaceholder;
@@ -59,8 +62,24 @@ const Delta: React.FC<Props> = ({
     roundedDelta > 0
       ? ["success.c50", IconsLegacy.ArrowEvolutionUpMedium, "+"] // Official success green
       : roundedDelta < 0
-        ? ["error.c50", IconsLegacy.ArrowEvolutionDownMedium, ""] // Official error red
+        ? ["error.c50", IconsLegacy.ArrowEvolutionDownMedium, ""] // Official error red, no explicit sign
         : ["neutral.c70", null, ""];
+
+  if (
+    percent &&
+    ((percentage === 0 && !show0Delta) ||
+      percentage === null ||
+      percentage === undefined)
+  ) {
+    if (fallbackToPercentPlaceholder) return percentPlaceholder;
+    if (percent && isArrowDisplayed && ArrowIcon) return <ArrowIcon size={20} color={color} />;
+    return null;
+  }
+
+  if (Number.isNaN(delta)) {
+    if (percent && fallbackToPercentPlaceholder) return percentPlaceholder;
+    return null;
+  }
 
   const absDelta = Math.abs(roundedDelta);
   const absValue = Math.abs(value);
@@ -76,8 +95,17 @@ const Delta: React.FC<Props> = ({
           color={color}
           fontWeight="semiBold"
         >
-          {percent ? `${absDelta.toFixed(0)}%` : null}
-          {unit && value !== 0 ? ` (${sign}$${absValue.toLocaleString()})` : null}
+          {unit && absValue !== 0 ? (
+            <CurrencyUnitValue
+              before={`${sign}`}
+              after=""
+              unit={unit}
+              value={absValue}
+            />
+          ) : percent ? (
+            `${absDelta.toFixed(0)}%`
+          ) : null}
+          {range && ` (${range})`}
         </Text>
       </View>
     </View>

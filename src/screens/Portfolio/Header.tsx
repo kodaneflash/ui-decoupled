@@ -2,6 +2,7 @@ import React from "react";
 import { Flex, Text, IconsLegacy } from "@ledgerhq/native-ui";
 import { useTheme } from "styled-components/native";
 import Notifications from "../../icons/Notifications";
+import DiscreetModeButton from "../../components/DiscreetModeButton";
 
 interface PortfolioHeaderProps {
   hidePortfolio?: boolean;

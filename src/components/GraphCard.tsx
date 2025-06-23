@@ -3,11 +3,10 @@ import { Flex, Text, GraphTabs } from "@ledgerhq/native-ui";
 import styled, { useTheme } from "styled-components/native";
 import Animated, { Extrapolation, interpolate, useAnimatedStyle } from "react-native-reanimated";
 import { Dimensions } from "react-native";
-import Svg, { Path, Defs } from "react-native-svg";
 import { BigNumber } from "bignumber.js";
 import Delta from "./Delta";
 import CurrencyUnitValue from "./CurrencyUnitValue";
-import DefGraph from "./Graph/DefGrad";
+import Graph from "./Graph";
 import { usePriceContext } from "../context/PriceContext";
 
 import {
@@ -15,6 +14,7 @@ import {
   MOCK_CURRENCY_UNIT,
   GRAPH_TIME_RANGES,
   CRYPTO_ASSETS,
+  generatePortfolioData,
 } from "../constants/portfolioData";
 
 const { width } = Dimensions.get("window");
@@ -70,67 +70,6 @@ const SmallPlaceholder = styled(Placeholder).attrs({
   borderRadius: "2px",
 })``;
 
-// Enhanced Graph component with proper SVG and gradient
-const Graph = ({
-  height,
-  width,
-  color,
-  data,
-  fill,
-  isInteractive,
-  onItemHover,
-  mapValue,
-  testID,
-}: {
-  height: number;
-  width: number;
-  color: string;
-  data: Item[];
-  fill?: string;
-  isInteractive?: boolean;
-  onItemHover?: (item?: Item | null) => void;
-  mapValue?: (item: Item) => number;
-  testID?: string;
-}) => {
-  // Generate a simple upward trending path for the static chart
-  const generatePath = () => {
-    const points = [
-      [0, height * 0.8],
-      [width * 0.2, height * 0.7],
-      [width * 0.4, height * 0.9],
-      [width * 0.6, height * 0.4],
-      [width * 0.8, height * 0.3],
-      [width, height * 0.5],
-    ];
-
-    let path = `M ${points[0][0]} ${points[0][1]}`;
-    for (let i = 1; i < points.length; i++) {
-      path += ` L ${points[i][0]} ${points[i][1]}`;
-    }
-    return path;
-  };
-
-  const generateAreaPath = () => {
-    const linePath = generatePath();
-    return `${linePath} L ${width} ${height} L 0 ${height} Z`;
-  };
-
-  return (
-    <Svg
-      testID={testID}
-      height={height}
-      width={width}
-      viewBox={`0 0 ${width} ${height}`}
-      preserveAspectRatio="none">
-      <Defs>
-        <DefGraph height={height} color={color} />
-      </Defs>
-      <Path d={generateAreaPath()} fill={fill || "url(#grad)"} />
-      <Path d={generatePath()} stroke={color} strokeWidth={2} fill="none" />
-    </Svg>
-  );
-};
-
 function GraphCard({
   areAccountsEmpty,
   portfolio: portfolioProp,
@@ -140,6 +79,10 @@ function GraphCard({
   onTouchEndGraph,
 }: Props) {
   const { calculateFiatValue, get24hChange, loading } = usePriceContext();
+
+  // State for selected time range
+  const [selectedRange, setSelectedRange] = useState('1w');
+  const [timeRangeItems, setTimeRangeItems] = useState(GRAPH_TIME_RANGES);
 
   // Calculate dynamic portfolio values
   const calculatePortfolioBalance = (): BigNumber => {
@@ -200,19 +143,22 @@ function GraphCard({
     };
   };
 
-  // Use dynamic calculations or fallback to static data
+  // Generate portfolio data based on selected time range
+  const portfolioData = generatePortfolioData(selectedRange);
+  
+  // Use dynamic calculations for current balance
   const dynamicPortfolioBalance = calculatePortfolioBalance();
   const dynamicCountervalueChange = calculatePortfolioChange();
 
   const portfolio: Portfolio = portfolioProp || {
-    ...PORTFOLIO_DATA,
-    range: '1w',
-    balanceAvailable: true,
-    balanceHistory: PORTFOLIO_DATA.balanceHistory.map((item, index, array) => ({
+    ...portfolioData,
+    // SMOOTH INTEGRATION: Use historical data as-is, let hover handle current balance display
+    balanceHistory: portfolioData.balanceHistory.map((item: any) => ({
       date: item.date,
-      value: index === array.length - 1 ? dynamicPortfolioBalance.toNumber() : item.value || 0,
+      value: item.value || 0,
     })),
-    countervalueChange: dynamicCountervalueChange,
+    // Use dynamic change calculation for more accurate delta
+    countervalueChange: loading ? portfolioData.countervalueChange : dynamicCountervalueChange,
   };
 
   const counterValueCurrency: Currency = counterValueCurrencyProp || {
@@ -220,22 +166,34 @@ function GraphCard({
   };
 
   const {countervalueChange, balanceHistory} = portfolio;
-  const item = balanceHistory[balanceHistory.length - 1];
+  
+  // DEFENSIVE: Handle empty balanceHistory like Ledger Live
+  const item = balanceHistory && balanceHistory.length > 0 
+    ? balanceHistory[balanceHistory.length - 1] 
+    : { date: new Date(), value: 0 };
+    
   const unit = counterValueCurrency.units[0];
 
   const [hoveredItem, setItemHover] = useState<Item | null>();
 
-  // Static time range data
-  const timeRangeItems = GRAPH_TIME_RANGES;
-  const activeRangeIndex = timeRangeItems.findIndex(r => r.active);
+  const activeRangeIndex = timeRangeItems.findIndex(r => r.key === selectedRange);
   const rangesLabels = timeRangeItems.map(({label}) => label);
 
   const {colors} = useTheme();
 
   const updateTimeRange = useCallback(
     (index: number) => {
-      // Static implementation - no actual time range change
-      console.log('Time range clicked:', timeRangeItems[index].label);
+      const newRange = timeRangeItems[index];
+      console.log('Time range clicked:', newRange.label, newRange.key);
+      
+      // Update active state
+      const updatedRanges = timeRangeItems.map((item, i) => ({
+        ...item,
+        active: i === index,
+      }));
+      
+      setTimeRangeItems(updatedRanges);
+      setSelectedRange(newRange.key);
     },
     [timeRangeItems],
   );
@@ -267,6 +225,26 @@ function GraphCard({
     setItemHover(item);
   };
 
+  // SMOOTH INTEGRATION: Show dynamic balance when not hovering, historical when hovering
+  const getDisplayValue = (): BigNumber => {
+    if (hoveredItem && typeof hoveredItem.value === 'number') {
+      // When hovering, show the historical data point
+      return new BigNumber(hoveredItem.value);
+    }
+    
+    // When not hovering, show current dynamic balance (live prices)
+    if (!loading && !areAccountsEmpty) {
+      return dynamicPortfolioBalance;
+    }
+    
+    // Fallback to historical data if dynamic calculation unavailable
+    if (item && typeof item.value === 'number') {
+      return new BigNumber(item.value);
+    }
+    
+    return new BigNumber(0);
+  };
+
   return (
     <Flex>
       <Flex
@@ -293,7 +271,7 @@ function GraphCard({
             ) : (
               <>
                 <Flex px={6}>
-                  {!balanceHistory ? (
+                  {!balanceHistory || balanceHistory.length === 0 ? (
                     <BigPlaceholder mt="8px" />
                   ) : (
                     <Text
@@ -306,14 +284,14 @@ function GraphCard({
                       testID={'graphCard-balance'}>
                       <CurrencyUnitValue
                         unit={unit}
-                        value={hoveredItem ? new BigNumber(hoveredItem.value) : new BigNumber(item.value)}
+                        value={getDisplayValue()}
                       />
                     </Text>
                   )}
                   {/* TransactionsPendingConfirmationWarning omitted for static replica */}
                 </Flex>
                 <Flex flexDirection={'row'}>
-                  {!balanceHistory ? (
+                  {!balanceHistory || balanceHistory.length === 0 ? (
                     <>
                       <SmallPlaceholder mt="12px" />
                     </>

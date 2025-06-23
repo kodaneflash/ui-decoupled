@@ -588,3 +588,98 @@ Your 1 BTC should now display something like `$101,168.00` instead of `$151.8k` 
 
 ---
 
+_**User**_
+
+what component and  snippet handles the % gain under  the fiatbalance in assets
+
+---
+
+_**Assistant**_
+
+
+
+---
+
+The percentage gain/loss (like the red "1%" with down arrow in your screenshot) is handled by the **`Delta` component** which is called from **`AssetRowLayout.tsx`**.
+
+Let me show you the exact snippet:
+
+---
+
+Read file: src/components/AssetRowLayout.tsx
+
+---
+
+
+
+---
+
+The percentage gain/loss under the fiat balance is handled by the **`Delta` component**, which is called from **`AssetRowLayout.tsx`**.
+
+Here's the exact snippet in **`AssetRowLayout.tsx`** (lines 156-162):
+
+```typescript
+{!hideDelta && countervalueChange && (
+  <Delta
+    percent
+    show0Delta={balance.toNumber() !== 0}
+    fallbackToPercentPlaceholder
+    valueChange={countervalueChange}
+  />
+)}
+```
+
+This `Delta` component receives the `countervalueChange` prop which contains:
+- `percentage`: The 24h percentage change (e.g., -0.01 for -1%)
+- `value`: The dollar amount change
+
+The `countervalueChange` data comes from the dynamic calculation in `AssetRowLayout.tsx` at **lines 67-83**:
+
+```typescript
+const getDynamicCountervalueChange = (): ValueChange | undefined => {
+  const supportedCryptoId = getSupportedCryptoId(currency.id);
+  
+  if (!supportedCryptoId || loading) {
+    return staticCountervalueChange;
+  }
+
+  try {
+    const change24hPercent = get24hChange(supportedCryptoId); // Gets live 24h change from CoinGecko
+    const magnitude = currency.units[0]?.magnitude || 8;
+    const currentFiatValue = calculateFiatValue(supportedCryptoId, balance, magnitude);
+    
+    // Calculate the dollar change: current_value * (change_percent / 100)
+    const dollarChange = currentFiatValue.multipliedBy(change24hPercent / 100);
+    
+    return {
+      value: dollarChange.toNumber(),
+      percentage: change24hPercent / 100, // Delta expects decimal format
+    };
+  } catch (error) {
+    console.error('[AssetRowLayout] Error calculating dynamic change:', error);
+    return staticCountervalueChange;
+  }
+};
+```
+
+The **`Delta` component** itself (in `src/components/Delta.tsx`) handles:
+- **Color**: Red for negative (`error.c50`), green for positive (`success.c50`)
+- **Arrow icons**: Down arrow for negative, up arrow for positive
+- **Formatting**: Converts decimal to percentage (multiplies by 100)
+
+So in your screenshot, the red "1%" with down arrow is rendered by the `Delta` component using live 24h price change data from CoinGecko API.
+
+---
+
+_**User**_
+
+analye how in the real ledger  components @Delta.tsx @AssetRowLayout.tsx @CounterValue.tsx @PortfolioAssets.tsx @GraphCard.tsx   if a user for example selected the timeframe 'all or 1y) analyze how it determines that users entire % gain, i dont believe it calculates the daily  specific cryptos % it calculates their balances month by month over the selected timeframe, explain this  in a new file deltadynamic.md  so  i can use it for reference of implementing this  in my components , what are the   data structures or props  for historical balance nd how would that be replicated for my static @portfolioData.ts 
+
+---
+
+_**Assistant**_
+
+
+
+---
+
