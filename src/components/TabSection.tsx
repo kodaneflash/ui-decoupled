@@ -45,7 +45,7 @@ const TabSection: React.FC<TabSectionProps> = ({
   return (
     <>
       {/* TabSelector with exact Ledger Live specifications */}
-      <Box height={40} mb={16}>
+      <Box height={40} mb={24}>
         <TabSelector
           labels={tabLabels}
           onToggle={handleToggle}

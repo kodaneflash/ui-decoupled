@@ -28,6 +28,9 @@ end
 target 'UIReplicationLedger' do
   config = use_native_modules!
 
+  # Disable New Architecture to avoid pnpm symlink issues
+  ENV['RCT_NEW_ARCH_ENABLED'] = '0'
+
   use_react_native!(
     :path => config[:reactNativePath],
     # Enables Flipper.
@@ -51,5 +54,29 @@ target 'UIReplicationLedger' do
       config[:reactNativePath],
       :mac_catalyst_enabled => false
     )
+    
+    # Fix for Xcode 15.3+ non-modular include error
+    installer.pods_project.targets.each do |target|
+      if target.respond_to?(:product_type) and target.product_type == "com.apple.product-type.bundle"
+        target.build_configurations.each do |config|
+          config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
+        end
+      end
+      
+      target.build_configurations.each do |config|
+        # Disable the problematic non-modular include warning for React Native pods
+        if target.name.start_with?('React') || target.name.start_with?('RCT') || target.name == 'Flipper'
+          config.build_settings["HEADER_SEARCH_PATHS"] ||= "$(inherited) "
+          config.build_settings["HEADER_SEARCH_PATHS"] << "\"$(PODS_ROOT)/Headers/Private\" "
+          config.build_settings["HEADER_SEARCH_PATHS"] << "\"$(PODS_ROOT)/Headers/Private/React-Core\" "
+          config.build_settings['CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER'] = 'NO'
+          config.build_settings['WARNING_CFLAGS'] = '-Wno-non-modular-include-in-framework-module'
+        end
+        
+        # Disable other problematic warnings
+        config.build_settings['GCC_WARN_INHIBIT_ALL_WARNINGS'] = 'YES'
+        config.build_settings['CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS'] = 'NO'
+      end
+    end
   end
 end

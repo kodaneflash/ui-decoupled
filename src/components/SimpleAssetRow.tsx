@@ -44,19 +44,18 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 24,
-    paddingVertical: 16,
-    height: 72,
-    borderBottomWidth: 1,
-    borderBottomColor: '#404040',
+    paddingTop: 24,        // pt={6} = 24px
+    paddingBottom: 24,     // pb={6} = 24px
+    // Remove fixed height - let content determine size
+    // Remove horizontal padding - handled by parent container
   },
   iconContainer: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: 32,             // Official Ledger Live icon size
+    height: 32,
+    borderRadius: 16,
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 16,
+    marginRight: 16,       // ml={4} = 16px
   },
   iconText: {
     fontSize: 20,

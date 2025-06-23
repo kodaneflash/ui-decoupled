@@ -6,19 +6,21 @@
  */
 
 import React from 'react';
-import {SafeAreaView, StatusBar} from 'react-native';
+import {StatusBar} from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {NavigationContainer} from '@react-navigation/native';
 import StyleProvider from './src/components/StyleProvider';
-import PortfolioScreen from './src/screens/Portfolio';
+import MainNavigator from './src/navigation/MainNavigator';
 
 function App(): React.JSX.Element {
   return (
     <SafeAreaProvider>
       <StyleProvider selectedPalette="dark">
         <StatusBar barStyle="light-content" backgroundColor="#131214" />
-        <SafeAreaView style={{flex: 1, backgroundColor: '#131214'}}>
-          <PortfolioScreen />
-        </SafeAreaView>
+        <NavigationContainer>
+          {/* Official React Navigation structure like Ledger Live Mobile */}
+          <MainNavigator />
+        </NavigationContainer>
       </StyleProvider>
     </SafeAreaProvider>
   );

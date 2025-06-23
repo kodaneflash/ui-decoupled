@@ -1,73 +1,109 @@
 import React from 'react';
 import { Animated } from 'react-native';
-import { Flex, Text, Box } from '@ledgerhq/native-ui';
+import { Flex, Text, Box, IconsLegacy } from '@ledgerhq/native-ui';
 import styled from 'styled-components/native';
-import CreditCard from '@ledgerhq/icons-ui/native/CreditCard';
-import Settings from '@ledgerhq/icons-ui/native/Settings';
-import Wallet from '@ledgerhq/icons-ui/native/Wallet';
-import BellNotification from '@ledgerhq/icons-ui/native/BellNotification';
+import Notifications from '../../icons/Notifications';
 import GraphCard from '../../components/GraphCard';
 import WalletTabBackgroundGradient from '../../components/WalletTabBackgroundGradient';
 import PortfolioAssetsContainer from '../../components/PortfolioAssetsContainer';
+import { useTheme } from 'styled-components/native';
 
-// Tab button component with proper React Native CSS
-const TabButton = styled(Flex).attrs<{ isActive?: boolean }>(({ isActive }) => ({
-  paddingX: 4,
-  paddingY: 2,
-  borderRadius: 6,
-  alignItems: 'center',
-  justifyContent: 'center',
-  mr: 3,
-  backgroundColor: isActive ? '#7C3AED' : '#2A2A2A',
-}))<{ isActive?: boolean }>``;
+// Official Ledger Live Tab Button - Exact replica
+const StyledTouchableOpacity = styled.TouchableOpacity`
+  height: 32px;
+  justify-content: center;
+  margin-right: ${p => p.theme.space[4]}px;
+`;
+
+interface TabProps {
+  label: string;
+  isActive: boolean;
+  onPress: () => void;
+}
+
+const Tab = ({ label, isActive, onPress }: TabProps) => {
+  return (
+    <StyledTouchableOpacity onPress={onPress}>
+      <Box 
+        borderRadius={2} 
+        px={4}
+        backgroundColor={isActive ? '#897DD7' : '#504A62'}
+        position="absolute"
+        top={0}
+        height="100%"
+        width="100%"
+      />
+      <Box borderRadius={2} px={4}>
+        <Text 
+          fontWeight="semiBold" 
+          variant="body" 
+          fontSize="14px"
+          color="neutral.c100"
+        >
+          {label}
+        </Text>
+      </Box>
+    </StyledTouchableOpacity>
+  );
+};
 
 const PortfolioScreen = () => {
   // Scroll tracking for gradient animation (Real Ledger Live behavior)
   const scrollY = new Animated.Value(0);
   const headerHeight = 200;
+  const { colors } = useTheme();
 
   return (
     <Flex flex={1} backgroundColor="background.main">
       {/* Background Gradient with scroll-responsive animation */}
       <WalletTabBackgroundGradient scrollY={scrollY} headerHeight={headerHeight} />
       
-      {/* Header */}
+      {/* Header - Exact replica of Ledger Live Mobile Portfolio Header */}
       <Flex 
         flexDirection="row" 
         alignItems="center" 
         justifyContent="space-between" 
-        px={6} 
         py={3}
-        mt={2}
+        px={6}
       >
-        <Text variant="h4" fontWeight="semiBold" color="neutral.c100">
-          Wallet
-        </Text>
-        <Flex flexDirection="row" alignItems="center">
-          <Flex mr={6}>
-            <CreditCard size="M" color="neutral.c100" />
+        {/* Left Section: Title */}
+        <Flex flexDirection="row" alignItems="center" mr={3} flex={1}>
+          <Text
+            variant="h4"
+            fontWeight="semiBold"
+            color="neutral.c100"
+            numberOfLines={2}
+          >
+            Wallet
+          </Text>
+        </Flex>
+        
+        {/* Right Section: Four Action Icons */}
+        <Flex flexDirection="row">
+          <Flex mr={7}>
+            <IconsLegacy.CardMedium size={24} color="neutral.c100" />
           </Flex>
-          <Flex mr={6}>
-            <Wallet size="M" color="neutral.c100" />
+          <Flex mr={7}>
+            <IconsLegacy.WalletConnectMedium size={24} color="neutral.c100" />
           </Flex>
-          <Flex mr={6}>
-            <BellNotification size="M" color="neutral.c100" />
+          <Flex mr={7}>
+            <Notifications 
+              size={24} 
+              color={colors.neutral.c100} 
+              dotColor={colors.error.c40}
+              isOn={false} 
+            />
           </Flex>
-          <Settings size="M" color="neutral.c100" />
+          <IconsLegacy.SettingsMedium size={24} color="neutral.c100" />
         </Flex>
       </Flex>
 
-      {/* Tabs */}
-      <Flex flexDirection="row" px={6} py={4}>
-        <TabButton isActive>
-          <Text color="white" fontWeight="semiBold">Crypto</Text>
-        </TabButton>
-        <TabButton>
-          <Text color="neutral.c70" fontWeight="semiBold">NFTs</Text>
-        </TabButton>
-        <TabButton>
-          <Text color="neutral.c70" fontWeight="semiBold">Market</Text>
-        </TabButton>
+      {/* Tabs - Exact replica of Ledger Live Mobile WalletTabNavigatorTabBar */}
+      <Flex px={6} py={2} justifyContent="flex-end">
+        <Flex flexDirection="row">
+          <Tab label="Crypto" isActive={true} onPress={() => {}} />
+          <Tab label="Market" isActive={false} onPress={() => {}} />
+        </Flex>
       </Flex>
 
       <Animated.ScrollView 

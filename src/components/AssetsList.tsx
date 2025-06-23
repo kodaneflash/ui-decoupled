@@ -49,19 +49,18 @@ const AssetRow: React.FC<AssetRowProps> = ({ asset }) => {
       flexDirection="row"
       alignItems="center"
       justifyContent="space-between"
-      py={3}
-      height={72}
+      pt={6}
+      pb={6}
     >
       {/* Currency Icon */}
       <Flex flexDirection="row" alignItems="center" flex={1}>
         <Box
-          width={40}
-          height={40}
-          borderRadius={20}
+          width={32}
+          height={32}
+          borderRadius={16}
           backgroundColor={asset.color}
           alignItems="center"
           justifyContent="center"
-          mr={3}
         >
           <Text color="white" fontSize={18} fontWeight="bold">
             {asset.symbol}
@@ -69,7 +68,7 @@ const AssetRow: React.FC<AssetRowProps> = ({ asset }) => {
         </Box>
         
         {/* Asset Info */}
-        <Flex flex={1}>
+        <Flex flex={1} ml={4}>
           <Text color="neutral.c100" variant="large" fontWeight="semiBold">
             {asset.name}
           </Text>

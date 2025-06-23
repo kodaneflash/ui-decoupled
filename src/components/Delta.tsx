@@ -1,7 +1,6 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import { Text } from "@ledgerhq/native-ui";
-import { ArrowEvolutionUpMedium, ArrowEvolutionDownMedium } from "@ledgerhq/icons-ui/nativeLegacy";
+import { Text, IconsLegacy } from "@ledgerhq/native-ui";
 import { useTheme } from "styled-components/native";
 
 interface ValueChange {
@@ -58,9 +57,9 @@ const Delta: React.FC<Props> = ({
   // Use EXACT Ledger Live colors and arrows (matching official implementation)
   const [color, ArrowIcon, sign] =
     roundedDelta > 0
-      ? ["success.c50", ArrowEvolutionUpMedium, "+"] // Official success green
+      ? ["success.c50", IconsLegacy.ArrowEvolutionUpMedium, "+"] // Official success green
       : roundedDelta < 0
-        ? ["error.c50", ArrowEvolutionDownMedium, ""] // Official error red
+        ? ["error.c50", IconsLegacy.ArrowEvolutionDownMedium, ""] // Official error red
         : ["neutral.c70", null, ""];
 
   const absDelta = Math.abs(roundedDelta);

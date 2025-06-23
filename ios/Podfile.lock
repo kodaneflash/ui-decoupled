@@ -15,6 +15,12 @@ PODS:
     - hermes-engine/Pre-built (= 0.73.4)
   - hermes-engine/Pre-built (0.73.4)
   - libevent (2.1.12)
+  - lottie-ios (4.5.0)
+  - lottie-react-native (7.2.2):
+    - glog
+    - lottie-ios (= 4.5.0)
+    - RCT-Folly (= 2022.05.16.00)
+    - React-Core
   - RCT-Folly (2022.05.16.00):
     - boost
     - DoubleConversion
@@ -888,6 +894,8 @@ PODS:
     - React-debug
   - react-native-safe-area-context (4.14.1):
     - React-Core
+  - react-native-splash-screen (3.2.0):
+    - React
   - React-nativeconfig (0.73.4)
   - React-NativeModulesApple (0.73.4):
     - glog
@@ -1098,6 +1106,7 @@ DEPENDENCIES:
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - hermes-engine (from `../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
   - libevent (~> 2.1.12)
+  - lottie-react-native (from `../node_modules/lottie-react-native`)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCT-Folly/Fabric (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
@@ -1122,6 +1131,7 @@ DEPENDENCIES:
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - React-Mapbuffer (from `../node_modules/react-native/ReactCommon`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
+  - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
   - React-nativeconfig (from `../node_modules/react-native/ReactCommon`)
   - React-NativeModulesApple (from `../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
@@ -1152,6 +1162,7 @@ SPEC REPOS:
   trunk:
     - fmt
     - libevent
+    - lottie-ios
     - SocketRocket
 
 EXTERNAL SOURCES:
@@ -1168,6 +1179,8 @@ EXTERNAL SOURCES:
   hermes-engine:
     :podspec: "../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec"
     :tag: hermes-2023-11-17-RNv0.73.0-21043a3fc062be445e56a2c10ecd8be028dd9cc5
+  lottie-react-native:
+    :path: "../node_modules/lottie-react-native"
   RCT-Folly:
     :podspec: "../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec"
   RCTRequired:
@@ -1212,6 +1225,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
+  react-native-splash-screen:
+    :path: "../node_modules/react-native-splash-screen"
   React-nativeconfig:
     :path: "../node_modules/react-native/ReactCommon"
   React-NativeModulesApple:
@@ -1272,6 +1287,8 @@ SPEC CHECKSUMS:
   glog: c5d68082e772fa1c511173d6b30a9de2c05a69a2
   hermes-engine: b2669ce35fc4ac14f523b307aff8896799829fe2
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
+  lottie-ios: a881093fab623c467d3bce374367755c272bdd59
+  lottie-react-native: 260a3abc723340a0586cad663583f812b72ed7c6
   RCT-Folly: cd21f1661364f975ae76b3308167ad66b09f53f5
   RCTRequired: ab7f915c15569f04a49669e573e6e319a53f9faa
   RCTTypeSafety: 63b97ced7b766865057e7154db0e81ce4ee6cf1e
@@ -1294,6 +1311,7 @@ SPEC CHECKSUMS:
   React-logger: 5295f5eac9d7624fe9a33a473442d8f4c1074197
   React-Mapbuffer: f7ba4d5459e546d741791a55664388e97b31df7c
   react-native-safe-area-context: 758e894ca5a9bd1868d2a9cfbca7326a2b6bf9dc
+  react-native-splash-screen: a43276f9cf4b2e65d7ce30efe372ffc528064293
   React-nativeconfig: d7af5bae6da70fa15ce44f045621cf99ed24087c
   React-NativeModulesApple: 7a561c2792b0a2b74aff6c58d2554dcf824372aa
   React-perflogger: 8a1e1af5733004bdd91258dcefbde21e0d1faccd
@@ -1321,6 +1339,6 @@ SPEC CHECKSUMS:
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   Yoga: 1b901a6d6eeba4e8a2e8f308f708691cdb5db312
 
-PODFILE CHECKSUM: da7890d25f0643e8deab5aa3124f1f5ef2c82170
+PODFILE CHECKSUM: 507a7d4aa4b13fc3471393aeb2a9f4f951b764c0
 
 COCOAPODS: 1.16.2

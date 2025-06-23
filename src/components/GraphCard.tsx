@@ -207,7 +207,7 @@ function GraphCard({
         justifyContent={'center'}
         alignItems={'center'}
         marginTop={40}
-        marginBottom={40}>
+        marginBottom={80}>
         <Animated.View style={[BalanceOpacity]}>
           <Flex alignItems="center">
             {areAccountsEmpty ? (

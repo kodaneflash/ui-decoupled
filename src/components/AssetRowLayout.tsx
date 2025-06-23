@@ -67,7 +67,7 @@ const AssetRowLayout = ({
         <Flex
           width="1px"
           height={space[4]}
-          marginLeft="21px"
+          marginLeft="16px"
           backgroundColor={colors.neutral.c40}
           mb={2}
         />
@@ -77,9 +77,8 @@ const AssetRowLayout = ({
         pt={topLink ? 0 : 6} 
         pb={bottomLink ? 0 : 6} 
         alignItems="center"
-        minHeight={48}
       >
-        <ParentCurrencyIcon currency={currency} size={40} />
+        <ParentCurrencyIcon currency={currency} size={32} />
         <Flex flex={1} justifyContent="center" ml={4}>
           <Flex mb={1} flexDirection="row" justifyContent="space-between">
             <Flex flexGrow={1} flexShrink={1} flexDirection="row" alignItems="center">
@@ -132,7 +131,7 @@ const AssetRowLayout = ({
         <Flex
           width="1px"
           height={space[4]}
-          marginLeft="21px"
+          marginLeft="16px"
           backgroundColor={colors.neutral.c40}
           mt={2}
         />

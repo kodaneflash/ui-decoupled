@@ -31,8 +31,9 @@ interface Props {
   limitNumberOfAssets?: number;
 }
 
-// Estimated height per item (matching Ledger Live's 150px estimation)
-const ESTIMATED_ITEM_HEIGHT = 72; // Asset row height + margins
+// Estimated height per item (official Ledger Live calculation)
+// Icon: 32px + Vertical padding: 48px (pt=6 + pb=6) = 80px total
+const ESTIMATED_ITEM_HEIGHT = 80;
 
 const AssetsListView: React.FC<Props> = ({
   onContentChange,
@@ -63,9 +64,8 @@ const AssetsListView: React.FC<Props> = ({
           key={asset.id}
           style={({ pressed }: { pressed: boolean }) => [
             { 
-              opacity: pressed ? 0.5 : 1.0, 
-              marginVertical: 12,
-              minHeight: 48, // Ensure minimum height for touch target
+              opacity: pressed ? 0.5 : 1.0,
+              // Remove marginVertical - let AssetRowLayout handle all spacing
             },
           ]}
           hitSlop={6}
@@ -104,7 +104,6 @@ const AssetsListView: React.FC<Props> = ({
       onLayout={handleLayout}
       style={{ 
         minHeight: totalHeight,
-        flex: 1,
       }}
     >
       <Flex>

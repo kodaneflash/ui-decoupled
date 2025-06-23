@@ -1,6 +1,6 @@
 import React from 'react';
 import {TouchableOpacity, StyleSheet} from 'react-native';
-import {EyeMedium, EyeNoneMedium} from '@ledgerhq/native-ui/assets/icons';
+import { IconsLegacy } from '@ledgerhq/native-ui';
 
 interface Props {
   size?: number;
@@ -14,9 +14,9 @@ const DiscreetModeButton = ({size = 24, discreetMode = true}: Props) => {
   return (
     <TouchableOpacity style={styles.root}>
       {discreetMode ? (
-        <EyeNoneMedium size={size} color="neutral.c100" />
+        <IconsLegacy.EyeNoneMedium size={size} color="neutral.c100" />
       ) : (
-        <EyeMedium size={size} color="neutral.c100" />
+        <IconsLegacy.EyeMedium size={size} color="neutral.c100" />
       )}
     </TouchableOpacity>
   );
