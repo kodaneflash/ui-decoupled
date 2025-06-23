@@ -98,6 +98,7 @@ function QuickActionCards() {
       justifyContent="center"
       alignItems="center"
       px={5}
+      style={{ position: 'relative', top: 10 }}
     >
         {QUICK_ACTIONS_DATA.map((action) => (
           <QuickActionCard

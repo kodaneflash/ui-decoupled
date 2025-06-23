@@ -293,7 +293,7 @@ function GraphCard({
           />
         </Flex>
           {/* Time Range Tabs with FIXED WIDTH - Matching Real Ledger Live */}
-          <Flex paddingTop={6} flexDirection="row" justifyContent="center" alignItems="center">
+          <Flex paddingTop={6} flexDirection="row" justifyContent="center" alignItems="center" style={{ position: 'relative', top: 18 }}>
             {rangesLabels.map((label, index) => (
               <Flex
                 key={label}
@@ -307,7 +307,7 @@ function GraphCard({
                 onTouchStart={() => updateTimeRange(index)}
               >
                 <Text
-                  fontSize={12}
+                  fontSize={11}
                   fontWeight="semiBold"
                   color={index === activeRangeIndex ? "neutral.c100" : "neutral.c70"}
                 >
