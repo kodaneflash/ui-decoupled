@@ -26,7 +26,7 @@ function PortfolioHeader({ hidePortfolio = false }: PortfolioHeaderProps) {
         >
           Wallet
         </Text>
-        {/* DiscreetModeButton would go here if not hidePortfolio */}
+        {!hidePortfolio && <DiscreetModeButton size={20} />}
       </Flex>
       <Flex flexDirection="row">
         <Flex mr={7}>

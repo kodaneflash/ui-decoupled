@@ -463,7 +463,494 @@ No results found
 
 ---
 
+```bash
+cd /Users/jamesarcher/UIReplicationLedger && find node_modules -name "*eye*" -type f 2>/dev/null | head -20
+```
 
+```
+node_modules/.pnpm/@react-navigation+core@6.4.17_react@18.2.0/node_modules/@reac
+t-navigation/core/lib/module
+/useKeyedChildListeners.js.map
+                            node_modules/.pnpm/@react-navigation+core@6.4.17_rea
+ct@18.2.0/node_modules/@react-navigation/core/lib/module
+/useKeyedChildListeners.js
+                            node_modules/.pnpm/@react-navigation+core@6.4.17_rea
+ct@18.2.0/node_modules/@react-navigation/core/lib/typesc
+ript/src/useKeyedChildListeners.d.ts
+                            node_modules/.pnpm/@react-navigation+core@6.4.17_rea
+ct@18.2.0/node_modules/@react-navigation/core/lib/typesc
+ript/src/useKeyedChildListeners.d.ts.map
+                            node_modules/.pnpm/@react-navigation+core@6.4.17_rea
+ct@18.2.0/node_modules/@react-navigation/core/lib/common
+js/useKeyedChildListeners.js.map
+                            node_modules/.pnpm/@react-navigation+core@6.4.17_rea
+ct@18.2.0/node_modules/@react-navigation/core/lib/common
+js/useKeyedChildListeners.js
+                            node_modules/.pnpm/@react-navigation+core@6.4.17_rea
+ct@18.2.0/node_modules/@react-navigation/core/src/useKey
+edChildListeners.tsx
+                            node_modules/.pnpm/@react-native+debugger-frontend@0
+.73.3/node_modules/@react-native/debugger-frontend/dist/
+third-party/front_end/Images/eye.svg
+                            node_modules/.pnpm/es-iterator-helpers@1.2.1/node_mo
+dules/es-iterator-helpers/test/Iterator.zipKeyed.js
+node_modules/.pnpm/es-abstract@1.24.0/node_modules/es-abstract/2025/Canonicalize
+KeyedCollectionKey.js
+node_modules/.pnpm/es-abstract@1.24.0/node_modules/es-abstract/2025/AddValueToKe
+yedGroup.js
+node_modules/.pnpm/es-abstract@1.24.0/node_modules/es-abstract/2024/AddValueToKe
+yedGroup.js
+
+```
+
+---
+
+
+
+---
+
+Read file: node_modules/@ledgerhq/native-ui/lib/index.js
+
+---
+
+
+
+---
+
+Read file: node_modules/@ledgerhq/native-ui/lib/assets/index.js
+
+---
+
+
+
+---
+
+```bash
+cd /Users/jamesarcher/UIReplicationLedger && find node_modules -name "*icons-ui*" -type d
+```
+
+```
+jamesarcher@Jamess-MacBook-Air UIReplicationLedger % cd /Users/jamesarcher/UIReplicationLedger && find node_
+modules -name "*icons-ui*" -type d                   cd /Users/jamesarcher/UIReplicationLedger && find node_
+modules -name "*icons-ui*" -type d
+node_modules/.pnpm/@ledgerhq+crypto-icons-ui@1.14.0_@types+react@18.3.23_react-native-svg@14.1.0_react-nat_e
+44ebef6cbe0fa16b6b5e23f84ade90b
+node_modules/.pnpm/@ledgerhq+crypto-icons-ui@1.14.0_@types+react@18.3.23_react-native-svg@14.1.0_react-nat_e
+44ebef6cbe0fa16b6b5e23f84ade90b/node_modules/@ledgerhq/crypto-icons-ui
+node_modules/.pnpm/@ledgerhq+icons-ui@0.10.0_@types+react@18.3.23_react-native-svg@14.1.0_react-native@0.7_3
+054ff35076673d281be9aff51f04786
+node_modules/.pnpm/@ledgerhq+icons-ui@0.10.0_@types+react@18.3.23_react-native-svg@14.1.0_react-native@0.7_3
+054ff35076673d281be9aff51f04786/node_modules/@ledgerhq/icons-ui
+jamesarcher@Jamess-MacBook-Air UIReplicationLedger %
+```
+
+---
+
+
+
+---
+
+<details>
+            <summary>Listed directory node_modules/.pnpm/@ledgerhq+icons-ui@0.10.0_@types+react@18.3.23_react-native-svg@14.1.0_react-native@0.7_3054ff35076673d281be9aff51f04786/node_modules/@ledgerhq/icons-ui • **8** results</summary>
+        
+| Name |
+|-------|
+| 📁 `nativeLegacy` |
+| 📁 `reactLegacy` |
+| 📁 `native` |
+| 📁 `react` |
+| 📄 `README.md` |
+| 📄 `package.json` |
+| 📄 `index.js` |
+| 📄 `LICENSE` |
+
+</details>
+
+---
+
+
+
+---
+
+<details>
+            <summary>Listed directory node_modules/.pnpm/@ledgerhq+icons-ui@0.10.0_@types+react@18.3.23_react-native-svg@14.1.0_react-native@0.7_3054ff35076673d281be9aff51f04786/node_modules/@ledgerhq/icons-ui/nativeLegacy • **100** results</summary>
+        
+| Name |
+|-------|
+| 📄 `ZeroCircledMedium.d.ts` |
+| 📄 `ZeroCircledMediMedium.d.ts` |
+| 📄 `ZeroCircledInitMedium.d.ts` |
+| 📄 `ZeroCircledFinaMedium.d.ts` |
+| 📄 `YoutubeMedium.d.ts` |
+| 📄 `WindowsMedium.d.ts` |
+| 📄 `WifiNoneMedium.d.ts` |
+| 📄 `WifiMedium.d.ts` |
+| 📄 `WhithdrawMedium.d.ts` |
+| 📄 `WarningSolidMedium.d.ts` |
+| 📄 `WarningMedium.d.ts` |
+| 📄 `WalletMedium.d.ts` |
+| 📄 `WalletConnectMedium.d.ts` |
+| 📄 `WalletAddMedium.d.ts` |
+| 📄 `VoteYeaMedium.d.ts` |
+| 📄 `VoteNoneMedium.d.ts` |
+| 📄 `VoteMedium.d.ts` |
+| 📄 `VideoMedium.d.ts` |
+| 📄 `UstensilsMedium.d.ts` |
+| 📄 `UserSecretMedium.d.ts` |
+| 📄 `UserMedium.d.ts` |
+| 📄 `UserCheckMedium.d.ts` |
+| 📄 `UsbMedium.d.ts` |
+| 📄 `UploadMedium.d.ts` |
+| 📄 `UnlockMedium.d.ts` |
+| 📄 `UnfreezeMedium.d.ts` |
+| 📄 `UndelegateMedium.d.ts` |
+| 📄 `TwoCircledMedium.d.ts` |
+| 📄 `TwoCircledMediMedium.d.ts` |
+| 📄 `TwoCircledInitMedium.d.ts` |
+| 📄 `TwoCircledFinaMedium.d.ts` |
+| 📄 `TwitterMedium.d.ts` |
+| 📄 `TwitchMedium.d.ts` |
+| 📄 `TrophyMedium.d.ts` |
+| 📄 `TrashMedium.d.ts` |
+| 📄 `TransferMedium.d.ts` |
+| 📄 `TradeMedium.d.ts` |
+| 📄 `TpMedium.d.ts` |
+| 📄 `ToolsMedium.d.ts` |
+| 📄 `ToolMedium.d.ts` |
+| 📄 `ToolboxMedium.d.ts` |
+| 📄 `TiktokMedium.d.ts` |
+| 📄 `TicketMedium.d.ts` |
+| 📄 `ThreeCircledMedium.d.ts` |
+| 📄 `ThreeCircledMediMedium.d.ts` |
+| 📄 `ThreeCircledInitMedium.d.ts` |
+| 📄 `ThreeCircledFinaMedium.d.ts` |
+| 📄 `TasksMedium.d.ts` |
+| 📄 `TachometerSlowMedium.d.ts` |
+| 📄 `TachometerMediumMedium.d.ts` |
+| 📄 `TachometerFastMedium.d.ts` |
+| 📄 `TachometerFasterMedium.d.ts` |
+| 📄 `SupportMedium.d.ts` |
+| 📄 `StyledSvg.d.ts` |
+| 📄 `StreamMedium.d.ts` |
+| 📄 `StorageMedium.d.ts` |
+| 📄 `StopwatchMedium.d.ts` |
+| 📄 `StopMedium.d.ts` |
+| 📄 `StaxMedium.d.ts` |
+| 📄 `StarSolidMedium.d.ts` |
+| 📄 `StarMedium.d.ts` |
+| 📄 `SortMedium.d.ts` |
+| 📄 `Sort2Medium.d.ts` |
+| 📄 `Sort2AltMedium.d.ts` |
+| 📄 `SixCircledMedium.d.ts` |
+| 📄 `SixCircledMediMedium.d.ts` |
+| 📄 `SixCircledInitMedium.d.ts` |
+| 📄 `SixCircledFinaMedium.d.ts` |
+| 📄 `ShoppingCartMedium.d.ts` |
+| 📄 `ShoppingBasketMedium.d.ts` |
+| 📄 `ShieldSecurityMedium.d.ts` |
+| 📄 `ShieldMedium.d.ts` |
+| 📄 `ShieldCheckMedium.d.ts` |
+| 📄 `ShareMedium.d.ts` |
+| 📄 `SevenCircledMedium.d.ts` |
+| 📄 `SevenCircledMediMedium.d.ts` |
+| 📄 `SevenCircledInitMedium.d.ts` |
+| 📄 `SevenCircledFinaMedium.d.ts` |
+| 📄 `SettingsMedium.d.ts` |
+| 📄 `ServerMedium.d.ts` |
+| 📄 `SearchMedium.d.ts` |
+| 📄 `SearchDollarMedium.d.ts` |
+| 📄 `RewardsMedium.d.ts` |
+| 📄 `ReverseMedium.d.ts` |
+| 📄 `RefreshMedium.d.ts` |
+| 📄 `RedelegateMedium.d.ts` |
+| 📄 `RedditMedium.d.ts` |
+| 📄 `QuitMedium.d.ts` |
+| 📄 `QrCodeMedium.d.ts` |
+| 📄 `ProjectDiagramMedium.d.ts` |
+| 📄 `PowerMedium.d.ts` |
+| 📄 `PortfolioMedium.d.ts` |
+| 📄 `PodcastMedium.d.ts` |
+| 📄 `PlusMedium.d.ts` |
+| 📄 `PlayMedium.d.ts` |
+| 📄 `PlanetMedium.d.ts` |
+| 📄 `PlaneMedium.d.ts` |
+| 📄 `PieChartMedium.d.ts` |
+| 📄 `PhotographMedium.d.ts` |
+| 📄 `PhoneMedium.d.ts` |
+
+</details>
+
+---
+
+
+
+---
+
+```bash
+cd /Users/jamesarcher/UIReplicationLedger && find node_modules/.pnpm/@ledgerhq+icons-ui@0.10.0_*/node_modules/@ledgerhq/icons-ui/nativeLegacy -name "*Eye*" -type f
+```
+
+```
+jamesarcher@Jamess-MacBook-Air UIReplicationLedger % cd /Users/jamesarcher/UIReplicationLedger && find node_
+modules/.pnpm/@ledgerhq+icons-ui@0.10.0_*/node_modules/@ledgerhq/icons-ui/nativeLegacy -name "*Eye*" -type f
+                                                     cd /Users/jamesarcher/UIReplicationLedger && find node_
+modules/.pnpm/@ledgerhq+icons-ui@0.10.0_*/node_modules/@ledgerhq/icons-ui/nativeLegacy -name "*Eye*" -type f
+ 
+node_modules/.pnpm/@ledgerhq+icons-ui@0.10.0_@types+react@18.3.23_react-native-svg@14.1.0_react-native@0.7_3
+054ff35076673d281be9aff51f04786/node_modules/@ledgerhq/icons-ui/nativeLegacy/EyeMedium.d.ts
+node_modules/.pnpm/@ledgerhq+icons-ui@0.10.0_@types+react@18.3.23_react-native-svg@14.1.0_react-native@0.7_3
+054ff35076673d281be9aff51f04786/node_modules/@ledgerhq/icons-ui/nativeLegacy/EyeMedium.js.map
+node_modules/.pnpm/@ledgerhq+icons-ui@0.10.0_@types+react@18.3.23_react-native-svg@14.1.0_react-native@0.7_3
+054ff35076673d281be9aff51f04786/node_modules/@ledgerhq/icons-ui/nativeLegacy/EyeMedium.js
+node_modules/.pnpm/@ledgerhq+icons-ui@0.10.0_@types+react@18.3.23_react-native-svg@14.1.0_react-native@0.7_3
+054ff35076673d281be9aff51f04786/node_modules/@ledgerhq/icons-ui/nativeLegacy/EyeNoneMedium.d.ts.map
+node_modules/.pnpm/@ledgerhq+icons-ui@0.10.0_@types+react@18.3.23_react-native-svg@14.1.0_react-native@0.7_3
+054ff35076673d281be9aff51f04786/node_modules/@ledgerhq/icons-ui/nativeLegacy/EyeNoneMedium.js.map
+node_modules/.pnpm/@ledgerhq+icons-ui@0.10.0_@types+react@18.3.23_react-native-svg@14.1.0_react-native@0.7_3
+054ff35076673d281be9aff51f04786/node_modules/@ledgerhq/icons-ui/nativeLegacy/EyeNoneMedium.d.ts
+node_modules/.pnpm/@ledgerhq+icons-ui@0.10.0_@types+react@18.3.23_react-native-svg@14.1.0_react-native@0.7_3
+054ff35076673d281be9aff51f04786/node_modules/@ledgerhq/icons-ui/nativeLegacy/EyeNoneMedium.js
+node_modules/.pnpm/@ledgerhq+icons-ui@0.10.0_@types+react@18.3.23_react-native-svg@14.1.0_react-native@0.7_3
+054ff35076673d281be9aff51f04786/node_modules/@ledgerhq/icons-ui/nativeLegacy/EyeMedium.d.ts.map
+jamesarcher@Jamess-MacBook-Air UIReplicationLedger %
+```
+
+---
+
+
+
+---
+
+Read file: node_modules/.pnpm/@ledgerhq+icons-ui@0.10.0_@types+react@18.3.23_react-native-svg@14.1.0_react-native@0.7_3054ff35076673d281be9aff51f04786/node_modules/@ledgerhq/icons-ui/nativeLegacy/EyeMedium.d.ts
+
+---
+
+
+
+---
+
+```bash
+cd /Users/jamesarcher/UIReplicationLedger && find node_modules/.pnpm/@ledgerhq+icons-ui@0.10.0_*/node_modules/@ledgerhq/icons-ui/native -name "*Eye*" -type f
+```
+
+```
+jamesarcher@Jamess-MacBook-Air UIReplicationLedger % cd /Users/jamesarcher/UIReplicationLedger && find node_
+modules/.pnpm/@ledgerhq+icons-ui@0.10.0_*/node_modulecd /Users/jamesarcher/UIReplicationLedger && find node_
+modules/.pnpm/@ledgerhq+icons-ui@0.10.0_*/node_modules/@ledgerhq/icons-ui/native -name "*Eye*" -type f
+node_modules/.pnpm/@ledgerhq+icons-ui@0.10.0_@types+react@18.3.23_react-native-svg@14.1.0_react-native@0.7_3
+054ff35076673d281be9aff51f04786/node_modules/@ledgerhq/icons-ui/native/Eye.js
+node_modules/.pnpm/@ledgerhq+icons-ui@0.10.0_@types+react@18.3.23_react-native-svg@14.1.0_react-native@0.7_3
+054ff35076673d281be9aff51f04786/node_modules/@ledgerhq/icons-ui/native/Eye.d.ts.map
+node_modules/.pnpm/@ledgerhq+icons-ui@0.10.0_@types+react@18.3.23_react-native-svg@14.1.0_react-native@0.7_3
+054ff35076673d281be9aff51f04786/node_modules/@ledgerhq/icons-ui/native/ListEye.js.map
+node_modules/.pnpm/@ledgerhq+icons-ui@0.10.0_@types+react@18.3.23_react-native-svg@14.1.0_react-native@0.7_3
+054ff35076673d281be9aff51f04786/node_modules/@ledgerhq/icons-ui/native/ListEye.d.ts.map
+node_modules/.pnpm/@ledgerhq+icons-ui@0.10.0_@types+react@18.3.23_react-native-svg@14.1.0_react-native@0.7_3
+054ff35076673d281be9aff51f04786/node_modules/@ledgerhq/icons-ui/native/Eye.js.map
+node_modules/.pnpm/@ledgerhq+icons-ui@0.10.0_@types+react@18.3.23_react-native-svg@14.1.0_react-native@0.7_3
+054ff35076673d281be9aff51f04786/node_modules/@ledgerhq/icons-ui/native/ListEye.d.ts
+node_modules/.pnpm/@ledgerhq+icons-ui@0.10.0_@types+react@18.3.23_react-native-svg@14.1.0_react-native@0.7_3
+054ff35076673d281be9aff51f04786/node_modules/@ledgerhq/icons-ui/native/EyeCross.js.map
+node_modules/.pnpm/@ledgerhq+icons-ui@0.10.0_@types+react@18.3.23_react-native-svg@14.1.0_react-native@0.7_3
+054ff35076673d281be9aff51f04786/node_modules/@ledgerhq/icons-ui/native/CoinsEye.js
+node_modules/.pnpm/@ledgerhq+icons-ui@0.10.0_@types+react@18.3.23_react-native-svg@14.1.0_react-native@0.7_3
+054ff35076673d281be9aff51f04786/node_modules/@ledgerhq/icons-ui/native/Eye.d.ts
+node_modules/.pnpm/@ledgerhq+icons-ui@0.10.0_@types+react@18.3.23_react-native-svg@14.1.0_react-native@0.7_3
+054ff35076673d281be9aff51f04786/node_modules/@ledgerhq/icons-ui/native/CoinsEye.js.map
+node_modules/.pnpm/@ledgerhq+icons-ui@0.10.0_@types+react@18.3.23_react-native-svg@14.1.0_react-native@0.7_3
+054ff35076673d281be9aff51f04786/node_modules/@ledgerhq/icons-ui/native/EyeCross.d.ts.map
+node_modules/.pnpm/@ledgerhq+icons-ui@0.10.0_@types+react@18.3.23_react-native-svg@14.1.0_react-native@0.7_3
+054ff35076673d281be9aff51f04786/node_modules/@ledgerhq/icons-ui/native/CoinsEye.d.ts.map
+node_modules/.pnpm/@ledgerhq+icons-ui@0.10.0_@types+react@18.3.23_react-native-svg@14.1.0_react-native@0.7_3
+054ff35076673d281be9aff51f04786/node_modules/@ledgerhq/icons-ui/native/EyeCross.d.ts
+node_modules/.pnpm/@ledgerhq+icons-ui@0.10.0_@types+react@18.3.23_react-native-svg@14.1.0_react-native@0.7_3
+054ff35076673d281be9aff51f04786/node_modules/@ledgerhq/icons-ui/native/EyeCross.js
+node_modules/.pnpm/@ledgerhq+icons-ui@0.10.0_@types+react@18.3.23_react-native-svg@14.1.0_react-native@0.7_3
+054ff35076673d281be9aff51f04786/node_modules/@ledgerhq/icons-ui/native/CoinsEye.d.ts
+node_modules/.pnpm/@ledgerhq+icons-ui@0.10.0_@types+react@18.3.23_react-native-svg@14.1.0_react-native@0.7_3
+054ff35076673d281be9aff51f04786/node_modules/@ledgerhq/icons-ui/native/ListEye.js
+jamesarcher@Jamess-MacBook-Air UIReplicationLedger %
+```
+
+---
+
+
+
+---
+
+
+
+---
+
+
+
+---
+
+
+
+---
+
+
+
+---
+
+```bash
+cd /Users/jamesarcher/UIReplicationLedger && npx react-native start --reset-cache
+```
+
+---
+
+_**User**_
+
+I don’t see the discreet icon at the top left next to the “Wallet” text in the Portfolio screen header.
+
+Tasks:
+	1.	Identify how the discreet icon is implemented in ledger-live-mobile (likely in the header or visibility toggle logic).
+	2.	Check which component renders it and how it’s positioned.
+	3.	Ensure it uses the correct icon from @ledgerhq/native-ui.
+	4.	Fix our @header.tsx to display the discreet icon in the same position and behavior.
+
+Do not modify unrelated logic — just match Ledger Live’s discreet icon usage exactly.
+
+---
+
+_**Assistant**_
+
+
+
+---
+
+I'll examine how the discreet mode icon is actually implemented in Ledger Live Mobile and then fix our implementation to match exactly.
+
+---
+
+Read file: ledger-live/apps/ledger-live-mobile/src/screens/Portfolio/Header.tsx
+
+---
+
+
+
+---
+
+Read file: ledger-live/apps/ledger-live-mobile/src/components/DiscreetModeButton.tsx
+
+---
+
+
+
+---
+
+Now I can see the issue! The actual Ledger Live Mobile app uses the direct import from `@ledgerhq/native-ui/assets/icons` and uses `EyeMedium` and `EyeNoneMedium` icons, not the newer Icons API. Let me fix our implementation to match exactly:
+
+---
+
+
+
+---
+
+
+
+---
+
+Read file: src/screens/Portfolio/Header.tsx
+
+---
+
+
+
+---
+
+Let me test if the EyeMedium and EyeNoneMedium icons are properly available in our setup by creating a simple test:
+
+---
+
+Cancelled
+
+---
+
+_**User**_
+
+ that path doesnt work  is this the right icon @eye-none.svg  @eye.svg @eye.svg  libs/ui/packages/icons/src/svg-legacy/medium/eye.svg 
+
+---
+
+_**Assistant**_
+
+
+
+---
+
+You're absolutely right! The import path `@ledgerhq/native-ui/assets/icons` doesn't work in our setup. Looking at the icons you've found - `eye.svg` and `eye-none.svg` - these are exactly the right ones. Let me fix the import path to use the correct approach.
+
+---
+
+
+
+---
+
+
+
+---
+
+Read file: src/components/DiscreetModeButton.tsx
+
+---
+
+
+
+---
+
+
+
+---
+
+
+
+---
+
+```bash
+cd /Users/jamesarcher/UIReplicationLedger && node -e "
+try {
+  const { IconsLegacy } = require('@ledgerhq/native-ui');
+  console.log('Available Eye icons in IconsLegacy:');
+  Object.keys(IconsLegacy).filter(key => key.includes('Eye')).forEach(key => console.log(' -', key));
+} catch (e) {
+  console.error('Error:', e.message);
+}
+"
+```
+
+---
+
+_**User**_
+
+The discreet icons are now visible.
+Now, make sure the logic that hides sensitive values with *** (when discreet mode is enabled) works correctly.
+
+Tasks:
+	1.	Identify how ledger-live-mobile handles discreet mode:
+	•	Which global state or context controls it?
+	•	How components like CurrencyUnitValue, CounterValue, and Delta hide values when enabled.
+	2.	Check how ledger-live-mobile toggles between showing real values and masked ***.
+	3.	Implement the same behavior in our app:
+	•	Reuse or recreate a simple DiscreetModeContext or flag
+	•	Apply it to all components that display balances
+
+Ensure value masking is toggled consistently across the app, just like in Ledger Live.
+
+---
+
+_**Assistant**_
+
+
+
+---
+
+I'll examine how Ledger Live Mobile implements discreet mode to hide sensitive values and then implement the same logic in our app.
+
+---
+
+Read file: ledger-live/apps/ledger-live-mobile/src/context/DiscreetModeContext.tsx
 
 ---
 
