@@ -11,16 +11,19 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {NavigationContainer} from '@react-navigation/native';
 import StyleProvider from './src/components/StyleProvider';
 import MainNavigator from './src/navigation/MainNavigator';
+import { PriceProvider } from './src/context/PriceContext';
 
 function App(): React.JSX.Element {
   return (
     <SafeAreaProvider>
       <StyleProvider selectedPalette="dark">
-        <StatusBar barStyle="light-content" backgroundColor="#131214" />
-        <NavigationContainer>
-          {/* Official React Navigation structure like Ledger Live Mobile */}
-          <MainNavigator />
-        </NavigationContainer>
+        <PriceProvider refreshInterval={60000}>
+          <StatusBar barStyle="light-content" backgroundColor="#131214" />
+          <NavigationContainer>
+            {/* Official React Navigation structure like Ledger Live Mobile */}
+            <MainNavigator />
+          </NavigationContainer>
+        </PriceProvider>
       </StyleProvider>
     </SafeAreaProvider>
   );

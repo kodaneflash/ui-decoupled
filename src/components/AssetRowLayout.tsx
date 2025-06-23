@@ -8,6 +8,8 @@ import CurrencyUnitValue from "./CurrencyUnitValue";
 import CounterValue from "./CounterValue";
 import Delta from "./Delta";
 import ParentCurrencyIcon from "./ParentCurrencyIcon";
+import { usePriceContext } from "../context/PriceContext";
+import type { SupportedCryptoId } from "../services/PriceService";
 
 interface Currency {
   id: string;
@@ -56,10 +58,51 @@ const AssetRowLayout = ({
   hideDelta,
   topLink,
   bottomLink,
-  countervalueChange,
+  countervalueChange: staticCountervalueChange,
   tag,
 }: Props) => {
   const { colors, space } = useTheme();
+  const { calculateFiatValue, get24hChange, loading } = usePriceContext();
+
+  // Map currency ID to supported crypto IDs (only BTC and SOL supported)
+  const getSupportedCryptoId = (currencyId: string): SupportedCryptoId | null => {
+    switch (currencyId) {
+      case 'bitcoin':
+        return 'bitcoin';
+      case 'solana':
+        return 'solana';
+      default:
+        return null;
+    }
+  };
+
+  // Calculate dynamic countervalue change for supported cryptocurrencies
+  const getDynamicCountervalueChange = (): ValueChange | undefined => {
+    const supportedCryptoId = getSupportedCryptoId(currency.id);
+    
+    if (!supportedCryptoId || loading) {
+      return staticCountervalueChange;
+    }
+
+    try {
+      const change24hPercent = get24hChange(supportedCryptoId);
+      const magnitude = currency.units[0]?.magnitude || 8;
+      const currentFiatValue = calculateFiatValue(supportedCryptoId, balance, magnitude);
+      
+      // Calculate the dollar change: current_value * (change_percent / 100)
+      const dollarChange = currentFiatValue.multipliedBy(change24hPercent / 100);
+      
+      return {
+        value: dollarChange.toNumber(),
+        percentage: change24hPercent / 100, // Delta expects decimal (will multiply by 100 for display)
+      };
+    } catch (error) {
+      console.error('[AssetRowLayout] Error calculating dynamic change:', error);
+      return staticCountervalueChange;
+    }
+  };
+
+  const countervalueChange = getDynamicCountervalueChange();
 
   return (
     <TouchableOpacity onPress={onPress}>

@@ -34,28 +34,45 @@ const CurrencyUnitValue: React.FC<Props> = ({
   color = 'neutral.c70',
   joinFragmentsSeparator = '',
 }) => {
-  // Format currency unit similar to official Ledger Live
+  // Format currency unit - handle both fiat (USD) and crypto (BTC, ETH, etc.)
   const formatCurrencyUnit = (unit: Unit, value: BigNumber): string => {
     const amountNum = value.toNumber();
     
-    // If amount is 0, return formatted 0
-    if (amountNum === 0) {
-      return '$0';
+    // Handle fiat currencies (USD, EUR, etc.)
+    if (unit.code === 'USD' || unit.symbol === '$') {
+      if (amountNum === 0) {
+        return '$0';
+      }
+      // For fiat, value is already in the correct unit (no conversion needed)
+      return `$${amountNum.toLocaleString()}`;
     }
     
-    // For main portfolio balance display, use the total balance from our data
-    // This matches the official Ledger Live behavior where it shows the total USD value
-    const formattedValue = `$${amountNum.toLocaleString()}`;
+    // Handle crypto currencies (BTC, ETH, SOL, etc.)
+    if (amountNum === 0) {
+      return `0 ${unit.code}`;
+    }
     
-    return showCode ? `${formattedValue} ${unit.code}` : formattedValue;
+    // For crypto amounts, convert from smallest unit based on magnitude
+    const displayAmount = amountNum / Math.pow(10, unit.magnitude);
+    
+    // Format with appropriate decimal places
+    const formattedAmount = displayAmount < 1 
+      ? displayAmount.toFixed(unit.magnitude) // Show full precision for small amounts
+      : displayAmount.toLocaleString(undefined, { 
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 4 
+        });
+    
+    return showCode || true ? `${formattedAmount} ${unit.code}` : formattedAmount;
   };
 
   const formattedValue = formatCurrencyUnit(unit, value);
   
   if (!alwaysShowValue && value.isZero()) {
+    const zeroDisplay = unit.code === 'USD' || unit.symbol === '$' ? '$0' : `0 ${unit.code}`;
     return (
       <Text variant={variant} fontWeight={fontWeight} color={color}>
-        $0
+        {zeroDisplay}
       </Text>
     );
   }

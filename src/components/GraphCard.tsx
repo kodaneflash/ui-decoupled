@@ -8,11 +8,13 @@ import { BigNumber } from "bignumber.js";
 import Delta from "./Delta";
 import CurrencyUnitValue from "./CurrencyUnitValue";
 import DefGraph from "./Graph/DefGrad";
+import { usePriceContext } from "../context/PriceContext";
 
 import {
   PORTFOLIO_DATA,
   MOCK_CURRENCY_UNIT,
   GRAPH_TIME_RANGES,
+  CRYPTO_ASSETS,
 } from "../constants/portfolioData";
 
 const { width } = Dimensions.get("window");
@@ -137,15 +139,80 @@ function GraphCard({
   graphCardEndPosition = 0,
   onTouchEndGraph,
 }: Props) {
-  // Use provided props or fallback to static data
+  const { calculateFiatValue, get24hChange, loading } = usePriceContext();
+
+  // Calculate dynamic portfolio values
+  const calculatePortfolioBalance = (): BigNumber => {
+    if (loading || areAccountsEmpty) {
+      return new BigNumber(0);
+    }
+
+    let totalBalance = new BigNumber(0);
+
+    CRYPTO_ASSETS.forEach(asset => {
+      try {
+        const cryptoId = asset.id as 'bitcoin' | 'solana';
+        const magnitude = asset.currency.units[0].magnitude;
+        const balance = new BigNumber(asset.amount);
+        const fiatValue = calculateFiatValue(cryptoId, balance, magnitude);
+        totalBalance = totalBalance.plus(fiatValue);
+      } catch (error) {
+        console.error(`[GraphCard] Error calculating balance for ${asset.id}:`, error);
+      }
+    });
+
+    return totalBalance;
+  };
+
+  const calculatePortfolioChange = (): { value: number; percentage: number } => {
+    if (loading || areAccountsEmpty) {
+      return { value: 0, percentage: 0 };
+    }
+
+    let totalCurrentValue = new BigNumber(0);
+    let totalChange = new BigNumber(0);
+
+    CRYPTO_ASSETS.forEach(asset => {
+      try {
+        const cryptoId = asset.id as 'bitcoin' | 'solana';
+        const magnitude = asset.currency.units[0].magnitude;
+        const balance = new BigNumber(asset.amount);
+        const currentFiatValue = calculateFiatValue(cryptoId, balance, magnitude);
+        const change24hPercent = get24hChange(cryptoId);
+        
+        totalCurrentValue = totalCurrentValue.plus(currentFiatValue);
+        
+        // Calculate the dollar change for this asset
+        const assetChange = currentFiatValue.multipliedBy(change24hPercent / 100);
+        totalChange = totalChange.plus(assetChange);
+      } catch (error) {
+        console.error(`[GraphCard] Error calculating change for ${asset.id}:`, error);
+      }
+    });
+
+    const changePercentage = totalCurrentValue.isZero() 
+      ? 0 
+      : totalChange.dividedBy(totalCurrentValue).multipliedBy(100).toNumber();
+
+    return {
+      value: totalChange.toNumber(),
+      percentage: changePercentage / 100, // Delta expects decimal format
+    };
+  };
+
+  // Use dynamic calculations or fallback to static data
+  const dynamicPortfolioBalance = calculatePortfolioBalance();
+  const dynamicCountervalueChange = calculatePortfolioChange();
+
   const portfolio: Portfolio = portfolioProp || {
     ...PORTFOLIO_DATA,
     range: '1w',
     balanceAvailable: true,
-    balanceHistory: PORTFOLIO_DATA.balanceHistory.map(item => ({
+    balanceHistory: PORTFOLIO_DATA.balanceHistory.map((item, index, array) => ({
       date: item.date,
-      value: item.value || 0,
+      value: index === array.length - 1 ? dynamicPortfolioBalance.toNumber() : item.value || 0,
     })),
+    countervalueChange: dynamicCountervalueChange,
   };
 
   const counterValueCurrency: Currency = counterValueCurrencyProp || {

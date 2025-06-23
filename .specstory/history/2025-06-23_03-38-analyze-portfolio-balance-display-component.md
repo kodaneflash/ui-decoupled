@@ -681,3 +681,1061 @@ Just adjust the `TAB_VERTICAL_OFFSET` constant to move the tabs exactly where yo
 
 ---
 
+_**User**_
+
+what component is the main portfolio balance rendering in
+
+---
+
+_**Assistant**_
+
+
+
+---
+
+The main portfolio balance is rendered in the **`GraphCard`** component. Let me show you the exact location:
+
+---
+
+Read file: src/components/GraphCard.tsx
+
+---
+
+
+
+---
+
+The main portfolio balance is rendered in the **`GraphCard`** component located at `src/components/GraphCard.tsx`. Here are the specific parts:
+
+## **Main Balance Amount ($45,000)**
+```typescript
+// Lines ~230-240 in GraphCard.tsx
+<Text
+  fontFamily="Inter"
+  fontWeight="semiBold"
+  fontSize="42px"
+  color={'neutral.c100'}
+  numberOfLines={1}
+  adjustsFontSizeToFit
+  testID={'graphCard-balance'}>
+  <CurrencyUnitValue
+    unit={unit}
+    value={hoveredItem ? new BigNumber(hoveredItem.value) : new BigNumber(item.value)}
+  />
+</Text>
+```
+
+## **Percentage and Dollar Change (+7.37% (+$5,000))**
+```typescript
+// Lines ~250-265 in GraphCard.tsx
+<Flex flexDirection="row" alignItems="center">
+  {hoveredItem && hoveredItem.date ? (
+    <Text variant={'large'} fontWeight={'semiBold'}>
+      {hoveredItem.date.toLocaleDateString()}
+    </Text>
+  ) : (
+    <>
+      <Delta
+        percent
+        show0Delta
+        valueChange={countervalueChange}
+      />
+      <Text> </Text>
+      <Delta 
+        unit={unit} 
+        valueChange={countervalueChange} 
+      />
+    </>
+  )}
+</Flex>
+```
+
+## **Component Hierarchy**
+```
+Portfolio Screen (index.tsx)
+  └── GraphCard (GraphCard.tsx) ← Main portfolio balance is here
+      ├── CurrencyUnitValue ← Renders "$45,000"
+      └── Delta components ← Render "+7.37%" and "(+$5,000)"
+```
+
+## **Data Source**
+The balance values come from:
+- **Balance amount**: `PORTFOLIO_DATA.totalBalance` (45000) from `portfolioData.ts`
+- **Change values**: `PORTFOLIO_DATA.countervalueChange` from `portfolioData.ts`
+
+So if you want to adjust the positioning of the main portfolio balance, you would modify the `GraphCard` component, specifically the `Animated.View` that wraps the balance display around line 208-210.
+
+---
+
+_**User**_
+
+in this image, look at the static balance in the assets (bottom right) where it says $45.2k and $7.9k, and the asset amount where it says $150,000,000 btc, identify where  these are used and in which component, and the hierarchy 
+
+---
+
+_**Assistant**_
+
+
+
+---
+
+Looking at the image, I can see the asset rows at the bottom showing Bitcoin and Ethereum with their balances and amounts. Let me identify where these values are rendered:
+
+---
+
+<details>
+            <summary>Searched codebase "Bitcoin $45.2k $150,000,000 BTC asset row balance amount" • **25** results</summary>
+        
+| File | Lines |
+|------|-------|
+| `UIReplicationLedger/src/components/AssetsList.tsx` | L15-42 |
+| `UIReplicationLedger/src/constants/portfolioData.ts` | L39-104 |
+| `UIReplicationLedger/src/components/AssetRow.tsx` | L17-26 |
+| `UIReplicationLedger/src/components/AssetsList.tsx` | L42-99 |
+| `UIReplicationLedger/src/constants/portfolioData.ts` | L104-188 |
+| `UIReplicationLedger/src/components/SimpleAssetRow.tsx` | L41-102 |
+| `UIReplicationLedger/src/components/AssetRow.tsx` | L39-88 |
+| `UIReplicationLedger/src/components/SimpleAssetRow.tsx` | L11-41 |
+| `UIReplicationLedger/src/constants/simplePortfolioData.ts` | L5-53 |
+| `UIReplicationLedger/src/components/SimpleAssetRow.tsx` | L1-11 |
+| `ledger-live/libs/ledgerjs/packages/cryptoassets/src/fiats.ts` | L21-62 |
+| `ledger-live/libs/live-countervalues/src/mock.ts` | L1-2 |
+| `UIReplicationLedger/src/components/AccountsList.tsx` | L14-39 |
+| `ledger-live/libs/coin-modules/coin-tron/src/logic/getBalance.ts` | L53-77 |
+| `UIReplicationLedger/src/components/AssetRowLayout.tsx` | L34-48 |
+| `UIReplicationLedger/src/components/AssetRowLayout.tsx` | L112-141 |
+| `UIReplicationLedger/src/components/AssetsListView.tsx` | L18-27 |
+| `ledger-live/libs/coin-modules/coin-tron/src/network/fixtures/fetchAccount.fixture.json` | L100-178 |
+| `ledger-live/libs/coin-modules/coin-bitcoin/src/datasets/bitcoin.ts` | L1-52 |
+| `ledger-live/libs/live-countervalues/src/__snapshots__/portfolio.test.ts.snap` | L82-141 |
+| `UIReplicationLedger/src/components/AssetRowLayout.tsx` | L48-112 |
+| `UIReplicationLedger/src/components/AssetsListView.tsx` | L32-89 |
+| `ledger-live/libs/coin-modules/coin-tron/src/bridge/fixtures/synchronization.account.fixture.json` | L2973-3028 |
+| `ledger-live/libs/coin-modules/coin-bitcoin/src/datasets/bitcoin.ts` | L52-73 |
+| `ledger-live/libs/ledgerjs/packages/cryptoassets/src/currencies.ts` | L474-563 |
+
+</details>
+
+---
+
+
+
+---
+
+Read file: src/components/AssetRowLayout.tsx
+
+---
+
+
+
+---
+
+Read file: src/components/CounterValue.tsx
+
+---
+
+
+
+---
+
+Read file: src/components/CurrencyUnitValue.tsx
+
+---
+
+
+
+---
+
+Read file: src/components/PortfolioAssetsContainer.tsx
+
+---
+
+
+
+---
+
+Read file: src/components/TabSection.tsx
+
+---
+
+
+
+---
+
+Based on my analysis of the codebase, here's the complete component hierarchy and where the specific balance values are rendered:
+
+## **Component Hierarchy for Asset Row Values**
+
+```
+Portfolio Screen (index.tsx)
+└── PortfolioAssetsContainer
+    └── TabSection
+        └── AssetsListView
+            └── AssetRow (renders each Bitcoin/Ethereum row)
+                └── AssetRowLayout ← Main component rendering the values
+                    ├── CounterValue ← Renders "$45.2k" and "$7.9k" (right side)
+                    └── CurrencyUnitValue ← Renders "1.5 BTC" and "2.8 ETH" (left side)
+```
+
+## **Specific Value Locations**
+
+### **1. Fiat Balance Values (Right Side)**
+- **Bitcoin "$45.2k"** and **Ethereum "$7.9k"**
+- **Component**: `CounterValue` (`src/components/CounterValue.tsx`)
+- **Code Location**: Lines 95-105 in `AssetRowLayout.tsx`
+```typescript
+<Text
+  variant="large"
+  fontWeight="semiBold"
+  color="neutral.c100"
+  testID="asset-balance"
+>
+  <CounterValue currency={currency} value={balance} />
+</Text>
+```
+
+### **2. Crypto Amount Values (Left Side)**
+- **Bitcoin "1.5 BTC"** (showing as $150,000,000 in your image - this seems to be a display issue)
+- **Ethereum "2.8 ETH"** 
+- **Component**: `CurrencyUnitValue` (`src/components/CurrencyUnitValue.tsx`)
+- **Code Location**: Lines 111-115 in `AssetRowLayout.tsx`
+```typescript
+<Text variant="body" fontWeight="medium" color="neutral.c70">
+  {currencyUnit ? (
+    <CurrencyUnitValue showCode unit={currencyUnit} value={balance} />
+  ) : null}
+</Text>
+```
+
+## **Data Source**
+The values come from `CRYPTO_ASSETS` array in `src/constants/portfolioData.ts`:
+
+```typescript
+// Bitcoin data
+{
+  fiatBalanceFormatted: '$45,234', // Converted to "$45.2k" by CounterValue
+  balanceFormatted: '1.5 BTC',     // Rendered by CurrencyUnitValue
+  amount: '150000000',             // 1.5 BTC in satoshis
+}
+
+// Ethereum data  
+{
+  fiatBalanceFormatted: '$7,892',  // Converted to "$7.9k" by CounterValue
+  balanceFormatted: '2.8 ETH',     // Rendered by CurrencyUnitValue
+  amount: '2800000000000000000',   // 2.8 ETH in wei
+}
+```
+
+## **Key Components for Value Rendering**
+
+1. **AssetRowLayout**: Main layout component (lines 95-115)
+2. **CounterValue**: Handles fiat conversion and k-notation (e.g., $45.2k)
+3. **CurrencyUnitValue**: Handles crypto unit display (e.g., 1.5 BTC)
+4. **Data Flow**: portfolioData.ts → AssetsListView → AssetRow → AssetRowLayout → CounterValue/CurrencyUnitValue
+
+The large numbers you see in the image (like $150,000,000 BTC) appear to be a rendering issue where the raw `amount` values in satoshis/wei are being displayed instead of the formatted `balanceFormatted` values.
+
+---
+
+_**User**_
+
+can you make the    values render properly? there should not be a $ dollar sign in front, it should appear like in this image (e.:g 83.5206 BTC) 
+
+---
+
+_**Assistant**_
+
+
+
+---
+
+You're absolutely right! The crypto amounts should display as "1.5 BTC" and "2.8 ETH" without dollar signs. The issue is in the `CurrencyUnitValue` component. Let me fix it:
+
+---
+
+
+
+---
+
+
+
+---
+
+Now let me also update the zero-balance handling in the component:
+
+---
+
+
+
+---
+
+
+
+---
+
+Perfect! Now the crypto amounts should display correctly as:
+
+- **Bitcoin**: "1.5 BTC" (instead of showing dollar signs)
+- **Ethereum**: "2.8 ETH" 
+- **XRP**: "1,250 XRP"
+
+The key changes I made:
+
+## **Fixed Issues:**
+
+1. **Removed dollar signs** from crypto amounts
+2. **Added proper unit conversion** from smallest units (satoshis/wei) to display units
+3. **Always show the unit code** (BTC, ETH, etc.) after the amount
+4. **Proper decimal formatting** for different crypto amounts
+
+## **How it works now:**
+
+```typescript
+// Bitcoin example:
+// Input: amount = '150000000' (150 million satoshis)
+// Unit: { code: 'BTC', magnitude: 8 }
+// Conversion: 150000000 / 10^8 = 1.5
+// Output: "1.5 BTC"
+
+// Ethereum example:  
+// Input: amount = '2800000000000000000' (2.8 * 10^18 wei)
+// Unit: { code: 'ETH', magnitude: 18 }
+// Conversion: 2800000000000000000 / 10^18 = 2.8
+// Output: "2.8 ETH"
+```
+
+Now your asset rows will show the proper crypto amounts like "83.5206 BTC" and "6,257.57 SOL" as shown in your reference image, without any dollar signs in the crypto unit display.
+
+---
+
+_**User**_
+
+without making modifications,   explain what i would need to implement for this new feature: when setting the static asset  amount (e.g: 1 BTC, which in real time value is $101,168.00) it will dynamically update  the   (fiatBalance)     so on the fiatbalance on right side of asset, it will display $101,168.00  if i set it to 1 btc.  Would i need to modify the countervalue component? COnduct a deep dive
+
+---
+
+_**Assistant**_
+
+
+
+---
+
+Excellent question! Let me conduct a deep dive analysis of what you'd need to implement for dynamic fiat balance calculation based on real-time crypto prices.
+
+## **Current Architecture Analysis**
+
+### **Current Data Flow:**
+```
+portfolioData.ts (static) → AssetRow → AssetRowLayout → CounterValue → Display
+```
+
+**Current `CounterValue` Implementation:**
+```typescript
+// Static fiat conversion based on currency ID and amount
+const getFiatValue = (currencyId: string, amount: BigNumber): string => {
+  const fiatValues: { [key: string]: number } = {
+    bitcoin: amountNum > 0 ? 45234 : 0,  // Hardcoded values
+    ethereum: amountNum > 0 ? 7892 : 0,
+  };
+  return fiatAmount >= 1000 ? `$${(fiatAmount / 1000).toFixed(1)}k` : `$${fiatAmount.toLocaleString()}`;
+};
+```
+
+## **Required Implementation for Dynamic Pricing**
+
+### **1. Price Service Layer**
+You'd need to create a price fetching service:
+
+```typescript
+// src/services/priceService.ts
+interface PriceData {
+  [cryptoId: string]: {
+    usd: number;
+    last_updated: string;
+  };
+}
+
+class PriceService {
+  private prices: PriceData = {};
+  private lastUpdate: Date | null = null;
+  
+  async fetchPrices(cryptoIds: string[]): Promise<PriceData> {
+    // Fetch from CoinGecko, CryptoCompare, or similar API
+    const response = await fetch(
+      `https://api.coingecko.com/api/v3/simple/price?ids=${cryptoIds.join(',')}&vs_currencies=usd`
+    );
+    this.prices = await response.json();
+    this.lastUpdate = new Date();
+    return this.prices;
+  }
+  
+  getPrice(cryptoId: string): number {
+    return this.prices[cryptoId]?.usd || 0;
+  }
+  
+  shouldRefresh(): boolean {
+    if (!this.lastUpdate) return true;
+    return Date.now() - this.lastUpdate.getTime() > 60000; // 1 minute cache
+  }
+}
+```
+
+### **2. Price Context/State Management**
+You'd need global state to manage prices:
+
+```typescript
+// src/context/PriceContext.tsx
+interface PriceContextType {
+  prices: PriceData;
+  loading: boolean;
+  error: string | null;
+  refreshPrices: () => Promise<void>;
+}
+
+const PriceContext = createContext<PriceContextType | null>(null);
+
+export const PriceProvider: React.FC = ({ children }) => {
+  const [prices, setPrices] = useState<PriceData>({});
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  
+  const refreshPrices = useCallback(async () => {
+    setLoading(true);
+    try {
+      const priceService = new PriceService();
+      const cryptoIds = ['bitcoin', 'ethereum', 'ripple', 'tether', 'binancecoin'];
+      const newPrices = await priceService.fetchPrices(cryptoIds);
+      setPrices(newPrices);
+      setError(null);
+    } catch (err) {
+      setError('Failed to fetch prices');
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+  
+  // Auto-refresh every minute
+  useEffect(() => {
+    refreshPrices();
+    const interval = setInterval(refreshPrices, 60000);
+    return () => clearInterval(interval);
+  }, [refreshPrices]);
+  
+  return (
+    <PriceContext.Provider value={{ prices, loading, error, refreshPrices }}>
+      {children}
+    </PriceContext.Provider>
+  );
+};
+```
+
+### **3. Modified CounterValue Component**
+**YES, you would need to modify the CounterValue component significantly:**
+
+```typescript
+// src/components/CounterValue.tsx - MODIFIED VERSION
+const CounterValue: React.FC<Props> = ({
+  currency,
+  value,
+  // ... other props
+}) => {
+  const priceContext = useContext(PriceContext);
+  
+  if (!priceContext) {
+    throw new Error('CounterValue must be used within PriceProvider');
+  }
+  
+  const { prices, loading } = priceContext;
+  
+  // Dynamic fiat calculation
+  const calculateFiatValue = (currencyId: string, cryptoAmount: BigNumber): string => {
+    const currentPrice = prices[currencyId]?.usd || 0;
+    
+    if (currentPrice === 0 || cryptoAmount.isZero()) {
+      return placeholder;
+    }
+    
+    // Convert from smallest unit to base unit for calculation
+    const unit = currency.units[0];
+    const baseAmount = cryptoAmount.dividedBy(Math.pow(10, unit.magnitude));
+    const fiatValue = baseAmount.multipliedBy(currentPrice);
+    
+    return formatFiatValue(fiatValue.toNumber());
+  };
+  
+  const formatFiatValue = (amount: number): string => {
+    if (amount >= 1000000) {
+      return `$${(amount / 1000000).toFixed(2)}M`;
+    } else if (amount >= 1000) {
+      return `$${(amount / 1000).toFixed(1)}k`;
+    } else {
+      return `$${amount.toLocaleString(undefined, { 
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2 
+      })}`;
+    }
+  };
+  
+  if (loading) {
+    return "Loading...";
+  }
+  
+  const fiatValue = calculateFiatValue(currency.id, value);
+  return `${before}${fiatValue}${showCode ? " USD" : ""}${after}`;
+};
+```
+
+### **4. Modified Portfolio Data Structure**
+You'd need to change how you define assets:
+
+```typescript
+// src/constants/portfolioData.ts - MODIFIED
+export const CRYPTO_ASSETS = [
+  {
+    id: 'bitcoin',
+    name: 'Bitcoin', 
+    ticker: 'BTC',
+    currency: {
+      id: 'bitcoin', // Maps to CoinGecko ID
+      // ... other currency props
+    },
+    // Remove static fiatBalance - will be calculated dynamically
+    cryptoAmount: new BigNumber('150000000'), // 1.5 BTC in satoshis
+    // fiatBalance: { value: 45234 }, // ← REMOVE THIS
+    balanceFormatted: '1.5 BTC',
+    // ... other props
+  },
+  // ... other assets
+];
+```
+
+### **5. Modified AssetRowLayout Data Flow**
+The component would need to handle dynamic calculation:
+
+```typescript
+// In AssetRowLayout.tsx - MODIFIED
+const AssetRowLayout = ({ balance, currency, ... }) => {
+  // balance now represents crypto amount (e.g., satoshis)
+  // CounterValue will calculate fiat value dynamically using current price
+  
+  return (
+    // ... layout code
+    <Text testID="asset-balance">
+      <CounterValue currency={currency} value={balance} />
+    </Text>
+    // ...
+  );
+};
+```
+
+### **6. Required App-Level Changes**
+
+**App.tsx modification:**
+```typescript
+// Wrap your app with PriceProvider
+function App() {
+  return (
+    <PriceProvider>
+      <NavigationContainer>
+        <MainNavigator />
+      </NavigationContainer>
+    </PriceProvider>
+  );
+}
+```
+
+## **Implementation Phases**
+
+### **Phase 1: Basic Price Fetching**
+1. Create `PriceService` class
+2. Create `PriceContext` and `PriceProvider`
+3. Wrap app with `PriceProvider`
+
+### **Phase 2: Dynamic CounterValue**
+1. Modify `CounterValue` component to use price context
+2. Remove hardcoded fiat values
+3. Implement dynamic calculation logic
+
+### **Phase 3: Data Structure Updates**
+1. Update `portfolioData.ts` to remove static fiat values
+2. Ensure crypto amounts are stored correctly (in smallest units)
+3. Update asset data flow
+
+### **Phase 4: Error Handling & UX**
+1. Add loading states
+2. Add error handling for failed price fetches
+3. Add offline support with cached prices
+4. Add price update indicators
+
+## **Key Challenges & Considerations**
+
+### **1. API Rate Limits**
+- CoinGecko free tier: 50 calls/minute
+- Need caching strategy
+- Consider WebSocket for real-time updates
+
+### **2. Unit Conversions**
+- Ensure crypto amounts are stored consistently
+- Handle different decimal places (BTC: 8, ETH: 18)
+- Precision handling for large numbers
+
+### **3. Performance**
+- Price updates trigger re-renders
+- Use `React.memo` and `useMemo` extensively
+- Consider virtualization for large asset lists
+
+### **4. User Experience**
+- Show loading states during price fetches
+- Handle network failures gracefully
+- Indicate when prices were last updated
+
+## **Answer to Your Question**
+
+**YES, you would need to modify the CounterValue component significantly.** It's currently the component responsible for displaying fiat values, but it's using hardcoded static values. For dynamic pricing, you'd need to:
+
+1. **Replace static lookup** with dynamic price calculation
+2. **Add price context dependency** 
+3. **Implement proper unit conversion** from crypto amounts to fiat
+4. **Add loading/error states**
+
+The CounterValue component would become the **calculation engine** that takes crypto amounts and current market prices to compute real-time fiat values.
+
+---
+
+_**User**_
+
+if i only wanted BTC (bitcoin) and SOL (solana) for assets and nothing else would it simplify it
+
+---
+
+_**Assistant**_
+
+
+
+---
+
+**Absolutely YES!** Limiting to just BTC and SOL would dramatically simplify the implementation. Let me show you exactly how much simpler this becomes:
+
+## **Simplified Implementation for BTC + SOL Only**
+
+### **1. Much Simpler Price Service**
+```typescript
+// src/services/priceService.ts - SIMPLIFIED
+class PriceService {
+  private prices = { bitcoin: 0, solana: 0 };
+  
+  async fetchPrices(): Promise<{ bitcoin: number; solana: number }> {
+    // Only 2 currencies = 1 API call
+    const response = await fetch(
+      'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,solana&vs_currencies=usd'
+    );
+    const data = await response.json();
+    
+    this.prices = {
+      bitcoin: data.bitcoin?.usd || 0,
+      solana: data.solana?.usd || 0
+    };
+    
+    return this.prices;
+  }
+  
+  getPrice(cryptoId: 'bitcoin' | 'solana'): number {
+    return this.prices[cryptoId];
+  }
+}
+```
+
+### **2. Simplified Price Context**
+```typescript
+// src/context/PriceContext.tsx - SIMPLIFIED
+interface PriceState {
+  bitcoin: number;
+  solana: number;
+  loading: boolean;
+  lastUpdated: Date | null;
+}
+
+const PriceProvider: React.FC = ({ children }) => {
+  const [state, setState] = useState<PriceState>({
+    bitcoin: 0,
+    solana: 0,
+    loading: false,
+    lastUpdated: null
+  });
+  
+  const refreshPrices = useCallback(async () => {
+    setState(prev => ({ ...prev, loading: true }));
+    try {
+      const priceService = new PriceService();
+      const prices = await priceService.fetchPrices();
+      setState({
+        bitcoin: prices.bitcoin,
+        solana: prices.solana,
+        loading: false,
+        lastUpdated: new Date()
+      });
+    } catch (error) {
+      setState(prev => ({ ...prev, loading: false }));
+    }
+  }, []);
+  
+  // Auto-refresh every minute
+  useEffect(() => {
+    refreshPrices();
+    const interval = setInterval(refreshPrices, 60000);
+    return () => clearInterval(interval);
+  }, [refreshPrices]);
+  
+  return (
+    <PriceContext.Provider value={{ ...state, refreshPrices }}>
+      {children}
+    </PriceContext.Provider>
+  );
+};
+```
+
+### **3. Much Simpler CounterValue Component**
+```typescript
+// src/components/CounterValue.tsx - SIMPLIFIED
+const CounterValue: React.FC<Props> = ({ currency, value, ...props }) => {
+  const { bitcoin, solana, loading } = useContext(PriceContext);
+  
+  if (loading) return "Loading...";
+  
+  // Only 2 cases to handle!
+  const getCurrentPrice = (): number => {
+    switch (currency.id) {
+      case 'bitcoin': return bitcoin;
+      case 'solana': return solana;
+      default: return 0;
+    }
+  };
+  
+  const calculateFiatValue = (): string => {
+    const currentPrice = getCurrentPrice();
+    if (currentPrice === 0) return "$0.00";
+    
+    // Simple unit conversion - only 2 cases
+    const cryptoAmount = currency.id === 'bitcoin' 
+      ? value.dividedBy(100000000) // BTC: 8 decimals
+      : value.dividedBy(1000000000); // SOL: 9 decimals
+    
+    const fiatValue = cryptoAmount.multipliedBy(currentPrice).toNumber();
+    
+    // Format fiat value
+    return fiatValue >= 1000 
+      ? `$${(fiatValue / 1000).toFixed(1)}k`
+      : `$${fiatValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  };
+  
+  return calculateFiatValue();
+};
+```
+
+### **4. Simplified Portfolio Data**
+```typescript
+// src/constants/portfolioData.ts - SIMPLIFIED
+export const CRYPTO_ASSETS = [
+  {
+    id: 'bitcoin',
+    name: 'Bitcoin',
+    ticker: 'BTC',
+    currency: {
+      id: 'bitcoin',
+      ticker: 'BTC',
+      name: 'Bitcoin',
+      color: '#F7931A',
+      units: [{ name: 'bitcoin', code: 'BTC', magnitude: 8, symbol: '₿' }],
+    },
+    // Just store the crypto amount - fiat will be calculated dynamically
+    cryptoAmount: new BigNumber('100000000'), // 1 BTC in satoshis
+    balanceFormatted: '1 BTC',
+  },
+  {
+    id: 'solana',
+    name: 'Solana',
+    ticker: 'SOL',
+    currency: {
+      id: 'solana',
+      ticker: 'SOL', 
+      name: 'Solana',
+      color: '#9945FF',
+      units: [{ name: 'solana', code: 'SOL', magnitude: 9, symbol: '◎' }],
+    },
+    cryptoAmount: new BigNumber('5000000000'), // 5 SOL in lamports
+    balanceFormatted: '5 SOL',
+  }
+];
+```
+
+## **Massive Simplifications**
+
+### **1. API Simplification**
+- **Before**: 5+ API calls or complex batch request
+- **After**: 1 simple API call for 2 currencies
+- **Rate limits**: Extremely unlikely to hit with just 2 currencies
+
+### **2. State Management**
+- **Before**: Complex object with many currencies
+- **After**: Simple object with 2 numbers
+- **Updates**: Easier to track and debug
+
+### **3. Unit Conversion Logic**
+- **Before**: Handle 5+ different decimal systems
+- **After**: Only 2 cases (BTC: 8 decimals, SOL: 9 decimals)
+
+### **4. Error Handling**
+- **Before**: Complex error states for multiple currencies
+- **After**: Simple binary success/failure
+
+### **5. Testing**
+- **Before**: Test multiple currency combinations
+- **After**: Test just 2 currencies
+
+## **Example Usage**
+
+With this simplified approach, here's how it would work:
+
+```typescript
+// User sets: 1 BTC
+// System fetches: Bitcoin price = $101,168.00
+// Display: 
+//   Left side: "1 BTC" (from CurrencyUnitValue)
+//   Right side: "$101,168.00" (from CounterValue using real-time price)
+
+// User sets: 5 SOL  
+// System fetches: Solana price = $240.50
+// Display:
+//   Left side: "5 SOL" 
+//   Right side: "$1,202.50" (5 × $240.50)
+```
+
+## **Implementation Steps (Simplified)**
+
+1. **Create simple price service** (20 lines of code)
+2. **Create simple price context** (40 lines of code)  
+3. **Modify CounterValue** (30 lines of code)
+4. **Update portfolio data** (remove fiat values, keep crypto amounts)
+5. **Wrap App with PriceProvider**
+
+**Total effort**: About 100 lines of code vs. 300+ for multiple currencies.
+
+This approach is perfect for a focused implementation and would give you exactly what you need: real-time BTC and SOL fiat values that update automatically based on current market prices!
+
+---
+
+_**User**_
+
+did you include making the delta component workwith this
+
+---
+
+_**Assistant**_
+
+
+
+---
+
+**Great catch!** No, I didn't include the Delta component in my analysis. The Delta component (which shows the "+1%" or "-2.5%" price changes) would also need to be updated for real-time pricing. Let me show you what's needed:
+
+## **Current Delta Component Analysis**
+
+---
+
+Read file: src/components/Delta.tsx
+
+---
+
+_**User**_
+
+is it better to. implemeent this logic first, then implement tht after
+
+---
+
+_**Assistant**_
+
+
+
+---
+
+**Absolutely YES!** It's much better to implement the dynamic pricing logic for `CounterValue` first, then tackle `Delta` afterward. Here's why:
+
+## **Implementation Order Rationale**
+
+### **Phase 1: CounterValue (Current Prices) - FIRST**
+```typescript
+// Simple: Just need current price
+BTC: $101,168.00 ← Current price × crypto amount
+SOL: $240.50    ← Current price × crypto amount
+```
+
+### **Phase 2: Delta (Price Changes) - SECOND** 
+```typescript
+// Complex: Need current price + 24h ago price + calculations
+BTC: +1% (+$1,000) ← Requires: current price, 24h ago price, math
+SOL: -2.5% (-$6.12) ← Same complex requirements
+```
+
+## **Why CounterValue First Makes Sense**
+
+### **1. Dependency Chain**
+- `CounterValue` = **Independent** (only needs current prices)
+- `Delta` = **Dependent** (needs current prices + historical data + change calculations)
+
+### **2. Complexity Levels**
+- `CounterValue`: **Simple** - 1 API call, basic math
+- `Delta`: **Complex** - 2 API calls (current + historical), change calculations
+
+### **3. User Value**
+- `CounterValue`: **Immediate visible value** - user sees real-time portfolio worth
+- `Delta`: **Nice-to-have enhancement** - shows trends
+
+### **4. Testing & Debugging**
+- Get current prices working first = **solid foundation**
+- Add Delta on top = **easier to debug** when base is stable
+
+## **Simplified Phase 1 Implementation**
+
+### **Just Focus on Current Prices:**
+```typescript
+// src/services/priceService.ts - PHASE 1 ONLY
+class PriceService {
+  async fetchCurrentPrices(): Promise<{ bitcoin: number; solana: number }> {
+    const response = await fetch(
+      'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,solana&vs_currencies=usd'
+    );
+    const data = await response.json();
+    return {
+      bitcoin: data.bitcoin.usd,
+      solana: data.solana.usd
+    };
+  }
+}
+```
+
+### **Simple Price Context - Phase 1:**
+```typescript
+// Only track current prices, ignore changes for now
+const PriceProvider = ({ children }) => {
+  const [prices, setPrices] = useState({ bitcoin: 0, solana: 0 });
+  
+  const refreshPrices = async () => {
+    const priceService = new PriceService();
+    const currentPrices = await priceService.fetchCurrentPrices();
+    setPrices(currentPrices);
+  };
+  
+  // ... rest of implementation
+};
+```
+
+### **Modified CounterValue - Phase 1:**
+```typescript
+// Only handle current price calculation
+const CounterValue = ({ currency, value }) => {
+  const { bitcoin, solana } = useContext(PriceContext);
+  
+  const currentPrice = currency.id === 'bitcoin' ? bitcoin : solana;
+  const cryptoAmount = currency.id === 'bitcoin' 
+    ? value.dividedBy(100000000) // BTC
+    : value.dividedBy(1000000000); // SOL
+    
+  const fiatValue = cryptoAmount.multipliedBy(currentPrice).toNumber();
+  return formatFiatValue(fiatValue);
+};
+```
+
+## **Phase 2: Delta Implementation (Later)**
+
+### **What You'd Add Later:**
+```typescript
+// src/services/priceService.ts - PHASE 2 ADDITION
+class PriceService {
+  // Keep existing fetchCurrentPrices()
+  
+  // ADD: Historical price fetching
+  async fetch24hPrices(): Promise<{ bitcoin: number; solana: number }> {
+    const response = await fetch(
+      'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,solana&vs_currencies=usd&include_24hr_change=true'
+    );
+    // Handle 24h change data
+  }
+}
+```
+
+### **Extended Price Context - Phase 2:**
+```typescript
+// ADD: Track price changes
+const PriceProvider = ({ children }) => {
+  const [state, setState] = useState({
+    current: { bitcoin: 0, solana: 0 },
+    changes24h: { bitcoin: 0, solana: 0 }, // ADD THIS
+  });
+  
+  // Update refresh logic to fetch both current and changes
+};
+```
+
+## **Benefits of This Approach**
+
+### **✅ Phase 1 Benefits:**
+- **Quick wins** - See real-time fiat values immediately
+- **Simple testing** - Only test current price display
+- **Immediate user value** - Portfolio shows real worth
+- **Solid foundation** - Price fetching infrastructure established
+
+### **✅ Phase 2 Benefits:**
+- **Build on working system** - Add Delta to proven price system
+- **Isolated complexity** - Delta logic separate from working CounterValue
+- **Optional feature** - App works great even if Delta has issues
+
+## **Timeline Estimate**
+
+### **Phase 1 (CounterValue):**
+- **Day 1-2**: Price service + context
+- **Day 3**: Modified CounterValue component  
+- **Day 4**: Testing + refinement
+- **Result**: Real-time fiat balances working
+
+### **Phase 2 (Delta):**
+- **Day 5-6**: Historical price fetching
+- **Day 7**: Delta component modifications
+- **Day 8**: Testing price changes
+- **Result**: Full real-time pricing with changes
+
+## **Recommendation**
+
+**Start with Phase 1 immediately.** You'll get:
+1. **Real-time portfolio values** (the main feature you want)
+2. **Working price infrastructure** 
+3. **Immediate user satisfaction**
+4. **Confidence to tackle Delta later**
+
+The Delta component can be enhanced later as a "Phase 2" feature, but your core dynamic pricing will be working perfectly with just Phase 1!
+
+---
+
+_**User**_
+
+why is my main port folio balance saying 450 USD instead of $450 like it should? 
+
+---
+
+_**Assistant**_
+
+
+
+---
+
+The issue is in the `CurrencyUnitValue` component that I just modified. I changed it to handle crypto amounts properly, but I broke the main portfolio balance display which should show fiat values. Let me check how the main portfolio balance is being rendered:
+
+---
+
+
+
+---
+
+
+
+---
+
