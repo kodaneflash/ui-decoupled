@@ -1,18 +1,21 @@
 import React from 'react';
 import {TouchableOpacity, StyleSheet} from 'react-native';
 import { IconsLegacy } from '@ledgerhq/native-ui';
+import { useDiscreetMode } from '../context/DiscreetModeContext';
 
 interface Props {
   size?: number; 
-  discreetMode?: boolean; // For static replica, we can control this manually
 }
 
-const DiscreetModeButton = ({size = 20, discreetMode = true}: Props) => {
-  // Static implementation - no Redux or dynamic state needed
-  // Based on reference image, discreet mode is ON (showing $***)
+const DiscreetModeButton = ({size = 20}: Props) => {
+  const { discreetMode, setDiscreetMode } = useDiscreetMode();
+
+  const onPress = () => {
+    setDiscreetMode(!discreetMode);
+  };
 
   return (
-    <TouchableOpacity style={styles.root}>
+    <TouchableOpacity onPress={onPress} style={styles.root}>
       {discreetMode ? (
         <IconsLegacy.EyeNoneMedium size={size} color={"neutral.c100"} />
       ) : (

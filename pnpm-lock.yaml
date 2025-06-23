@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@ledgerhq/crypto-icons-ui':
+        specifier: ^1.15.0
+        version: 1.15.0(@types/react@18.3.23)(react-native-svg@14.1.0(react-native@0.73.4(@babel/core@7.27.4)(@babel/preset-env@7.27.2(@babel/core@7.27.4))(react@18.2.0))(react@18.2.0))(react@18.2.0)(styled-components@6.1.19(react-dom@19.1.0(react@18.2.0))(react@18.2.0))(styled-system@5.1.5)
       '@ledgerhq/icons-ui':
         specifier: ^0.10.0
         version: 0.10.0(@types/react@18.3.23)(react-native-svg@14.1.0(react-native@0.73.4(@babel/core@7.27.4)(@babel/preset-env@7.27.2(@babel/core@7.27.4))(react@18.2.0))(react@18.2.0))(react@18.2.0)(styled-components@6.1.19(react-dom@19.1.0(react@18.2.0))(react@18.2.0))(styled-system@5.1.5)
@@ -1030,8 +1033,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
 
-  '@ledgerhq/crypto-icons-ui@1.14.0':
-    resolution: {integrity: sha512-ZJ96xrSIy9si4tKZM6kdAHxulTwLmOTUFKigmorqlY/Aa9pYip2gcDUDr16fVoD/hO7MzuuF0kyVnFB9nVKguw==}
+  '@ledgerhq/crypto-icons-ui@1.15.0':
+    resolution: {integrity: sha512-OS9u/9IC6Gb7RkAk6YQAIPCQ4iIDXg8uJL926aKunm7j5MVpQBLzkURupnXSdcssZ5iWqTnbg7o69KRm1F2gew==}
     peerDependencies:
       '@types/react': '*'
       react: '*'
@@ -5464,7 +5467,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@ledgerhq/crypto-icons-ui@1.14.0(@types/react@18.3.23)(react-native-svg@14.1.0(react-native@0.73.4(@babel/core@7.27.4)(@babel/preset-env@7.27.2(@babel/core@7.27.4))(react@18.2.0))(react@18.2.0))(react@18.2.0)(styled-components@6.1.19(react-dom@19.1.0(react@18.2.0))(react@18.2.0))(styled-system@5.1.5)':
+  '@ledgerhq/crypto-icons-ui@1.15.0(@types/react@18.3.23)(react-native-svg@14.1.0(react-native@0.73.4(@babel/core@7.27.4)(@babel/preset-env@7.27.2(@babel/core@7.27.4))(react@18.2.0))(react@18.2.0))(react@18.2.0)(styled-components@6.1.19(react-dom@19.1.0(react@18.2.0))(react@18.2.0))(styled-system@5.1.5)':
     dependencies:
       react: 18.2.0
       react-native-svg: 14.1.0(react-native@0.73.4(@babel/core@7.27.4)(@babel/preset-env@7.27.2(@babel/core@7.27.4))(react@18.2.0))(react@18.2.0)
@@ -5484,7 +5487,7 @@ snapshots:
 
   '@ledgerhq/native-ui@0.35.0(@types/react@18.3.23)(react-native-reanimated@3.16.7(@babel/core@7.27.4)(react-native@0.73.4(@babel/core@7.27.4)(@babel/preset-env@7.27.2(@babel/core@7.27.4))(react@18.2.0))(react@18.2.0))(react-native-svg@14.1.0(react-native@0.73.4(@babel/core@7.27.4)(@babel/preset-env@7.27.2(@babel/core@7.27.4))(react@18.2.0))(react@18.2.0))(react-native@0.73.4(@babel/core@7.27.4)(@babel/preset-env@7.27.2(@babel/core@7.27.4))(react@18.2.0))(react@18.2.0)(styled-components@6.1.19(react-dom@19.1.0(react@18.2.0))(react@18.2.0))':
     dependencies:
-      '@ledgerhq/crypto-icons-ui': 1.14.0(@types/react@18.3.23)(react-native-svg@14.1.0(react-native@0.73.4(@babel/core@7.27.4)(@babel/preset-env@7.27.2(@babel/core@7.27.4))(react@18.2.0))(react@18.2.0))(react@18.2.0)(styled-components@6.1.19(react-dom@19.1.0(react@18.2.0))(react@18.2.0))(styled-system@5.1.5)
+      '@ledgerhq/crypto-icons-ui': 1.15.0(@types/react@18.3.23)(react-native-svg@14.1.0(react-native@0.73.4(@babel/core@7.27.4)(@babel/preset-env@7.27.2(@babel/core@7.27.4))(react@18.2.0))(react@18.2.0))(react@18.2.0)(styled-components@6.1.19(react-dom@19.1.0(react@18.2.0))(react@18.2.0))(styled-system@5.1.5)
       '@ledgerhq/icons-ui': 0.10.0(@types/react@18.3.23)(react-native-svg@14.1.0(react-native@0.73.4(@babel/core@7.27.4)(@babel/preset-env@7.27.2(@babel/core@7.27.4))(react@18.2.0))(react@18.2.0))(react@18.2.0)(styled-components@6.1.19(react-dom@19.1.0(react@18.2.0))(react@18.2.0))(styled-system@5.1.5)
       '@ledgerhq/ui-shared': 0.3.0
       color: 4.2.3

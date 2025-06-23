@@ -1,6 +1,7 @@
 import React, { memo, useMemo } from "react";
 import { Flex, Text } from "@ledgerhq/native-ui";
 import { useTheme } from "styled-components/native";
+import * as CryptoIcons from "@ledgerhq/crypto-icons-ui/native";
 
 // Simplified Currency type for static implementation
 interface Currency {
@@ -29,13 +30,45 @@ const ensureContrast = (color: string, backgroundColor: string): string => {
   return color;
 };
 
-// Simple currency icon component using text symbols
+// Get crypto icon component from the crypto-icons-ui package
+const getCryptoIconComponent = (currencyId: string) => {
+  // Map currency IDs to crypto icon names
+  const iconMap: { [key: string]: keyof typeof CryptoIcons } = {
+    bitcoin: "BTC",
+    solana: "SOL",
+    ethereum: "ETH",
+    tether: "USDT",
+    xrp: "XRP",
+    bnb: "BNB",
+  };
+
+  const iconName = iconMap[currencyId.toLowerCase()];
+  return iconName ? CryptoIcons[iconName] : null;
+};
+
+// Crypto icon component using proper Ledger Live icons
 const CurrencyIcon: React.FC<{
   currency: Currency;
   size: number;
   color: string;
   forceIconScale?: number;
 }> = ({ currency, size, color, forceIconScale = 1 }) => {
+  const IconComponent = getCryptoIconComponent(currency.id);
+
+  // If we have a proper crypto icon, use it
+  if (IconComponent) {
+    // Bitcoin needs a slightly larger icon to match Ledger Live exactly
+    const bitcoinScale = currency.id.toLowerCase() === 'bitcoin' ? 1.5 : 1;
+    const iconSize = Math.round(size * forceIconScale * 0.625 * bitcoinScale);
+    return (
+      <IconComponent 
+        size={iconSize} 
+        color={color}
+      />
+    );
+  }
+
+  // Fallback to text symbols for unsupported currencies
   const getSymbol = (curr: Currency): string => {
     // Use the symbol from currency units or fallback to common symbols
     if (curr.units && curr.units.length > 0) {
@@ -76,8 +109,6 @@ const ParentCurrencyIcon = ({
     [colors, currency],
   );
 
-  const iconSize = size * 0.625;
-
   return (
     <Flex
       bg={color}
@@ -88,10 +119,10 @@ const ParentCurrencyIcon = ({
       borderRadius={size}
     >
       <CurrencyIcon
-        size={iconSize}
         currency={currency}
         forceIconScale={forceIconScale}
         color={colors.constant.white}
+        size={size}
       />
     </Flex>
   );

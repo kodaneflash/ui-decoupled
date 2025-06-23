@@ -958,3 +958,372 @@ Read file: ledger-live/apps/ledger-live-mobile/src/context/DiscreetModeContext.t
 
 ---
 
+<details>
+            <summary>Searched codebase "CurrencyUnitValue discreet mode implementation ledger live mobile" • **25** results</summary>
+        
+| File | Lines |
+|------|-------|
+| `UIReplicationLedger/src/components/CurrencyUnitValue.tsx` | L64-104 |
+| `ledger-live/libs/ledger-live-common/src/__tests__/currencies.ts` | L85-120 |
+| `UIReplicationLedger/src/components/CurrencyUnitValue.tsx` | L10-51 |
+| `ledger-live/libs/coin-framework/src/currencies/formatCurrencyUnit.ts` | L1-34 |
+| `ledger-live/libs/coin-framework/src/currencies/formatCurrencyUnit.ts` | L53-115 |
+| `ledger-live/libs/coin-framework/src/currencies/formatCurrencyUnit.ts` | L115-146 |
+| `ledger-live/libs/coin-framework/src/currencies/sanitizeValueString.ts` | L1-58 |
+| `ledger-live/libs/coin-framework/src/currencies/parseCurrencyUnit.ts` | L1-13 |
+| `ledger-live/libs/coin-framework/src/currencies/formatCurrencyUnit.ts` | L146-159 |
+| `ledger-live/libs/ledger-live-common/src/market/utils/countervalueFormatter.ts` | L1-22 |
+| `ledger-live/libs/ledger-live-common/src/currencies/formatShort.ts` | L1-24 |
+| `UIReplicationLedger/src/components/DiscreetModeButton.tsx` | L8-23 |
+| `ledger-live/libs/coin-framework/src/bot/specs.ts` | L157-187 |
+| `UIReplicationLedger/src/components/CurrencyUnitValue.tsx` | L1-10 |
+| `UIReplicationLedger/src/components/DiscreetModeButton.tsx` | L1-8 |
+| `ledger-live/libs/coin-modules/coin-vechain/src/account.ts` | L1-18 |
+| `ledger-live/libs/coin-framework/src/currencies/CurrencyURIScheme.ts` | L27-36 |
+| `ledger-live/libs/ledger-live-common/src/currencies/valueFromUnit.ts` | L1-10 |
+| `UIReplicationLedger/src/components/Delta.tsx` | L1-10 |
+| `UIReplicationLedger/src/components/AssetRowLayout.tsx` | L1-24 |
+| `UIReplicationLedger/assetlist.md` | L169-239 |
+| `ledger-live/libs/coin-modules/coin-xrp/src/logic/common.ts` | L1-6 |
+| `UIReplicationLedger/src/components/CurrencyUnitValue.tsx` | L51-64 |
+| `ledger-live/libs/ledger-live-common/src/csvExport.ts` | L88-152 |
+| `ledger-live/libs/live-countervalues/src/helpers.ts` | L78-82 |
+
+</details>
+
+---
+
+
+
+---
+
+<details>
+            <summary>Searched codebase "CurrencyUnitValue component discreet mode context usage" • **0** results</summary>
+        
+No results found
+</details>
+
+---
+
+
+
+---
+
+<details>
+            <summary>Searched codebase "CurrencyUnitValue.tsx" • **2** results</summary>
+        
+| File |
+|------|
+| `undefined` |
+| `undefined` |
+
+</details>
+
+---
+
+
+
+---
+
+Read file: ledger-live/apps/ledger-live-mobile/src/components/CurrencyUnitValue.tsx
+
+---
+
+
+
+---
+
+<details>
+            <summary>Searched codebase "CounterValue" • **10** results</summary>
+        
+| File |
+|------|
+| `undefined` |
+| `undefined` |
+| `undefined` |
+| `undefined` |
+| `undefined` |
+| `undefined` |
+| `undefined` |
+| `undefined` |
+| `undefined` |
+| `undefined` |
+
+</details>
+
+---
+
+
+
+---
+
+Read file: ledger-live/apps/ledger-live-mobile/src/components/CounterValue.tsx
+
+---
+
+
+
+---
+
+<details>
+            <summary>Grep search for "discreetModeSelector" • **1** files</summary>
+        
+| File | Line | Match |
+|------|------|-------|
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/reducers/settings.ts` | L854 | `export const discreetModeSelector = (state: State): boolean => state.settings.discreetMode === true;` |
+
+</details>
+
+---
+
+
+
+---
+
+Read file: ledger-live/apps/ledger-live-mobile/src/reducers/settings.ts
+
+---
+
+
+
+---
+
+```diff
+- 
++ import React, { createContext, useContext, useState, ReactNode } from 'react';
++ 
++ interface DiscreetModeContextType {
++   discreetMode: boolean;
++   setDiscreetMode: (enabled: boolean) => void;
++   shouldApplyDiscreetMode: boolean;
++ }
++ 
++ const DiscreetModeContext = createContext<DiscreetModeContextType>({
++   discreetMode: true, // Default to true to show *** initially
++   setDiscreetMode: () => {},
++   shouldApplyDiscreetMode: false,
++ });
++ 
++ interface DiscreetModeProviderProps {
++   shouldApplyDiscreetMode?: boolean;
++   children: ReactNode;
++ }
++ 
++ export function DiscreetModeProvider({ 
++   shouldApplyDiscreetMode = false, 
++   children 
++ }: DiscreetModeProviderProps) {
++   const [discreetMode, setDiscreetMode] = useState(true); // Start with discreet mode ON
++ 
++   return (
++     <DiscreetModeContext.Provider 
++       value={{ 
++         discreetMode, 
++         setDiscreetMode, 
++         shouldApplyDiscreetMode 
++       }}
++     >
++       {children}
++     </DiscreetModeContext.Provider>
++   );
++ }
++ 
++ export const useDiscreetMode = () => {
++   const context = useContext(DiscreetModeContext);
++   if (!context) {
++     throw new Error('useDiscreetMode must be used within a DiscreetModeProvider');
++   }
++   return context;
++ };
++ 
++ // HOC similar to ledger-live-mobile's withDiscreetMode
++ export function withDiscreetMode<T extends Record<string, any>>(
++   Component: React.ComponentType<T>,
++   shouldApplyDiscreetMode = true,
++ ) {
++   return (props: T) => (
++     <DiscreetModeProvider shouldApplyDiscreetMode={shouldApplyDiscreetMode}>
++       <Component {...props} />
++     </DiscreetModeProvider>
++   );
++ }
++ 
++ export default DiscreetModeContext; 
+```
+
+---
+
+
+
+---
+
+
+
+---
+
+
+
+---
+
+
+
+---
+
+
+
+---
+
+
+
+---
+
+
+
+---
+
+Read file: src/components/CounterValue.tsx
+
+---
+
+
+
+---
+
+
+
+---
+
+
+
+---
+
+
+
+---
+
+
+
+---
+
+
+
+---
+
+
+
+---
+
+Read file: src/screens/Portfolio/index.tsx
+
+---
+
+
+
+---
+
+
+
+---
+
+
+
+---
+
+
+
+---
+
+
+
+---
+
+Read file: App.tsx
+
+---
+
+
+
+---
+
+
+
+---
+
+
+
+---
+
+
+
+---
+
+
+
+---
+
+
+
+---
+
+
+
+---
+
+```bash
+cd /Users/jamesarcher/UIReplicationLedger && npx react-native start --reset-cache
+```
+
+---
+
+_**User**_
+
+Everything is good but make sure the $ is always in front even when the *** discreet is enabled 
+
+---
+
+_**Assistant**_
+
+
+
+---
+
+You're absolutely right! The $ symbol should always be visible even when discreet mode is enabled. Let me fix the CounterValue component to show "$***" instead of just "***".
+
+---
+
+
+
+---
+
+
+
+---
+
+Let me also update the CurrencyUnitValue component to ensure that fiat currency symbols (like $) are always shown even when discreet mode is enabled:
+
+---
+
+
+
+---
+
+
+
+---
+
+Perfect! Now the discreet mode implementation will correctly show:
+
+- **Fiat values**: `$***` instead of just `***` 
+- **Crypto values**: `*** BTC`, `*** ETH`, etc. (currency code preserved for context)
+
+This matches Ledger Live's exact behavior where the currency symbol/code is always visible for clarity, even when the actual amounts are hidden for privacy.
+
+The changes ensure that:
+1. **CounterValue** (fiat conversions) shows `$***` when discreet mode is enabled
+2. **CurrencyUnitValue** for fiat currencies shows `$***` or `$*** USD` (if showCode is true)
+3. **CurrencyUnitValue** for crypto currencies shows `*** BTC`, `*** ETH`, etc.
+
+Now when you tap the discreet mode toggle button (eye icon) next to "Wallet" in the header, all sensitive values will be masked while preserving currency context, exactly like in Ledger Live Mobile!
+
+---
+

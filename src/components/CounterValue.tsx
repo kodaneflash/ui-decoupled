@@ -2,6 +2,7 @@ import React from "react";
 import { Text } from "@ledgerhq/native-ui";
 import BigNumber from "bignumber.js";
 import { usePriceContext } from "../context/PriceContext";
+import { useDiscreetMode } from "../context/DiscreetModeContext";
 import type { SupportedCryptoId } from "../services/PriceService";
 
 interface Currency {
@@ -38,6 +39,7 @@ const CounterValue: React.FC<Props> = ({
   placeholder = "-",
 }) => {
   const { calculateFiatValue, loading } = usePriceContext();
+  const { discreetMode, shouldApplyDiscreetMode } = useDiscreetMode();
 
   // Map currency ID to supported crypto IDs (only BTC and SOL supported)
   const getSupportedCryptoId = (currencyId: string): SupportedCryptoId | null => {
@@ -94,7 +96,10 @@ const CounterValue: React.FC<Props> = ({
     }
   };
 
-  const fiatValue = getFiatValue();
+  // Apply discreet mode logic exactly like ledger-live-mobile
+  const isDiscreet = !alwaysShowValue && shouldApplyDiscreetMode && discreetMode;
+  
+  const fiatValue = isDiscreet ? "$***" : getFiatValue();
   
   return `${before}${fiatValue}${showCode ? " USD" : ""}${after}`;
 };

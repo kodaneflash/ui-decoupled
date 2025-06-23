@@ -326,15 +326,15 @@ export const CRYPTO_ASSETS = [
       id: 'bitcoin',
       ticker: 'BTC',
       name: 'Bitcoin',
-      color: '#F7931A',
+      color: '#FFAD35', // Exact color from Ledger Live (shown in image)
       units: [{name: 'bitcoin', code: 'BTC', magnitude: 8, symbol: '₿'}],
     },
     // Crypto amount in smallest units (satoshis for BTC)
     balance: 83.5206, // Display balance (83.5206 BTC)
     amount: '8352060000', // 83.5206 BTC in satoshis (8,352,060,000 sats)
     icon: {
-      backgroundColor: '#F7931A',
-      symbol: '₿',
+      backgroundColor: '#FFAD35', // Exact Ledger Live Bitcoin color
+      symbol: '₿', // Bitcoin symbol - matches Ledger Live
       color: '#FFFFFF',
     },
   },
@@ -346,15 +346,15 @@ export const CRYPTO_ASSETS = [
       id: 'solana',
       ticker: 'SOL',
       name: 'Solana',
-      color: '#9945FF',
+      color: '#9945ff', // Exact color from Ledger Live design tokens
       units: [{name: 'solana', code: 'SOL', magnitude: 9, symbol: '◎'}],
     },
     // Crypto amount in smallest units (lamports for SOL)
     balance: 6247.57, // Display balance (6,247.57 SOL)
     amount: '6247570000000', // 6,247.57 SOL in lamports (6,247,570,000,000 lamports)
     icon: {
-      backgroundColor: '#9945FF',
-      symbol: '◎',
+      backgroundColor: '#9945ff', // Exact Ledger Live Solana color
+      symbol: '◎', // Solana symbol - matches Ledger Live
       color: '#FFFFFF',
     },
   },

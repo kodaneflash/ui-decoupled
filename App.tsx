@@ -13,6 +13,7 @@ import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import StyleProvider from './src/components/StyleProvider';
 import MainNavigator from './src/navigation/MainNavigator';
 import { PriceProvider } from './src/context/PriceContext';
+import { DiscreetModeProvider } from './src/context/DiscreetModeContext';
 
 const styles = StyleSheet.create({
   root: {
@@ -25,13 +26,15 @@ function App(): React.JSX.Element {
     <GestureHandlerRootView style={styles.root}>
       <SafeAreaProvider>
         <StyleProvider selectedPalette="dark">
-          <PriceProvider refreshInterval={60000}>
-            <StatusBar barStyle="light-content" backgroundColor="#131214" />
-            <NavigationContainer>
-              {/* Official React Navigation structure like Ledger Live Mobile */}
-              <MainNavigator />
-            </NavigationContainer>
-          </PriceProvider>
+          <DiscreetModeProvider>
+            <PriceProvider refreshInterval={60000}>
+              <StatusBar barStyle="light-content" backgroundColor="#131214" />
+              <NavigationContainer>
+                {/* Official React Navigation structure like Ledger Live Mobile */}
+                <MainNavigator />
+              </NavigationContainer>
+            </PriceProvider>
+          </DiscreetModeProvider>
         </StyleProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>

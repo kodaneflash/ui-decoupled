@@ -1,6 +1,7 @@
 import React from 'react';
 import {Text} from '@ledgerhq/native-ui';
 import { BigNumber } from 'bignumber.js';
+import { useDiscreetMode } from '../context/DiscreetModeContext';
 
 interface Unit {
   name: string;
@@ -19,7 +20,18 @@ const formatCurrencyUnit = (
     discreet?: boolean;
   } = {}
 ): string => {
-  const { showCode = true } = options;
+  const { showCode = true, discreet = false } = options;
+  
+  // Return *** when discreet mode is enabled
+  if (discreet) {
+    // For fiat currencies (USD, EUR, etc.), preserve the symbol
+    if (unit.code === 'USD' || unit.symbol === '$') {
+      return showCode ? `$*** ${unit.code}` : '$***';
+    }
+    // For crypto currencies, show *** with code
+    return showCode ? `*** ${unit.code}` : '***';
+  }
+  
   const amountNum = value.toNumber();
   
   // Handle fiat currencies (USD, EUR, etc.)
@@ -75,6 +87,8 @@ const CurrencyUnitValue: React.FC<CurrencyUnitValueProps> = ({
   color = 'neutral.c70',
   joinFragmentsSeparator = '',
 }) => {
+  const { discreetMode, shouldApplyDiscreetMode } = useDiscreetMode();
+  
   // EXACT Ledger Live defensive value handling
   const value =
     valueProp || valueProp === 0
@@ -88,7 +102,13 @@ const CurrencyUnitValue: React.FC<CurrencyUnitValueProps> = ({
     return <></>;
   }
 
-  const formattedValue = formatCurrencyUnit(unit, value, { showCode });
+  // Apply discreet mode logic exactly like ledger-live-mobile
+  const isDiscreet = !alwaysShowValue && shouldApplyDiscreetMode && discreetMode;
+  
+  const formattedValue = formatCurrencyUnit(unit, value, { 
+    showCode, 
+    discreet: isDiscreet 
+  });
   const displayText = `${before}${formattedValue}${after}`;
   
   // For inline display (when used inside other Text components), return just the string

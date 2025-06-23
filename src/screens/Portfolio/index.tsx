@@ -7,6 +7,7 @@ import WalletTabBackgroundGradient from '../../components/WalletTabBackgroundGra
 import PortfolioAssetsContainer from '../../components/PortfolioAssetsContainer';
 import PortfolioHeader from './Header';
 import { useTheme } from 'styled-components/native';
+import { withDiscreetMode } from '../../context/DiscreetModeContext';
 
 // Animated Flex for header positioning
 const AnimatedFlex = Animated.createAnimatedComponent(Flex);
@@ -245,4 +246,4 @@ const PortfolioScreen = () => {
   );
 };
 
-export default PortfolioScreen; 
+export default withDiscreetMode(PortfolioScreen); 
