@@ -9,7 +9,7 @@ open ios/UIReplicationLedger.xcworkspace
 ### Prerequisites:
 1. Turn ON iPhone Personal Hotspot: Settings → Personal Hotspot → ON
 2. Connect Mac to iPhone's hotspot Wi-Fi network
-
+d
 ### Terminal Commands (run in 2 separate terminals):
 
 Terminal #1 - Metro Bundler:
@@ -17,9 +17,14 @@ Terminal #1 - Metro Bundler:
 pnpm start -- --host 0.0.0.0 --port 8081 --reset-cache
 ```
 
-Terminal #2 - Build & Run on iPhone:
+Terminal #2 - Build & Run on iPhone (Debug Mode):
 ```bash
-pnpm ios --udid 00008140-00122894010A801C
+pnpm ios --udid 00008140-00122894010A801C --mode Debug
+```
+
+Alternative using React Native CLI directly:
+```bash
+npx react-native run-ios --udid 00008140-00122894010A801C --mode Debug
 ```
 
 ### iPhone Configuration:

@@ -14,6 +14,7 @@ import StyleProvider from './src/components/StyleProvider';
 import MainNavigator from './src/navigation/MainNavigator';
 import { PriceProvider } from './src/context/PriceContext';
 import { DiscreetModeProvider } from './src/context/DiscreetModeContext';
+import ErrorBoundary from './src/components/ErrorBoundary';
 
 const styles = StyleSheet.create({
   root: {
@@ -23,21 +24,25 @@ const styles = StyleSheet.create({
 
 function App(): React.JSX.Element {
   return (
-    <GestureHandlerRootView style={styles.root}>
-      <SafeAreaProvider>
-        <StyleProvider selectedPalette="dark">
-          <DiscreetModeProvider>
-            <PriceProvider refreshInterval={60000}>
-              <StatusBar barStyle="light-content" backgroundColor="#131214" />
-              <NavigationContainer>
-                {/* Official React Navigation structure like Ledger Live Mobile */}
-                <MainNavigator />
-              </NavigationContainer>
-            </PriceProvider>
-          </DiscreetModeProvider>
-        </StyleProvider>
-      </SafeAreaProvider>
-    </GestureHandlerRootView>
+    <ErrorBoundary>
+      <GestureHandlerRootView style={styles.root}>
+        <SafeAreaProvider>
+          <StyleProvider selectedPalette="dark">
+            <DiscreetModeProvider>
+              <ErrorBoundary>
+                <PriceProvider refreshInterval={60000}>
+                  <StatusBar barStyle="light-content" backgroundColor="#131214" />
+                  <NavigationContainer>
+                    {/* Official React Navigation structure like Ledger Live Mobile */}
+                    <MainNavigator />
+                  </NavigationContainer>
+                </PriceProvider>
+              </ErrorBoundary>
+            </DiscreetModeProvider>
+          </StyleProvider>
+        </SafeAreaProvider>
+      </GestureHandlerRootView>
+    </ErrorBoundary>
   );
 }
 

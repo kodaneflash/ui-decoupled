@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useTheme } from "styled-components/native";
 import { BigNumber } from "bignumber.js";
 import { Flex, Text, Tag } from "@ledgerhq/native-ui";
@@ -62,7 +62,10 @@ const AssetRowLayout = ({
   tag,
 }: Props) => {
   const { colors, space } = useTheme();
-  const { calculateFiatValue, get24hChange, loading } = usePriceContext();
+  const { calculateFiatValue, loading, selectedTimeframe, getValueChangeForTimeframe } = usePriceContext();
+  
+  // State for dynamic countervalue change based on selected timeframe
+  const [dynamicCountervalueChange, setDynamicCountervalueChange] = useState<ValueChange | undefined>(staticCountervalueChange);
 
   // Map currency ID to supported crypto IDs (only BTC and SOL supported)
   const getSupportedCryptoId = (currencyId: string): SupportedCryptoId | null => {
@@ -76,33 +79,97 @@ const AssetRowLayout = ({
     }
   };
 
-  // Calculate dynamic countervalue change for supported cryptocurrencies
-  const getDynamicCountervalueChange = (): ValueChange | undefined => {
-    const supportedCryptoId = getSupportedCryptoId(currency.id);
-    
-    if (!supportedCryptoId || loading) {
-      return staticCountervalueChange;
-    }
+  // Calculate dynamic countervalue change for the selected timeframe
+  useEffect(() => {
+    const calculateTimeframeChange = async () => {
+      console.log(`[AssetRowLayout] calculateTimeframeChange called for ${currency.id}:`, {
+        currencyId: currency.id,
+        selectedTimeframe,
+        loading,
+        balanceNumber: balance.toNumber(),
+        staticCountervalueChange,
+      });
 
-    try {
-      const change24hPercent = get24hChange(supportedCryptoId);
-      const magnitude = currency.units[0]?.magnitude || 8;
-      const currentFiatValue = calculateFiatValue(supportedCryptoId, balance, magnitude);
+      const supportedCryptoId = getSupportedCryptoId(currency.id);
       
-      // Calculate the dollar change: current_value * (change_percent / 100)
-      const dollarChange = currentFiatValue.multipliedBy(change24hPercent / 100);
-      
-      return {
-        value: dollarChange.toNumber(),
-        percentage: change24hPercent / 100, // Delta expects decimal (will multiply by 100 for display)
-      };
-    } catch (error) {
-      console.error('[AssetRowLayout] Error calculating dynamic change:', error);
-      return staticCountervalueChange;
-    }
-  };
+      if (!supportedCryptoId || loading) {
+        console.log(`[AssetRowLayout] Using static data for ${currency.id} - not supported or loading:`, {
+          supportedCryptoId,
+          loading,
+          staticCountervalueChange,
+        });
+        setDynamicCountervalueChange(staticCountervalueChange);
+        return;
+      }
 
-  const countervalueChange = getDynamicCountervalueChange();
+      try {
+        console.log(`[AssetRowLayout] Calculating ${selectedTimeframe} change for ${supportedCryptoId}:`, {
+          balance: balance.toNumber(),
+          timeframe: selectedTimeframe,
+        });
+        
+        const magnitude = currency.units[0]?.magnitude || 8;
+        
+        // Get value change for the selected timeframe
+        const valueChangeData = await getValueChangeForTimeframe(
+          supportedCryptoId, 
+          balance, 
+          selectedTimeframe, 
+          magnitude
+        );
+        
+        console.log(`[AssetRowLayout] ${selectedTimeframe} change result for ${supportedCryptoId}:`, {
+          ...valueChangeData,
+          percentageAsPercent: (valueChangeData.percentage * 100).toFixed(4) + '%',
+          isPercentageSmall: Math.abs(valueChangeData.percentage) < 0.01,
+          isPercentageVerySmall: Math.abs(valueChangeData.percentage) < 0.001,
+        });
+        
+        const newCountervalueChange = {
+          value: valueChangeData.value,
+          percentage: valueChangeData.percentage, // Already in decimal format
+        };
+
+        // DEBUG: Compare with static data
+        console.log(`[AssetRowLayout] Comparison for ${supportedCryptoId}:`, {
+          staticCountervalueChange,
+          newCountervalueChange,
+          difference: {
+            value: newCountervalueChange.value - (staticCountervalueChange?.value || 0),
+            percentage: newCountervalueChange.percentage - (staticCountervalueChange?.percentage || 0),
+          },
+        });
+        
+        setDynamicCountervalueChange(newCountervalueChange);
+        
+      } catch (error) {
+        console.error(`[AssetRowLayout] Error calculating ${selectedTimeframe} change for ${supportedCryptoId}:`, error);
+        setDynamicCountervalueChange(staticCountervalueChange);
+      }
+    };
+
+    calculateTimeframeChange();
+  }, [
+    currency.id, 
+    currency.units, 
+    balance, 
+    selectedTimeframe, 
+    loading, 
+    getValueChangeForTimeframe, 
+    staticCountervalueChange
+  ]);
+
+  // Use dynamic calculation if available, fallback to static
+  const countervalueChange = dynamicCountervalueChange || staticCountervalueChange;
+
+  // DEBUG: Log final countervalue change before rendering
+  console.log(`[AssetRowLayout] Final countervalue change for ${currency.id}:`, {
+    countervalueChange,
+    dynamicCountervalueChange,
+    staticCountervalueChange,
+    selectedTimeframe,
+    willShowDelta: !hideDelta && countervalueChange,
+  });
 
   return (
     <TouchableOpacity onPress={onPress}>
@@ -160,12 +227,27 @@ const AssetRowLayout = ({
               ) : null}
             </Text>
             {!hideDelta && countervalueChange && (
-              <Delta
-                percent
-                show0Delta={balance.toNumber() !== 0}
-                fallbackToPercentPlaceholder
-                valueChange={countervalueChange}
-              />
+              <>
+                {/* DEBUG: Log Delta props before rendering */}
+                {(() => {
+                  console.log(`[AssetRowLayout] About to render Delta for ${currency.id}:`, {
+                    percent: true,
+                    show0Delta: balance.toNumber() !== 0,
+                    fallbackToPercentPlaceholder: true,
+                    valueChange: countervalueChange,
+                    context: 'asset-row',
+                    selectedTimeframe,
+                    balanceIsZero: balance.toNumber() === 0,
+                  });
+                  return null;
+                })()}
+                <Delta
+                  percent
+                  show0Delta={balance.toNumber() !== 0}
+                  fallbackToPercentPlaceholder
+                  valueChange={countervalueChange}
+                />
+              </>
             )}
           </Flex>
         </Flex>

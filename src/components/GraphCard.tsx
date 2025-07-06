@@ -1,4 +1,4 @@
-import React, { useCallback, useState, memo } from "react";
+import React, { useCallback, useState, memo, useEffect } from "react";
 import { Flex, Text, GraphTabs } from "@ledgerhq/native-ui";
 import styled, { useTheme } from "styled-components/native";
 import Animated, { Extrapolation, interpolate, useAnimatedStyle } from "react-native-reanimated";
@@ -7,6 +7,7 @@ import { BigNumber } from "bignumber.js";
 import Delta from "./Delta";
 import CurrencyUnitValue from "./CurrencyUnitValue";
 import Graph from "./Graph";
+import { Item } from "./Graph/types";
 import { usePriceContext } from "../context/PriceContext";
 
 import {
@@ -29,11 +30,6 @@ type Props = {
 };
 
 // Static types for our replica - matching ledger-live exactly
-interface Item {
-  date: Date;
-  value: number;
-}
-
 interface Portfolio {
   countervalueChange: {
     value: number;
@@ -78,11 +74,22 @@ function GraphCard({
   graphCardEndPosition = 0,
   onTouchEndGraph,
 }: Props) {
-  const { calculateFiatValue, get24hChange, loading } = usePriceContext();
+  const { calculateFiatValue, get24hChange, loading, selectedTimeframe, setSelectedTimeframe, getValueChangeForTimeframe } = usePriceContext();
 
-  // State for selected time range
-  const [selectedRange, setSelectedRange] = useState('1w');
+  // State for time range items
   const [timeRangeItems, setTimeRangeItems] = useState(GRAPH_TIME_RANGES);
+
+  // Sync local selectedRange with global selectedTimeframe from PriceContext
+  const selectedRange = selectedTimeframe;
+
+  // Update timeRangeItems when selectedTimeframe changes
+  useEffect(() => {
+    const updatedRanges = GRAPH_TIME_RANGES.map((item) => ({
+      ...item,
+      active: item.key === selectedTimeframe,
+    }));
+    setTimeRangeItems(updatedRanges);
+  }, [selectedTimeframe]);
 
   // Calculate dynamic portfolio values
   const calculatePortfolioBalance = (): BigNumber => {
@@ -107,7 +114,7 @@ function GraphCard({
     return totalBalance;
   };
 
-  const calculatePortfolioChange = (): { value: number; percentage: number } => {
+  const calculatePortfolioChange = useCallback(async (): Promise<{ value: number; percentage: number }> => {
     if (loading || areAccountsEmpty) {
       return { value: 0, percentage: 0 };
     }
@@ -115,40 +122,76 @@ function GraphCard({
     let totalCurrentValue = new BigNumber(0);
     let totalChange = new BigNumber(0);
 
-    CRYPTO_ASSETS.forEach(asset => {
+    // Calculate changes for each asset based on the selected timeframe
+    for (const asset of CRYPTO_ASSETS) {
       try {
         const cryptoId = asset.id as 'bitcoin' | 'solana';
         const magnitude = asset.currency.units[0].magnitude;
         const balance = new BigNumber(asset.amount);
         const currentFiatValue = calculateFiatValue(cryptoId, balance, magnitude);
-        const change24hPercent = get24hChange(cryptoId);
         
         totalCurrentValue = totalCurrentValue.plus(currentFiatValue);
         
-        // Calculate the dollar change for this asset
-        const assetChange = currentFiatValue.multipliedBy(change24hPercent / 100);
-        totalChange = totalChange.plus(assetChange);
+        // Get value change for the selected timeframe (not just 24h)
+        const valueChangeData = await getValueChangeForTimeframe(
+          cryptoId,
+          balance,
+          selectedRange, // Use the selected timeframe instead of hardcoded 24h
+          magnitude
+        );
+        
+        console.log(`[GraphCard] ${selectedRange} change for ${cryptoId}:`, {
+          currentValue: currentFiatValue.toNumber(),
+          valueChange: valueChangeData.value,
+          percentage: valueChangeData.percentage,
+        });
+        
+        // Add this asset's value change to the total
+        totalChange = totalChange.plus(valueChangeData.value);
+        
       } catch (error) {
-        console.error(`[GraphCard] Error calculating change for ${asset.id}:`, error);
+        console.error(`[GraphCard] Error calculating ${selectedRange} change for ${asset.id}:`, error);
       }
-    });
+    }
 
-    const changePercentage = totalCurrentValue.isZero() 
+    // CORRECT: Calculate percentage as change / previousValue
+    const totalPreviousValue = totalCurrentValue.minus(totalChange);
+    const changePercentage = totalPreviousValue.isZero() 
       ? 0 
-      : totalChange.dividedBy(totalCurrentValue).multipliedBy(100).toNumber();
+      : totalChange.dividedBy(totalPreviousValue).toNumber(); // Already as decimal
+
+    console.log(`[GraphCard] Portfolio ${selectedRange} change:`, {
+      totalCurrentValue: totalCurrentValue.toNumber(),
+      totalPreviousValue: totalPreviousValue.toNumber(),
+      totalChange: totalChange.toNumber(),
+      changePercentage: changePercentage,
+    });
 
     return {
       value: totalChange.toNumber(),
-      percentage: changePercentage / 100, // Delta expects decimal format
+      percentage: changePercentage, // Already in decimal format (0-1)
     };
-  };
+  }, [loading, areAccountsEmpty, calculateFiatValue, getValueChangeForTimeframe, selectedRange]);
+
+  // State for dynamic countervalue change
+  const [dynamicCountervalueChange, setDynamicCountervalueChange] = useState<{ value: number; percentage: number }>({ value: 0, percentage: 0 });
+
+  // Calculate dynamic portfolio change when timeframe changes
+  useEffect(() => {
+    const updatePortfolioChange = async () => {
+      console.log(`[GraphCard] Updating portfolio change for timeframe: ${selectedRange}`);
+      const newCountervalueChange = await calculatePortfolioChange();
+      setDynamicCountervalueChange(newCountervalueChange);
+    };
+
+    updatePortfolioChange();
+  }, [selectedRange, calculatePortfolioChange]);
 
   // Generate portfolio data based on selected time range
   const portfolioData = generatePortfolioData(selectedRange);
   
   // Use dynamic calculations for current balance
   const dynamicPortfolioBalance = calculatePortfolioBalance();
-  const dynamicCountervalueChange = calculatePortfolioChange();
 
   const portfolio: Portfolio = portfolioProp || {
     ...portfolioData,
@@ -184,18 +227,14 @@ function GraphCard({
   const updateTimeRange = useCallback(
     (index: number) => {
       const newRange = timeRangeItems[index];
-      console.log('Time range clicked:', newRange.label, newRange.key);
+      console.log('[GraphCard] Time range clicked:', newRange.label, newRange.key);
       
-      // Update active state
-      const updatedRanges = timeRangeItems.map((item, i) => ({
-        ...item,
-        active: i === index,
-      }));
+      // Update global timeframe in PriceContext (this will trigger asset rows to update)
+      setSelectedTimeframe(newRange.key);
       
-      setTimeRangeItems(updatedRanges);
-      setSelectedRange(newRange.key);
+      // Local state will be updated via useEffect when selectedTimeframe changes
     },
-    [timeRangeItems],
+    [timeRangeItems, setSelectedTimeframe],
   );
 
   const mapGraphValue = useCallback((d: Item) => d.value || 0, []);
@@ -303,12 +342,33 @@ function GraphCard({
                         </Text>
                       ) : (
                         <>
+                          {/* DEBUG: Log Delta props before rendering */}
+                          {(() => {
+                            console.log('[GraphCard] About to render Delta with props:', {
+                              percent: true,
+                              show0Delta: true,
+                              valueChange: countervalueChange,
+                              context: 'portfolio-percentage',
+                              selectedRange,
+                            });
+                            return null;
+                          })()}
                           <Delta
                             percent
                             show0Delta
                             valueChange={countervalueChange}
                           />
                           <Text> </Text>
+                          {/* DEBUG: Log Delta props before rendering */}
+                          {(() => {
+                            console.log('[GraphCard] About to render Delta with props:', {
+                              unit: unit,
+                              valueChange: countervalueChange,
+                              context: 'portfolio-value',
+                              selectedRange,
+                            });
+                            return null;
+                          })()}
                           <Delta 
                             unit={unit} 
                             valueChange={countervalueChange} 

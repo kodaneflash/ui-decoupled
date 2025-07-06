@@ -3,6 +3,7 @@ import { BigNumber } from "bignumber.js";
 import isEqual from "lodash/isEqual";
 import { GestureResponderEvent } from "react-native";
 import AssetRowLayout from "./AssetRowLayout";
+import { usePriceContext } from "../context/PriceContext";
 
 interface Currency {
   id: string;
@@ -23,6 +24,12 @@ interface Asset {
   balance: number;
   amount: string;
   accounts: any[];
+  countervalueChange?: {
+    [timeframe: string]: {
+      value: number;
+      percentage: number;
+    };
+  };
 }
 
 interface ValueChange {
@@ -45,15 +52,29 @@ const AssetRow = ({
   bottomLink,
   onPress,
 }: Props) => {
+  const { selectedTimeframe } = usePriceContext();
   const currency = asset.currency;
   const name = currency.name;
   const unit = currency.units[0];
 
-  // Get countervalue change from asset data
-  const countervalueChange: ValueChange = (asset as any).countervalueChange || {
-    value: 0,
-    percentage: 0,
-  };
+  // Get countervalue change for the selected timeframe
+  const countervalueChange: ValueChange = useMemo(() => {
+    // Try to get timeframe-specific data first
+    if (asset.countervalueChange && asset.countervalueChange[selectedTimeframe]) {
+      const timeframeData = asset.countervalueChange[selectedTimeframe];
+      console.log(`[AssetRow] Using ${selectedTimeframe} data for ${asset.id}:`, timeframeData);
+      return timeframeData;
+    }
+    
+    // Fallback to default data
+    const fallback = (asset as any).countervalueChange || {
+      value: 0,
+      percentage: 0,
+    };
+    
+    console.log(`[AssetRow] Using fallback data for ${asset.id}:`, fallback);
+    return fallback;
+  }, [asset, selectedTimeframe]);
 
   const onAssetPress = useCallback(
     (uiEvent: GestureResponderEvent) => {
