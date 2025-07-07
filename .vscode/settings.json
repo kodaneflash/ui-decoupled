@@ -1,0 +1,15 @@
+{
+  "search.exclude": {
+    "ledger-live/**": true
+  },
+  "files.exclude": {
+    "ledger-live/": true
+  },
+  "files.watcherExclude": {
+    "ledger-live/**": true
+  },
+  "typescript.preferences.exclude": [
+    "ledger-live/**"
+  ],
+  "typescript.preferences.includePackageJsonAutoImports": "auto"
+} 

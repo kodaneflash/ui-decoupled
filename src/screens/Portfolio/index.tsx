@@ -9,9 +9,6 @@ import PortfolioHeader from './Header';
 import { useTheme } from 'styled-components/native';
 import { withDiscreetMode } from '../../context/DiscreetModeContext';
 
-// Animated Flex for header positioning
-const AnimatedFlex = Animated.createAnimatedComponent(Flex);
-
 // Custom Tab Button Component - Exact Ledger Live Replica
 interface TabButtonProps {
   label: string;
@@ -67,7 +64,7 @@ const TabButton = ({ label, isActive, onPress }: TabButtonProps) => {
 
 // Portfolio Content Component
 const PortfolioContent = ({ scrollY }: { scrollY: Animated.Value }) => {
-  const headerHeight = 48;
+  const headerHeight = 48; // Fixed header height matching ledger-live-mobile
   
   return (
     <Animated.ScrollView 
@@ -78,7 +75,7 @@ const PortfolioContent = ({ scrollY }: { scrollY: Animated.Value }) => {
         { useNativeDriver: false }
       )}
       contentContainerStyle={{
-        paddingTop: headerHeight + 40, // Space for header + tabs
+        paddingTop: headerHeight + 40, // Space for fixed header + tabs
         minHeight: Dimensions.get("window").height + (StatusBar.currentHeight || 0),
       }}
     >
@@ -90,7 +87,7 @@ const PortfolioContent = ({ scrollY }: { scrollY: Animated.Value }) => {
 
 // Market Content Component (placeholder)
 const MarketContent = ({ scrollY }: { scrollY: Animated.Value }) => {
-  const headerHeight = 48;
+  const headerHeight = 48; // Fixed header height matching ledger-live-mobile
   
   return (
     <Animated.ScrollView 
@@ -108,7 +105,9 @@ const MarketContent = ({ scrollY }: { scrollY: Animated.Value }) => {
       }}
     >
       <Text color="neutral.c100" variant="h4">Market Content</Text>
-      <Text color="neutral.c70" mt={4}>Coming Soon</Text>
+      <Box mt={4}>
+        <Text color="neutral.c70">Coming Soon</Text>
+      </Box>
     </Animated.ScrollView>
   );
 };
@@ -117,21 +116,8 @@ const PortfolioScreen = () => {
   const { colors } = useTheme();
   const insets = useSafeAreaInsets();
   const scrollY = new Animated.Value(0);
-  const headerHeight = 48; // Official Ledger Live header height (not 64px)
+  const headerHeight = 48; // Fixed header height matching ledger-live-mobile (NOT animated)
   const [activeTab, setActiveTab] = useState<'Crypto' | 'Market'>('Crypto');
-
-  // Header positioning animation - matches official Ledger Live
-  const headerTranslateY = scrollY.interpolate({
-    inputRange: [0, headerHeight],
-    outputRange: [0, -headerHeight],
-    extrapolateRight: "clamp",
-  });
-
-  const headerOpacity = scrollY.interpolate({
-    inputRange: [0, headerHeight],
-    outputRange: [1, 0],
-    extrapolateRight: "clamp",
-  });
 
   // Tab positioning constants - adjust these for fine-tuning
   const TAB_VERTICAL_OFFSET = 4; // Positive moves down, negative moves up
@@ -144,7 +130,21 @@ const PortfolioScreen = () => {
         
         {/* Main Content Area */}
         <Box flex={1}>
-          {/* Custom Tab Bar - Positioned Below Header */}
+          {/* Fixed Header - Matches ledger-live-mobile behavior exactly */}
+          <Box
+            position="absolute"
+            top={insets.top}
+            left={0}
+            right={0}
+            height={headerHeight}
+            zIndex={20}
+            px={6}
+            justifyContent="flex-end"
+          >
+            <PortfolioHeader hidePortfolio={false} />
+          </Box>
+
+          {/* Fixed Tab Bar - Positioned Below Header */}
           <Flex
             position="absolute"
             top={insets.top + headerHeight}
@@ -176,26 +176,6 @@ const PortfolioScreen = () => {
             <MarketContent scrollY={scrollY} />
           )}
         </Box>
-
-        {/* Absolutely Positioned Header - Matches Official Ledger Live */}
-        <AnimatedFlex
-          style={[
-            {
-              top: insets.top,
-              height: headerHeight,
-              width: "100%",
-              position: "absolute",
-              opacity: headerOpacity,
-              zIndex: 20,
-            },
-            { transform: [{ translateY: headerTranslateY }] },
-          ]}
-          mode="margin"
-        >
-          <Box flex={1} px={6} pb={0} justifyContent="flex-end">
-            <PortfolioHeader hidePortfolio={false} />
-          </Box>
-        </AnimatedFlex>
 
         {/* Bottom Navigation Placeholder */}
         <Flex 
