@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Flex, Text, IconsLegacy } from "@ledgerhq/native-ui";
 import { useTheme } from "styled-components/native";
+import { useNavigation } from "@react-navigation/native";
 import Notifications from "../../icons/Notifications";
 import DiscreetModeButton from "../../components/DiscreetModeButton";
+import Touchable from "../../components/Touchable";
 
 interface PortfolioHeaderProps {
   hidePortfolio?: boolean;
@@ -10,22 +12,26 @@ interface PortfolioHeaderProps {
 
 function PortfolioHeader({ hidePortfolio = false }: PortfolioHeaderProps) {
   const { colors } = useTheme();
+  const navigation = useNavigation();
+
+  const onSettingsButtonPress = useCallback(() => {
+    // Navigate to Settings stack navigator - exact Ledger Live Mobile pattern
+    (navigation as any).navigate("Settings");
+  }, [navigation]);
 
   return (
     <Flex flexDirection="row" alignItems="center" justifyContent="space-between" py={3}>
       <Flex flexDirection="row" alignItems="center" mr={3} flexShrink={1} flexGrow={1}>
-        <Text
-          variant="h4"
-          fontWeight="semiBold"
-          color="neutral.c100"
-          flexGrow={0}
-          flexShrink={1}
-          textAlign="center"
-          mr={3}
-          numberOfLines={2}
-        >
-          Wallet
-        </Text>
+        <Flex mr={3}>
+          <Text
+            variant="h4"
+            fontWeight="semiBold"
+            color="neutral.c100"
+            numberOfLines={2}
+          >
+            Wallet
+          </Text>
+        </Flex>
         {!hidePortfolio && <DiscreetModeButton size={20} />}
       </Flex>
       <Flex flexDirection="row">
@@ -45,7 +51,9 @@ function PortfolioHeader({ hidePortfolio = false }: PortfolioHeaderProps) {
             isOn={false}
           />
         </Flex>
-        <IconsLegacy.SettingsMedium size={24} color="neutral.c100" />
+        <Touchable onPress={onSettingsButtonPress} testID="settings-icon">
+          <IconsLegacy.SettingsMedium size={24} color="neutral.c100" />
+        </Touchable>
       </Flex>
     </Flex>
   );

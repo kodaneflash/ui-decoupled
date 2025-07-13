@@ -31,6 +31,10 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>This app needs access to your camera to scan QR codes</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>This app requires Face ID permission to authenticate using Face recognition.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string/>
 	<key>UILaunchStoryboardName</key>

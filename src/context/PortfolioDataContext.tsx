@@ -33,6 +33,12 @@ export interface EditablePortfolioData {
   };
 }
 
+export interface Privacy {
+  hasPassword: boolean;
+  biometricsType?: string | null;
+  biometricsEnabled: boolean;
+}
+
 export interface PortfolioDataContextValue {
   // Current portfolio data (merged static + overrides)
   portfolioData: EditablePortfolioData;
@@ -40,6 +46,10 @@ export interface PortfolioDataContextValue {
   // Editing state
   isEditing: boolean;
   hasUnsavedChanges: boolean;
+  
+  // Privacy settings
+  privacy: Privacy | null;
+  setPrivacy: (privacy: Privacy) => void;
   
   // Actions
   setIsEditing: (editing: boolean) => void;
@@ -69,6 +79,7 @@ export const PortfolioDataProvider: React.FC<{ children: React.ReactNode }> = ({
   const [originalData, setOriginalData] = useState<EditablePortfolioData>(getDefaultPortfolioData());
   const [isEditing, setIsEditing] = useState(false);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+  const [privacy, setPrivacy] = useState<Privacy | null>(null);
 
   // Load persisted data on mount
   useEffect(() => {
@@ -318,6 +329,8 @@ export const PortfolioDataProvider: React.FC<{ children: React.ReactNode }> = ({
     portfolioData,
     isEditing,
     hasUnsavedChanges,
+    privacy,
+    setPrivacy,
     setIsEditing,
     updateAssetBalance,
     updateHistoricalMultiplier,

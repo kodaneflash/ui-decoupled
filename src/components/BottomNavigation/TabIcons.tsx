@@ -46,25 +46,25 @@ const DeviceIconWithBadge = ({
 
 // Individual Tab Icon Components using official Ledger Live Mobile icons
 
-export function PortfolioTabIcon({ color, focused }: TabIconProps) {
+export function PortfolioTabIcon({ color, focused, onPress }: TabIconProps) {
   return (
     <TabIcon
       Icon={IconsLegacy.WalletMedium}
       label="Wallet"
       color={color}
-      focused={focused}
+      onPress={onPress}
     />
   );
 }
 
-export function EarnTabIcon({ color, focused }: TabIconProps) {
+export function EarnTabIcon({ color, focused, onPress }: TabIconProps) {
   return (
     <TabIcon
       Icon={IconsLegacy.LendMedium}
       label="Earn"
       color={color}
       testID="tab-bar-earn"
-      focused={focused}
+      onPress={onPress}
     />
   );
 }
@@ -78,13 +78,13 @@ export function TransferTabIcon({ color, focused }: TabIconProps) {
   return <TransferFAB focused={focused} />;
 }
 
-export function DiscoverTabIcon({ color, focused }: TabIconProps) {
+export function DiscoverTabIcon({ color, focused, onPress }: TabIconProps) {
   return (
     <TabIcon
       Icon={IconsLegacy.PlanetMedium}
       label="Discover"
       color={color}
-      focused={focused}
+      onPress={onPress}
     />
   );
 }
@@ -96,10 +96,15 @@ interface ManagerTabIconProps extends TabIconProps {
 export function ManagerTabIcon({ 
   color, 
   focused, 
-  hasAvailableUpdate = false 
+  hasAvailableUpdate = false,
+  onPress 
 }: ManagerTabIconProps) {
-  const DeviceIconWithUpdate = (props: { size: number; color: string }) => (
-    <DeviceIconWithBadge {...props} hasUpdate={hasAvailableUpdate} />
+  const DeviceIconWithUpdate = (props: { size?: number; color?: string }) => (
+    <DeviceIconWithBadge 
+      size={props.size || 24} 
+      color={props.color || color} 
+      hasUpdate={hasAvailableUpdate} 
+    />
   );
 
   return (
@@ -108,7 +113,7 @@ export function ManagerTabIcon({
       label="My Ledger"
       color={color}
       testID="TabBarManager"
-      focused={focused}
+      onPress={onPress}
     />
   );
 } 

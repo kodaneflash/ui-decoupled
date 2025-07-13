@@ -6,44 +6,56 @@
  */
 
 import React from 'react';
-import {StatusBar, StyleSheet} from 'react-native';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {NavigationContainer} from '@react-navigation/native';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import StyleProvider from './src/components/StyleProvider';
-import MainNavigator from './src/navigation/MainNavigator';
-import { PriceProvider } from './src/context/PriceContext';
 import { DiscreetModeProvider } from './src/context/DiscreetModeContext';
+import { PortfolioDataProvider, usePortfolioData } from './src/context/PortfolioDataContext';
+import { PriceProvider } from './src/context/PriceContext';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import ErrorBoundary from './src/components/ErrorBoundary';
+import MainNavigator from './src/navigation/MainNavigator';
+import AuthPass from './src/context/AuthPass';
 
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-  },
-});
-
-function App(): React.JSX.Element {
+// Auth wrapper that connects PortfolioDataContext privacy to AuthPass
+const AuthWrapper = ({ children }: { children: React.ReactNode }) => {
+  const { privacy, setPrivacy } = usePortfolioData();
+  
   return (
-    <ErrorBoundary>
-      <GestureHandlerRootView style={styles.root}>
+    <AuthPass
+      privacy={privacy}
+      setPrivacy={setPrivacy}
+      isPasswordLockBlocked={false}
+      closeAllDrawers={() => {}}
+    >
+      {children}
+    </AuthPass>
+  );
+};
+
+// Main App Component
+const App = () => {
+  return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <ErrorBoundary>
         <SafeAreaProvider>
           <StyleProvider selectedPalette="dark">
             <DiscreetModeProvider>
-              <ErrorBoundary>
-                <PriceProvider refreshInterval={60000}>
-                  <StatusBar barStyle="light-content" backgroundColor="#131214" />
-                  <NavigationContainer>
-                    {/* Official React Navigation structure like Ledger Live Mobile */}
-                    <MainNavigator />
-                  </NavigationContainer>
+              <PortfolioDataProvider>
+                <PriceProvider>
+                  <AuthWrapper>
+                    <NavigationContainer>
+                      <MainNavigator />
+                    </NavigationContainer>
+                  </AuthWrapper>
                 </PriceProvider>
-              </ErrorBoundary>
+              </PortfolioDataProvider>
             </DiscreetModeProvider>
           </StyleProvider>
         </SafeAreaProvider>
-      </GestureHandlerRootView>
-    </ErrorBoundary>
+      </ErrorBoundary>
+    </GestureHandlerRootView>
   );
-}
+};
 
 export default App;

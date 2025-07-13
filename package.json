@@ -49,8 +49,10 @@
     "react-native-safe-area-context": "^4.7.1",
     "react-native-screens": "^3.29.0",
     "react-native-splash-screen": "3.2.0",
-    "react-native-svg": "14.1.0",
-    "styled-components": "^6.1.19"
+    "react-native-svg": "15.11.2",
+    "styled-components": "^6.1.19",
+    "react-native-biometrics": "^3.0.1",
+    "react-native-keychain": "^9.2.3"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

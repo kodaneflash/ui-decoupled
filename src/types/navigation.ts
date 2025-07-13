@@ -2,6 +2,7 @@
 export interface TabIconProps {
   color: string;
   focused?: boolean;
+  onPress?: () => void;
 }
 
 // Tab State Interface for React Navigation compatibility

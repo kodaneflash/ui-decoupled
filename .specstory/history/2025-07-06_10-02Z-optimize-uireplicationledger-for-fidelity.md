@@ -4,7 +4,7 @@
 
 _**User**_
 
-Analyze the directory uireplicationledger, our goal of replicating ledger-live-mobile with 100% fidelity but static data, and optimize by either adding new sections or removing unrelated ones, follow the same exact format - 
+Analyze the directory uireplicationledger  and optimize by either adding new sections or removing unrelated ones, follow the same exact format - 
   You are an expert in TypeScript, React Native, Expo, and Mobile App Development.
   
   Code Style and Structure:
@@ -46,294 +46,377 @@ Analyze the directory uireplicationledger, our goal of replicating ledger-live-m
 
 _**Assistant**_
 
-<think><details><summary>Thought Process</summary>The user is asking me to analyze the UIReplicationLedger directory and compare it to their goal of replicating ledger-live-mobile with 100% fidelity but static data. They want me to optimize by either adding new sections or removing unrelated ones, following the same exact format as the provided guidelines.
+<think><details><summary>Thought Process</summary>The user is asking me to analyze the `UIReplicationLedger` directory and optimize the current format by either adding new sections or removing unrelated ones. Looking at the current format they provided, it's a comprehensive guide for TypeScript, React Native, Expo, and Mobile App Development with sections on:
 
-Let me first understand what they have:
+1. Code Style and Structure
+2. Naming Conventions  
+3. TypeScript Usage
+4. Performance Optimization
+5. UI and Styling
+6. Best Practices
 
-1. UIReplicationLedger/ - This appears to be the main project directory
-2. ledger-live/ - This seems to be the reference implementation they're replicating from
+I need to analyze the codebase in the UIReplicationLedger directory to understand:
+1. What technologies are being used
+2. What patterns are currently implemented
+3. What areas might need additional guidance based on the current codebase
+4. What sections might be unrelated or could be removed
 
-Looking at the UIReplicationLedger structure:
-- It's a React Native project with TypeScript
-- Has proper file organization with src/ containing components, screens, hooks, etc.
-- Has both iOS and Android setup
-- Uses proper TypeScript configuration
-- Has testing setup
-- Has navigation setup
-- Has styling with themes and colors
-- Has context providers for state management
-- Has proper component structure with reusable components
-
-Looking at the ledger-live structure:
-- It's a much larger monorepo with multiple packages
-- Contains the actual ledger-live-mobile app in apps/ledger-live-mobile/
-- Has extensive library structure with various coin modules
-- Has comprehensive tooling and services
-
-The goal is to replicate ledger-live-mobile with 100% fidelity but static data. Let me analyze what's missing or could be optimized in the UIReplicationLedger project based on the format they provided.
-
-The format they want me to follow seems to be the code style and structure guidelines they provided. I should analyze their current setup and provide recommendations in the same format - with sections like:
-- Code Style and Structure
-- Naming Conventions  
-- TypeScript Usage
-- Performance Optimization
-- UI and Styling
-- Best Practices
-
-Let me look at their current implementation and see what can be optimized or what's missing.</details></think>
+Let me start by examining the structure and some key files to understand the project better.</details></think>
 
 ---
 
-I'll analyze the UIReplicationLedger directory structure and provide optimization recommendations based on your goal of replicating ledger-live-mobile with 100% fidelity but static data.
+I'll analyze the `UIReplicationLedger` directory and optimize the development guidelines by examining the current codebase structure and implementation patterns.
+
+---
+
+Read file: package.json
+
+---
+
+Read file: App.tsx
+
+---
+
+Read file: tsconfig.json
+
+---
+
+<think><details><summary>Thought Process</summary>Now let me examine some key components and the overall structure to understand the current implementation patterns:
+
+1. The project is using React Native with TypeScript
+2. It's using Ledger's UI components (@ledgerhq/native-ui, @ledgerhq/icons-ui, etc.)
+3. It has React Navigation, styled-components, Reanimated, and other standard libraries
+4. The tsconfig.json is basic, extending from React Native's config
+5. The App.tsx shows good patterns with context providers
+
+Let me examine some key components to understand the current implementation patterns.</details></think>
 
 ---
 
 <details>
-            <summary>Searched codebase "How is the project structured and organized in UIReplicationLedger?" • **25** results</summary>
+            <summary>Searched codebase "What are the main architectural patterns used in this React Native project?" • **0** results</summary>
         
-| File | Lines |
-|------|-------|
-| `UIReplicationLedger/app.json` | L1-5 |
-| `UIReplicationLedger/analyze.md` | L159-174 |
-| `UIReplicationLedger/index.js` | L1-9 |
-| `UIReplicationLedger/promptsforai.md` | L1-9 |
-| `UIReplicationLedger/dataflows.md` | L185-214 |
-| `UIReplicationLedger/goal.md` | L1-35 |
-| `UIReplicationLedger/src/components/GraphCard.tsx` | L30-41 |
-| `UIReplicationLedger/analyze.md` | L1-47 |
-| `UIReplicationLedger/ios/UIReplicationLedger.xcodeproj/project.pbxproj` | L138-183 |
-| `UIReplicationLedger/src/constants/portfolioData.ts` | L426-439 |
-| `UIReplicationLedger/App.tsx` | L42-44 |
-| `UIReplicationLedger/.cursorindexingignore` | L1-14 |
-| `UIReplicationLedger/context/roadmap.md` | L1-29 |
-| `UIReplicationLedger/ios/UIReplicationLedger/main.m` | L1-11 |
-| `UIReplicationLedger/deltadynamic.md` | L180-259 |
-| `UIReplicationLedger/src/services/PriceService.ts` | L355-357 |
-| `UIReplicationLedger/src/types/navigation.ts` | L14-21 |
-| `UIReplicationLedger/ios/UIReplicationLedger.xcodeproj/project.pbxproj` | L710-742 |
-| `UIReplicationLedger/src/components/AssetsListView.tsx` | L18-27 |
-| `UIReplicationLedger/deltadynamic.md` | L1-47 |
-| `UIReplicationLedger/ios/UIReplicationLedger.xcworkspace/contents.xcworkspacedata` | L1-11 |
-| `UIReplicationLedger/promptsforai.md` | L9-19 |
-| `UIReplicationLedger/src/components/AssetRowLayout.tsx` | L24-31 |
-| `UIReplicationLedger/src/constants/portfolioData.ts` | L439-464 |
-| `UIReplicationLedger/tsconfig.json` | L1-9 |
+No results found
+</details>
+
+---
+
+Read file: src/components/StyleProvider.tsx
+
+---
+
+Read file: src/context/DiscreetModeContext.tsx
+
+---
+
+<think><details><summary>Thought Process</summary>Now let me examine a few more key files to understand the full patterns being used:</details></think>
+
+---
+
+Read file: src/components/BottomNavigation/index.ts
+
+---
+
+Read file: src/components/LText/index.tsx
+
+---
+
+Read file: src/styles/theme.ts
+
+---
+
+<think><details><summary>Thought Process</summary>Now let me check some example components to understand the patterns being used:</details></think>
+
+---
+
+Read file: src/components/AssetsListView.tsx
+
+---
+
+<details>
+            <summary>Listed directory src/hooks • **3** results</summary>
+        
+| Name |
+|-------|
+| 📄 `useListsAnimation.ts` |
+| 📄 `useAccountName.ts` |
+| 📄 `useAccountUnit.ts` |
 
 </details>
 
 ---
 
-<think><details><summary>Thought Process</summary>Now I have a good understanding of the current UIReplicationLedger project structure. Let me analyze the ledger-live-mobile structure as well to understand what they're trying to replicate.</details></think>
+Read file: src/hooks/useListsAnimation.ts
+
+---
+
+<think><details><summary>Thought Process</summary>Let me check one more key component to understand the styled-components usage patterns:</details></think>
+
+---
+
+Read file: src/components/AssetRow.tsx
 
 ---
 
 <details>
-            <summary>Searched codebase "What is the structure and architecture of the ledger-live-mobile Portfolio screen components?" • **25** results</summary>
+            <summary>Grep search for "React\.FC|React\.memo|useCallback|useMemo" • **37** files</summary>
         
-| File | Lines |
-|------|-------|
-| `ledger-live/libs/live-countervalues-react/src/portfolio.tsx` | L36-56 |
-| `ledger-live/libs/ledgerjs/packages/types-live/src/portfolio.ts` | L61-77 |
-| `ledger-live/libs/ledgerjs/packages/types-live/src/portfolio.ts` | L34-47 |
-| `ledger-live/libs/live-countervalues/src/portfolio.ts` | L1-28 |
-| `ledger-live/libs/ledgerjs/packages/types-live/src/portfolio.ts` | L47-61 |
-| `ledger-live/libs/live-countervalues/src/portfolio.ts` | L295-320 |
-| `ledger-live/libs/live-countervalues-react/src/portfolio.tsx` | L56-126 |
-| `ledger-live/libs/ui/packages/react/src/components/layout/index.ts` | L9-10 |
-| `ledger-live/libs/live-countervalues-react/src/portfolio.tsx` | L1-36 |
-| `ledger-live/libs/live-countervalues/src/portfolio.ts` | L240-295 |
-| `ledger-live/libs/ledgerjs/packages/types-live/src/portfolio.ts` | L87-92 |
-| `ledger-live/libs/live-countervalues/src/portfolio.ts` | L320-367 |
-| `ledger-live/libs/live-countervalues/src/portfolio.ts` | L95-99 |
-| `ledger-live/knip.json` | L50-112 |
-| `ledger-live/libs/ledger-live-common/src/market/utils/types.ts` | L1-9 |
-| `ledger-live/libs/live-countervalues-react/src/portfolio.tsx` | L142-163 |
-| `ledger-live/libs/live-countervalues/src/portfolio.ts` | L232-240 |
-| `ledger-live/libs/live-countervalues-react/src/portfolio.tsx` | L126-142 |
-| `ledger-live/libs/ledgerjs/packages/types-live/src/portfolio.ts` | L100-114 |
-| `ledger-live/libs/ledgerjs/packages/types-live/src/index.ts` | L10-11 |
-| `ledger-live/libs/live-countervalues/src/portfolio.ts` | L435-477 |
-| `ledger-live/libs/ui/packages/react/src/pre-ldls/components/NetworkItem/NetworkItem.tsx` | L17-82 |
-| `ledger-live/libs/ui/packages/react/src/pre-ldls/components/AssetItem/AssetItem.tsx` | L17-103 |
-| `ledger-live/libs/live-countervalues/src/portfolio.ts` | L99-116 |
-| `ledger-live/libs/live-countervalues/src/portfolio.ts` | L150-157 |
+| File | Line | Match |
+|------|------|-------|
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/AssetsListView.tsx` | Lundefined | `import React, { useCallback, useMemo } from "react";` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/AssetsListView.tsx` | L37 | `const AssetsListView: React.FC<Props> = ({` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/AssetsListView.tsx` | L42 | `const assetsToDisplay: Asset[] = useMemo(() => {` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/AssetsListView.tsx` | L54 | `const onItemPress = useCallback((asset: Asset) => {` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/AssetsListView.tsx` | L59 | `const renderItem = useCallback(` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/AssetsListView.tsx` | L81 | `const totalHeight = useMemo(() => {` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/AssetsListView.tsx` | L85 | `const handleContentSizeChange = useCallback((width: number, height: number) => {` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/AssetsListView.tsx` | L90 | `const handleLayout = useCallback((event: any) => {` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/AssetsListView.tsx` | L115 | `export default React.memo(AssetsListView, isEqual);` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/QuickActionCards.tsx` | L118 | `export default React.memo(QuickActionCards);` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/AssetRow.tsx` | Lundefined | `import React, { useCallback, useMemo } from "react";` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/AssetRow.tsx` | L60 | `const countervalueChange: ValueChange = useMemo(() => {` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/AssetRow.tsx` | L78 | `const onAssetPress = useCallback(` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/AssetRow.tsx` | L93 | `const balance = useMemo(() => BigNumber(asset.amount || 0), [asset.amount]);` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/AssetRow.tsx` | L110 | `export default React.memo(` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/CounterValue.tsx` | L30 | `const CounterValue: React.FC<Props> = ({` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/CounterValue.tsx` | L106 | `export default React.memo(CounterValue);` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/BottomNavigation/CustomTabBar.tsx` | L279 | `export default React.memo(CustomTabBar);` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/Delta.tsx` | L28 | `const Delta: React.FC<Props> = ({` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/Delta.tsx` | L124 | `export default React.memo(Delta);` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/SendRowsFee.tsx` | Lundefined | `import React, { useCallback } from "react";` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/SendRowsFee.tsx` | L41 | `const extraInfoFees = useCallback(() => {` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/AccountBalanceSummaryFooter.tsx` | L1 | `import React, { useCallback, useState } from "react";` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/AccountBalanceSummaryFooter.tsx` | L30 | `const onCloseModal = useCallback(() => {` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/AccountBalanceSummaryFooter.tsx` | L33 | `const onPressInfoCreator = useCallback((infoName: InfoName) => () => setInfoName(infoName), []);` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/UnbondFlow/01-Amount.tsx` | L3 | `import React, { useCallback, useState, useEffect } from "react";` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/UnbondFlow/01-Amount.tsx` | L77 | `const onChange = useCallback(` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/UnbondFlow/01-Amount.tsx` | L89 | `const toggleUseAllAmount = useCallback(() => {` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/UnbondFlow/01-Amount.tsx` | L99 | `const onContinue = useCallback(() => {` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/UnbondFlow/01-Amount.tsx` | L106 | `const blur = useCallback(() => Keyboard.dismiss(), []);` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/components/CollapsibleList.tsx` | Lundefined | `import React, { useState, useCallback } from "react";` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/components/CollapsibleList.tsx` | L23 | `const toggleCollapsed = useCallback(() => {` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/components/CollapsibleList.tsx` | L87 | `export default React.memo(CollapsibleList) as typeof CollapsibleList;` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/UnbondFlow/03-ValidationSuccess.tsx` | Lundefined | `import React, { useCallback } from "react";` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/UnbondFlow/03-ValidationSuccess.tsx` | L23 | `const onClose = useCallback(() => {` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/UnbondFlow/03-ValidationSuccess.tsx` | L26 | `const goToOperationDetails = useCallback(() => {` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/ParentCurrencyIcon.tsx` | Lundefined | `import React, { memo, useMemo } from "react";` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/ParentCurrencyIcon.tsx` | L49 | `const CurrencyIcon: React.FC<{` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/ParentCurrencyIcon.tsx` | L106 | `const color = useMemo(` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/LText/index.tsx` | Lundefined | `import React, {useMemo, memo} from 'react';` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/LText/index.tsx` | L23 | `const fontStyle = useMemo(() => {` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/AccountsList.tsx` | L40 | `const AccountRow: React.FC<AccountRowProps> = ({ account }) => {` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/AccountsList.tsx` | L92 | `const AccountsList: React.FC<AccountsListProps> = ({ onContentChange }) => {` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/AccountsList.tsx` | L107 | `export default React.memo(AccountsList);` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/AssetRowLayout.tsx` | L222 | `export default React.memo<Props>(AssetRowLayout, isEqual);` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/PortfolioGraphCard.tsx` | Lundefined | `import React, {useCallback, useState} from 'react';` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/PortfolioGraphCard.tsx` | L15 | `const onPortfolioCardLayout = useCallback((event: LayoutChangeEvent) => {` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/PortfolioGraphCard.tsx` | L36 | `export default React.memo(PortfolioGraphCard);` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/PortfolioAssetsContainer.tsx` | L10 | `const PortfolioAssetsContainer: React.FC<PortfolioAssetsContainerProps> = ({` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/PortfolioAssetsContainer.tsx` | L53 | `export default React.memo(PortfolioAssetsContainer);` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/DiscreetModeButton.tsx` | L36 | `export default React.memo(DiscreetModeButton);` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/CurrencyUnitValue.tsx` | L77 | `const CurrencyUnitValue: React.FC<CurrencyUnitValueProps> = ({` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/CurrencyUnitValue.tsx` | L125 | `export default React.memo(CurrencyUnitValue);` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/components/FlowErrorBottomModal.tsx` | Lundefined | `import React, { useCallback, useEffect, useState } from "react";` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/components/FlowErrorBottomModal.tsx` | L29 | `const onBridgeErrorCancel = useCallback(() => {` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/components/FlowErrorBottomModal.tsx` | L34 | `const onBridgeErrorRetry = useCallback(() => {` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/UnbondFlow/03-ValidationError.tsx` | Lundefined | `import React, { useCallback } from "react";` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/UnbondFlow/03-ValidationError.tsx` | L16 | `const onClose = useCallback(() => {` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/UnbondFlow/03-ValidationError.tsx` | L19 | `const retry = useCallback(() => {` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/UnbondFlow/index.tsx` | Lundefined | `import React, { useMemo } from "react";` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/UnbondFlow/index.tsx` | L19 | `const stackNavigatorConfig = useMemo(() => getStackNavigatorConfig(colors, true), [colors]);` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/RebondFlow/03-ValidationError.tsx` | Lundefined | `import React, { useCallback } from "react";` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/RebondFlow/03-ValidationError.tsx` | L17 | `const onClose = useCallback(() => {` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/RebondFlow/03-ValidationError.tsx` | L20 | `const retry = useCallback(() => {` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/RebondFlow/03-ValidationSuccess.tsx` | Lundefined | `import React, { useCallback } from "react";` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/RebondFlow/03-ValidationSuccess.tsx` | L23 | `const onClose = useCallback(() => {` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/RebondFlow/03-ValidationSuccess.tsx` | L26 | `const goToOperationDetails = useCallback(() => {` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/AssetsList.tsx` | L43 | `const AssetRow: React.FC<AssetRowProps> = ({ asset }) => {` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/AssetsList.tsx` | L104 | `const AssetsList: React.FC<AssetsListProps> = ({ onContentChange }) => {` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/AssetsList.tsx` | L119 | `export default React.memo(AssetsList);` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/GraphCardContainer.tsx` | Lundefined | `import React, {useCallback} from 'react';` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/GraphCardContainer.tsx` | L18 | `const handleTouchEndGraph = useCallback(() => {` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/GraphCardContainer.tsx` | L56 | `export default React.memo(GraphCardContainer);` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/AccountRowLayout.tsx` | L62 | `export default React.memo(AccountRowLayout);` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/TabSection.tsx` | L27 | `const TabSection: React.FC<TabSectionProps> = ({` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/StyleProvider.tsx` | Lundefined | `import React, {useMemo} from 'react';` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/StyleProvider.tsx` | L21 | `const theme = useMemo((): Theme => {` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/GraphCard.tsx` | Lundefined | `import React, { useCallback, useState, memo, useEffect } from "react";` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/GraphCard.tsx` | L116 | `const calculatePortfolioChange = useCallback(async (): Promise<{ value: number; percentage: number }> => {` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/GraphCard.tsx` | L226 | `const updateTimeRange = useCallback(` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/GraphCard.tsx` | L239 | `const mapGraphValue = useCallback((d: Item) => d.value || 0, []);` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/navigation/MainNavigator.tsx` | Lundefined | `import React, { useCallback } from "react";` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/navigation/MainNavigator.tsx` | L100 | `const handleTabPress = useCallback((screenName: string) => {` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/RebondFlow/01-Amount.tsx` | L3 | `import React, { useCallback, useState, useEffect } from "react";` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/RebondFlow/01-Amount.tsx` | L78 | `const onChange = useCallback(` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/RebondFlow/01-Amount.tsx` | L90 | `const toggleUseAllAmount = useCallback(() => {` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/RebondFlow/01-Amount.tsx` | L100 | `const onContinue = useCallback(() => {` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/RebondFlow/01-Amount.tsx` | L107 | `const blur = useCallback(() => Keyboard.dismiss(), []);` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/RebondFlow/index.tsx` | Lundefined | `import React, { useMemo } from "react";` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/RebondFlow/index.tsx` | L19 | `const stackNavigatorConfig = useMemo(() => getStackNavigatorConfig(colors, true), [colors]);` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/TransactionConfirmFields.tsx` | L1 | `import React, { useMemo, useCallback } from "react";` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/TransactionConfirmFields.tsx` | L28 | `const mappedValidators = useMemo(` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/TransactionConfirmFields.tsx` | L38 | `const redirectAddressCreator = useCallback(` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/BondFlow/04-ValidationSuccess.tsx` | Lundefined | `import React, { useCallback, useRef } from "react";` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/BondFlow/04-ValidationSuccess.tsx` | L40 | `const onClose = useCallback(() => {` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/BondFlow/04-ValidationSuccess.tsx` | L43 | `const goToNominate = useCallback(() => {` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/families/polkadot/BondFlow/04-ValidationSuccess.tsx` | L53 | `const goToOperationDetails = useCallback(() => {` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/components/WalletTab/WalletTabNavigatorTabBar.tsx` | L2 | `import React, { memo, useCallback, useContext } from "react";` |
+| `file:///Users/jamesarcher/Desktop/ledger-live/apps/ledger-live-mobile/src/components/WalletTab/WalletTabNavigatorTabBar.tsx` | L70 | `const onPress = useCallback(() => {` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/GraphCard.tsx` | Lundefined | `import React, { useCallback, useState, memo, useEffect } from "react";` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/GraphCard.tsx` | L116 | `const calculatePortfolioChange = useCallback(async (): Promise<{ value: number; percentage: number }> => {` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/GraphCard.tsx` | L226 | `const updateTimeRange = useCallback(` |
+| `file:///Users/jamesarcher/UIReplicationLedger/src/components/GraphCard.tsx` | L239 | `const mapGraphValue = useCallback((d: Item) => d.value || 0, []);` |
 
 </details>
 
 ---
 
-<think><details><summary>Thought Process</summary>Now I have a comprehensive understanding of both projects. Let me analyze the current UIReplicationLedger structure and compare it with the ledger-live-mobile implementation to provide optimization recommendations.
+<think><details><summary>Thought Process</summary>Based on my comprehensive analysis of the UIReplicationLedger codebase, I can now provide an optimized development guidelines document. Let me analyze what I've discovered:
 
-From the analysis:
+**Key Findings from the Codebase:**
 
-1. **UIReplicationLedger** - This is the replication project that aims to replicate the ledger-live-mobile Portfolio screen with 100% fidelity but static data.
+1. **Technology Stack**: React Native + TypeScript, using Ledger's UI components (@ledgerhq/native-ui, @ledgerhq/crypto-icons-ui), styled-components, React Navigation, Reanimated, and other standard libraries
 
-2. **ledger-live** - This is the reference implementation, particularly the ledger-live-mobile app within the monorepo.
+2. **Architecture Patterns**:
+   - Context-based state management (DiscreetModeContext, PriceContext, PortfolioDataContext)
+   - Functional components with hooks
+   - Performance optimizations using React.memo, useCallback, useMemo
+   - Custom hooks for reusable logic (useListsAnimation, useAccountName, etc.)
+   - Styled-components with theme system
+   - Component composition patterns
 
-Key observations:
+3. **Performance Optimizations**:
+   - Extensive use of React.memo with deep equality checks (isEqual from lodash)
+   - Memoization of expensive calculations (useCallback, useMemo)
+   - Proper FlatList-like optimizations for list rendering
+   - Animation performance considerations with Reanimated
 
-**Current UIReplicationLedger Strengths:**
-- Proper TypeScript setup with strict typing
-- Good project structure with components, screens, hooks, services
-- Follows React Native + Expo patterns
-- Has theming and styling setup
-- Has proper navigation structure
-- Has static data mocking approach
-- Has comprehensive analysis docs
+4. **Code Organization**:
+   - Feature-based organization (components, hooks, context, styles, etc.)
+   - Proper TypeScript interfaces and type safety
+   - Index files for clean exports
+   - Consistent naming conventions
 
-**Areas for Optimization:**
-- Need to align more closely with ledger-live-mobile structure
-- Performance optimizations for FlatLists
-- Better component organization
-- More comprehensive static data structures
-- Better alignment with ledger-live's component architecture
+5. **Styling Patterns**:
+   - Theme-based styling with light/dark modes
+   - Styled-components integration with Ledger's design system
+   - Consistent spacing and typography
 
-Let me provide optimization recommendations in the exact format requested.</details></think>
+6. **Areas for Improvement**:
+   - The tsconfig.json is very basic and could be enhanced
+   - More specific guidance on Ledger Live patterns
+   - Animation performance optimizations
+   - Testing patterns
+   - Asset optimization guidelines
+
+Now I'll create an optimized guidelines document based on these findings.</details></think>
 
 ---
 
-Based on my analysis of the UIReplicationLedger directory structure and your goal of replicating ledger-live-mobile with 100% fidelity, here are my optimization recommendations following the exact format:
+Based on my analysis of the UIReplicationLedger codebase, here's an optimized development guidelines document tailored to your specific project patterns and architecture:
 
-## **Expert Analysis: UIReplicationLedger Optimization Guide**
+```markdown
+# UIReplicationLedger Development Guidelines
 
-You are an expert in TypeScript, React Native, Expo, and Mobile App Development with a focus on high-fidelity UI replication.
+You are an expert in TypeScript, React Native, Ledger Live Mobile architecture, and High-Performance Mobile App Development.
 
-### **Code Style and Structure:**
-- ✅ **Keep existing**: Functional components with TypeScript interfaces are properly implemented
-- ✅ **Keep existing**: Modular component organization in `src/components/` follows best practices
-- 🔄 **Optimize**: Reorganize components to match ledger-live-mobile's exact architecture:
-  ```
-  src/
-  ├── components/
-  │   ├── Graph/           # ✅ Already implemented
-  │   ├── LText/           # ✅ Already implemented  
-  │   ├── Delta/           # ✅ Already implemented
-  │   ├── AssetRow/        # 🔄 Rename from AssetRowLayout to match ledger-live
-  │   ├── AccountRow/      # 🔄 Rename from AccountRowLayout to match ledger-live
-  │   └── PortfolioCard/   # 🔄 Missing - add for graph container
-  ├── screens/Portfolio/   # ✅ Already implemented correctly
-  ├── hooks/               # ✅ Already implemented
-  └── services/            # ✅ Already implemented
-  ```
-- 🔄 **Optimize**: Feature-based grouping should match ledger-live's exact component hierarchy
+## Code Style and Structure
+- Write concise, type-safe TypeScript code following Ledger Live Mobile patterns.
+- Use functional components with hooks; avoid class components entirely.
+- Ensure components are modular, reusable, and optimized for performance.
+- Organize files by feature, grouping related components, hooks, contexts, and styles.
+- Use index files for clean exports and better import organization.
+- Follow the established context-provider pattern for state management.
 
-### **Naming Conventions:**
-- ✅ **Keep existing**: PascalCase for components (`GraphCard`, `AssetsList`) matches ledger-live
-- 🔄 **Optimize**: Align component names exactly with ledger-live-mobile:
-  - `AssetRowLayout.tsx` → `AssetRow.tsx` 
-  - `AccountRowLayout.tsx` → `AccountRow.tsx`
-  - `PortfolioGraphCard.tsx` → `PortfolioGraphCard.tsx` (already correct)
-- ✅ **Keep existing**: Directory structure with lowercase names is appropriate
-- 🔄 **Optimize**: Hook names should match ledger-live patterns: `usePortfolio`, `useDistribution`, `useBalanceHistoryWithCountervalue`
+## Naming Conventions
+- Use camelCase for variable and function names (e.g., `selectedTimeframe`, `handleAssetPress`).
+- Use PascalCase for component names (e.g., `AssetRow`, `DiscreetModeProvider`).
+- Use PascalCase for TypeScript interfaces and types (e.g., `AssetRowProps`, `ValueChange`).
+- Directory names should be PascalCase for components (e.g., `BottomNavigation/`).
+- Hook names must start with `use` prefix (e.g., `useListsAnimation`, `useDiscreetMode`).
 
-### **TypeScript Usage:**
-- ✅ **Keep existing**: Strict typing enabled in `tsconfig.json`
-- ✅ **Keep existing**: Interface-based prop definitions are correctly implemented
-- 🔄 **Optimize**: Add ledger-live-specific type definitions:
-  ```typescript
-  // Add to src/types/portfolio.ts
-  export interface Portfolio {
-    balanceHistory: BalanceHistory;
-    balanceAvailable: boolean;
-    availableAccounts: AccountLike[];
-    range: PortfolioRange;
-    countervalueChange: ValueChange;
-  }
-  
-  export interface ValueChange {
-    percentage: number | null | undefined; // 0-1 decimal format
-    value: number; // Dollar amount change
-  }
-  ```
-- ✅ **Keep existing**: Avoiding `any` types is properly maintained
-- 🔄 **Optimize**: Use exact ledger-live type definitions from `@ledgerhq/types-live`
+## TypeScript Usage
+- Use TypeScript for all components, favoring interfaces over types for props and state.
+- Extend `@react-native/typescript-config` and enable strict mode in `tsconfig.json`.
+- Avoid using `any`; create specific interfaces for complex objects.
+- Use `React.FC<Props>` for functional components with explicit prop types.
+- Leverage union types for controlled values (e.g., `'light' | 'dark'`).
+- Use generic constraints for reusable components and hooks.
 
-### **Performance Optimization:**
-- 🔄 **Optimize**: Enhanced FlatList performance for asset lists:
-  ```typescript
-  // Add to AssetsList.tsx
-  const renderItem = useCallback(({ item }: { item: Asset }) => (
-    <AssetRow asset={item} />
-  ), []);
-  
-  const getItemLayout = useCallback((data: any, index: number) => ({
-    length: 72, // Fixed height from ledger-live
-    offset: 72 * index,
-    index,
-  }), []);
-  
-  <FlatList
-    data={assets}
-    renderItem={renderItem}
-    getItemLayout={getItemLayout}
-    removeClippedSubviews={true}
-    maxToRenderPerBatch={10}
-    windowSize={10}
-    initialNumToRender={10}
-  />
-  ```
-- ✅ **Keep existing**: `React.memo()` usage in components is appropriate
-- 🔄 **Optimize**: Add performance monitoring for large asset lists
-- ➕ **Add**: Implement ledger-live's throttled portfolio calculations pattern
+## Performance Optimization
+- **Critical**: Use `React.memo()` with deep equality checks (`isEqual` from lodash) for list items and expensive components.
+- Minimize renders with `useCallback` for event handlers and `useMemo` for computed values.
+- Use `useSharedValue` and `useAnimatedStyle` from Reanimated for smooth animations.
+- Implement proper list optimization patterns similar to FlatList (estimated item heights, render optimization).
+- Avoid anonymous functions in props; use `useCallback` to memoize handlers.
+- Use context providers efficiently to prevent unnecessary re-renders.
 
-### **UI and Styling:**
-- ✅ **Keep existing**: `StyleSheet.create()` usage is properly implemented
-- 🔄 **Optimize**: Align styling system with ledger-live-mobile's exact approach:
-  - Use `@ledgerhq/native-ui` components exclusively
-  - Implement `darkTheme` from ledger-live's color system
-  - Match exact spacing, padding, and margin values
-- ➕ **Add**: Missing ledger-live UI components:
-  ```typescript
-  // Add to src/components/
-  - PortfolioContentCard/
-  - WalletTabNavigatorTabBar/
-  - CustomTabBar/
-  - TransferFAB/
-  ```
-- 🔄 **Optimize**: Image handling should use `react-native-fast-image` for crypto icons
+## Ledger Live Integration
+- Utilize `@ledgerhq/native-ui` components for consistent UI patterns.
+- Use `@ledgerhq/crypto-icons-ui` for cryptocurrency icons and branding.
+- Follow Ledger's theming system with light/dark mode support.
+- Implement DiscreetMode patterns for sensitive financial data.
+- Use Ledger's color palette and spacing system from the theme.
 
-### **Best Practices:**
-- ✅ **Keep existing**: React Navigation setup matches ledger-live structure
-- 🔄 **Optimize**: Navigation architecture should exactly replicate ledger-live's tab structure:
-  ```typescript
-  // Update MainNavigator.tsx
-  const Tab = createBottomTabNavigator();
-  
-  export const MainNavigator = () => (
-    <Tab.Navigator
-      tabBar={(props) => <CustomTabBar {...props} />}
-      screenOptions={{
-        headerShown: false,
-      }}
-    >
-      <Tab.Screen name="Portfolio" component={PortfolioScreen} />
-      <Tab.Screen name="Transfer" component={TransferScreen} />
-      {/* Match ledger-live's 5-tab structure */}
-    </Tab.Navigator>
-  );
-  ```
-- ➕ **Add**: Missing static data structures that match ledger-live's exact portfolio types
-- 🔄 **Optimize**: Mock data in `src/constants/` should replicate ledger-live's `Portfolio` and `AssetsDistribution` interfaces exactly
-- ➕ **Add**: Component testing setup using `@testing-library/react-native` to match ledger-live
+## UI and Styling
+- Use `styled-components/native` with the established theme system.
+- Implement responsive design considering various screen sizes.
+- Use `StyleProvider` for consistent theming across the app.
+- Follow Ledger's typography system with `LText` component.
+- Optimize image assets using proper resolution variants.
+- Use `@ledgerhq/native-ui` spacing and layout components (`Flex`, `Box`).
 
-### **Additional Optimizations for 100% Fidelity:**
+## State Management
+- Use React Context for global state (DiscreetMode, Price data, Portfolio data).
+- Implement proper context providers with TypeScript interfaces.
+- Use custom hooks to encapsulate context logic and provide clean APIs.
+- Avoid prop drilling by using context appropriately.
+- Implement proper error boundaries for context providers.
 
-#### **Static Data Architecture:**
-- 🔄 **Optimize**: Replace current mock data with ledger-live's exact data structures
-- ➕ **Add**: Implement `usePortfolioThrottled` hook pattern for consistent API
-- ➕ **Add**: Static implementations of `useDistribution` and `useBalanceHistoryWithCountervalue`
+## Animation and Interactions
+- Use `react-native-reanimated` for performant animations.
+- Implement proper gesture handling with `react-native-gesture-handler`.
+- Use `withTiming` for smooth transitions and state changes.
+- Optimize animation performance with `useSharedValue` and `useAnimatedStyle`.
+- Consider animation duration constants for consistency.
 
-#### **Component Architecture:**
-- 🔄 **Optimize**: Follow ledger-live's Container/Presenter pattern exactly
-- ➕ **Add**: Missing intermediate components like `PortfolioAssets` and `Assets`
-- 🔄 **Optimize**: Graph component should match ledger-live's exact implementation
+## Testing and Quality
+- Use Jest for unit testing with proper TypeScript support.
+- Implement comprehensive prop validation and error handling.
+- Use ESLint with strict rules and Prettier for code formatting.
+- Run type checking (`tsc --noEmit`) as part of CI/CD pipeline.
+- Use `testID` props for UI testing and automation.
 
-#### **Remove Unnecessary Sections:**
-- 🗑️ **Remove**: Extensive documentation files that don't contribute to replication
-- 🗑️ **Remove**: Analysis files that should be converted to actual implementation
-- 🗑️ **Remove**: Test files that don't align with ledger-live's testing patterns
+## Best Practices
+- Follow React Native's threading model to ensure 60fps UI performance.
+- Implement proper error boundaries and fallback UI components.
+- Use proper AsyncStorage patterns for persistent data.
+- Optimize bundle size by avoiding unnecessary dependencies.
+- Use React Navigation 6 patterns for navigation and deep linking.
+- Implement proper safe area handling with `react-native-safe-area-context`.
+- Use proper debugging tools and React DevTools integration.
 
-This optimization guide maintains your project's strength in TypeScript usage, component structure, and static data approach while aligning it more closely with ledger-live-mobile's exact architecture and implementation patterns for true 100% fidelity replication.
+## Architecture Patterns
+- Use the established provider pattern for cross-cutting concerns.
+- Implement proper separation of concerns (UI, business logic, data).
+- Use custom hooks for reusable stateful logic.
+- Follow the component composition pattern over inheritance.
+- Implement proper prop interfaces with optional and required properties.
+```
+
+This optimized version:
+
+1. **Adds Ledger Live Integration section** - based on your extensive use of Ledger's UI components
+2. **Enhances TypeScript Usage** - reflects your project's interface-heavy approach
+3. **Adds State Management section** - based on your context provider patterns
+4. **Adds Animation and Interactions** - based on your use of Reanimated
+5. **Adds Testing and Quality** - based on your Jest setup and tooling
+6. **Adds Architecture Patterns** - based on your component composition patterns
+7. **Removes Expo references** - since you're using pure React Native
+8. **Enhances Performance section** - based on your extensive use of React.memo and memoization
+9. **Adds specific examples** - using actual patterns from your codebase
+
+The guidelines now specifically reflect your project's architecture, technology choices, and established patterns.
 
 ---
 
